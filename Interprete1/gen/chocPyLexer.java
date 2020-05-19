@@ -239,7 +239,6 @@ public class chocPyLexer extends Lexer {
 
 			     String newLine = getText().replaceAll("[^\r\n\f]+", "");
 			     String spaces = getText().replaceAll("[\r\n\f]+", "");
-
 			     // Strip newlines inside open clauses except if we are near EOF. We keep NEWLINEs near EOF to
 			     // satisfy the final newline needed by the single_put rule used by the REPL.
 			     int next = _input.LA(1);

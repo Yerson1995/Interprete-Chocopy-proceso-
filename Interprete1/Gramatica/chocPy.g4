@@ -140,8 +140,8 @@ class_def
     ;
 
 class_body
-    : PASS (NEWLINE| EOF)
-    | (var_def | metd_def)+
+    : PASS (NEWLINE| EOF)       //Pass
+    | (var_def | metd_def)+     //definicion
     ;
 
 func_def
@@ -149,7 +149,7 @@ func_def
     ;
 
 metd_def
-    : DEF (IDENTIFIER|INIT) TK_PAR_IZQ SELF TK_DOS_PUNTOS STRING((TK_COMA typed_var)*)? TK_PAR_DER (TK_EJECUTA type)? TK_DOS_PUNTOS NEWLINE INDENT func_body DEDENT
+    : DEF (IDENTIFIER|INIT) TK_PAR_IZQ SELF TK_DOS_PUNTOS STRING(TK_COMA typed_var)* TK_PAR_DER (TK_EJECUTA type)? TK_DOS_PUNTOS NEWLINE INDENT func_body DEDENT
     ;
 
 func_body
@@ -161,7 +161,13 @@ typed_var
     ;
 
 type
-    : IDENTIFIER | IDSTRING | INT | STR | BOOL | OBJECT | TK_SQR_IZQ type TK_SQR_DER
+    : IDENTIFIER                    //id
+    | IDSTRING                      //idstring
+    | INT                           //Int
+    | STR                           //Str
+    | BOOL                          //Bool
+    | OBJECT                        //Object
+    | TK_SQR_IZQ type TK_SQR_DER    //Anidado
     ;
 global_decl
     : GLOBAL IDENTIFIER NEWLINE
@@ -177,17 +183,17 @@ var_def
 
 stmt
     : simple_stmt (NEWLINE| EOF)
-    | IF expr TK_DOS_PUNTOS block (ELIF expr TK_DOS_PUNTOS block)* (ELSE TK_DOS_PUNTOS block)?
-    | WHILE expr TK_DOS_PUNTOS block
-    | FOR IDENTIFIER IN expr TK_DOS_PUNTOS block
+    | IF expr TK_DOS_PUNTOS block (ELIF expr TK_DOS_PUNTOS block)* (ELSE TK_DOS_PUNTOS block)?  //If
+    | WHILE expr TK_DOS_PUNTOS block                                                            //While
+    | FOR IDENTIFIER IN expr TK_DOS_PUNTOS block                                                //for
     ;
 
 simple_stmt
-    : PASS
-    | expr
-    | RETURN (expr)?
-    | (target TK_ASIG)+ expr
-    | PRINT TK_PAR_IZQ expr TK_PAR_DER
+    : PASS                              //pass
+    | expr                              //expr
+    | RETURN (expr)?                    //return
+    | (target TK_ASIG)+ expr            //asignacion
+    | PRINT TK_PAR_IZQ expr TK_PAR_DER  //print
     ;
 
 block
@@ -195,40 +201,49 @@ block
     ;
 
 literal
-    : NONE
-    | TRUE
-    | FALSE
-    | TK_ENTERO
-    | IDSTRING
-    | STRING
+    : NONE          //none
+    | TRUE          //true
+    | FALSE         //false
+    | TK_ENTERO     //tk_entero
+    | IDSTRING      //idstring
+    | STRING        //string
     ;
 
 expr
-    : cexpr
-    | NOT expr
-    | expr (AND | OR) expr
-    | expr IF expr ELSE expr
+    : cexpr                     //cexpr
+    | NOT expr                  //not
+    | expr (AND | OR) expr      //andor
+    | expr IF expr ELSE expr    //exprcond
     ;
 
 cexpr
-    : IDENTIFIER
-    | SELF
-    | literal
-    | TK_SQR_IZQ (expr (TK_COMA expr)*)? TK_SQR_DER
-    | TK_PAR_IZQ expr TK_PAR_DER
-    | cexpr TK_PUNTO IDENTIFIER
-    | cexpr TK_SQR_IZQ expr TK_SQR_DER
-    | IDENTIFIER TK_PAR_IZQ (expr (TK_COMA expr)*)? TK_PAR_DER
-    | cexpr TK_PUNTO IDENTIFIER TK_PAR_IZQ (expr (TK_COMA expr)*)? TK_PAR_DER
-    | cexpr bin_op cexpr
-    | MINUS_OP cexpr
-    | LEN TK_PAR_IZQ (IDENTIFIER|STRING|IDSTRING) TK_PAR_DER
+    : IDENTIFIER                                                                //id
+    | SELF                                                                      //mismo
+    | literal                                                                   //valor
+    | TK_SQR_IZQ (expr (TK_COMA expr)*)? TK_SQR_DER                             //listaexpr
+    | TK_PAR_IZQ expr TK_PAR_DER                                                //anidar
+    | cexpr TK_PUNTO IDENTIFIER                                                 //objeto
+    | cexpr TK_SQR_IZQ expr TK_SQR_DER                                          //listado
+    | IDENTIFIER TK_PAR_IZQ (expr (TK_COMA expr)*)? TK_PAR_DER                  //funcion
+    | cexpr TK_PUNTO IDENTIFIER TK_PAR_IZQ (expr (TK_COMA expr)*)? TK_PAR_DER   //puntoarg
+    | cexpr bin_op cexpr                                                        //operacion
+    | MINUS_OP cexpr                                                            //negando
+    | LEN TK_PAR_IZQ (IDENTIFIER|STRING|IDSTRING) TK_PAR_DER                    //len
     ;
 
 bin_op
-    : PLUS_OP | MINUS_OP | MULT_OP | DIV_OP | MOD_OP | EQUAL
-    | NOT_EQUAL  | MINOR_EQUAL | MAYOR_EQUAL | MINOR | MAYOR
-    | IS
+    : PLUS_OP       //Mas
+    | MINUS_OP      //Menos
+    | MULT_OP       //Multiplicacion
+    | DIV_OP        //Division
+    | MOD_OP        //Modulo
+    | EQUAL         //Igual
+    | NOT_EQUAL     //Distinto
+    | MINOR_EQUAL   //Menor
+    | MAYOR_EQUAL   //Mayorigual
+    | MINOR         //Menor
+    | MAYOR         //Mayor
+    | IS            //Is
     ;
 
 
@@ -366,7 +381,6 @@ NEWLINE
    {
      String newLine = getText().replaceAll("[^\r\n\f]+", "");
      String spaces = getText().replaceAll("[\r\n\f]+", "");
-
      // Strip newlines inside open clauses except if we are near EOF. We keep NEWLINEs near EOF to
      // satisfy the final newline needed by the single_put rule used by the REPL.
      int next = _input.LA(1);

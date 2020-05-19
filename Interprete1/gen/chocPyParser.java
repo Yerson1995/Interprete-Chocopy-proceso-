@@ -553,7 +553,6 @@ public class chocPyParser extends Parser {
 
 	public static class Metd_defContext extends ParserRuleContext {
 		public TerminalNode DEF() { return getToken(chocPyParser.DEF, 0); }
-		public TerminalNode IDENTIFIER() { return getToken(chocPyParser.IDENTIFIER, 0); }
 		public TerminalNode TK_PAR_IZQ() { return getToken(chocPyParser.TK_PAR_IZQ, 0); }
 		public TerminalNode SELF() { return getToken(chocPyParser.SELF, 0); }
 		public List<TerminalNode> TK_DOS_PUNTOS() { return getTokens(chocPyParser.TK_DOS_PUNTOS); }
@@ -568,10 +567,8 @@ public class chocPyParser extends Parser {
 			return getRuleContext(Func_bodyContext.class,0);
 		}
 		public TerminalNode DEDENT() { return getToken(chocPyParser.DEDENT, 0); }
-		public TerminalNode TK_EJECUTA() { return getToken(chocPyParser.TK_EJECUTA, 0); }
-		public TypeContext type() {
-			return getRuleContext(TypeContext.class,0);
-		}
+		public TerminalNode IDENTIFIER() { return getToken(chocPyParser.IDENTIFIER, 0); }
+		public TerminalNode INIT() { return getToken(chocPyParser.INIT, 0); }
 		public List<TerminalNode> TK_COMA() { return getTokens(chocPyParser.TK_COMA); }
 		public TerminalNode TK_COMA(int i) {
 			return getToken(chocPyParser.TK_COMA, i);
@@ -581,6 +578,10 @@ public class chocPyParser extends Parser {
 		}
 		public Typed_varContext typed_var(int i) {
 			return getRuleContext(Typed_varContext.class,i);
+		}
+		public TerminalNode TK_EJECUTA() { return getToken(chocPyParser.TK_EJECUTA, 0); }
+		public TypeContext type() {
+			return getRuleContext(TypeContext.class,0);
 		}
 		public Metd_defContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -611,7 +612,15 @@ public class chocPyParser extends Parser {
 			setState(99);
 			match(DEF);
 			setState(100);
-			match(IDENTIFIER);
+			_la = _input.LA(1);
+			if ( !(_la==INIT || _la==IDENTIFIER) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
 			setState(101);
 			match(TK_PAR_IZQ);
 			setState(102);
@@ -620,53 +629,45 @@ public class chocPyParser extends Parser {
 			match(TK_DOS_PUNTOS);
 			setState(104);
 			match(STRING);
-			setState(112);
+			setState(109);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
-			case 1:
+			_la = _input.LA(1);
+			while (_la==TK_COMA) {
 				{
-				setState(109);
+				{
+				setState(105);
+				match(TK_COMA);
+				setState(106);
+				typed_var();
+				}
+				}
+				setState(111);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (_la==TK_COMA) {
-					{
-					{
-					setState(105);
-					match(TK_COMA);
-					setState(106);
-					typed_var();
-					}
-					}
-					setState(111);
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				}
-				}
-				break;
 			}
-			setState(114);
+			setState(112);
 			match(TK_PAR_DER);
-			setState(117);
+			setState(115);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==TK_EJECUTA) {
 				{
-				setState(115);
+				setState(113);
 				match(TK_EJECUTA);
-				setState(116);
+				setState(114);
 				type();
 				}
 			}
 
-			setState(119);
+			setState(117);
 			match(TK_DOS_PUNTOS);
-			setState(120);
+			setState(118);
 			match(NEWLINE);
-			setState(121);
+			setState(119);
 			match(INDENT);
-			setState(122);
+			setState(120);
 			func_body();
-			setState(123);
+			setState(121);
 			match(DEDENT);
 			}
 		}
@@ -739,36 +740,36 @@ public class chocPyParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(131);
+			setState(129);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,13,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,12,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
-					setState(129);
+					setState(127);
 					_errHandler.sync(this);
 					switch (_input.LA(1)) {
 					case GLOBAL:
 						{
-						setState(125);
+						setState(123);
 						global_decl();
 						}
 						break;
 					case NONLOCAL:
 						{
-						setState(126);
+						setState(124);
 						nonlocal_decl();
 						}
 						break;
 					case IDENTIFIER:
 						{
-						setState(127);
+						setState(125);
 						var_def();
 						}
 						break;
 					case DEF:
 						{
-						setState(128);
+						setState(126);
 						func_def();
 						}
 						break;
@@ -777,21 +778,21 @@ public class chocPyParser extends Parser {
 					}
 					} 
 				}
-				setState(133);
+				setState(131);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,13,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,12,_ctx);
 			}
-			setState(135); 
+			setState(133); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(134);
+				setState(132);
 				stmt();
 				}
 				}
-				setState(137); 
+				setState(135); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << RETURN) | (1L << TK_PAR_IZQ) | (1L << PRINT) | (1L << TK_SQR_IZQ) | (1L << LEN) | (1L << TRUE) | (1L << FALSE) | (1L << SELF) | (1L << IF) | (1L << NONE) | (1L << MINUS_OP) | (1L << NOT) | (1L << PASS) | (1L << FOR) | (1L << WHILE))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (IDENTIFIER - 65)) | (1L << (TK_ENTERO - 65)) | (1L << (STRING - 65)) | (1L << (IDSTRING - 65)))) != 0) );
@@ -839,11 +840,11 @@ public class chocPyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(139);
+			setState(137);
 			match(IDENTIFIER);
-			setState(140);
+			setState(138);
 			match(TK_DOS_PUNTOS);
-			setState(141);
+			setState(139);
 			type();
 			}
 		}
@@ -893,59 +894,59 @@ public class chocPyParser extends Parser {
 		TypeContext _localctx = new TypeContext(_ctx, getState());
 		enterRule(_localctx, 14, RULE_type);
 		try {
-			setState(153);
+			setState(151);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case IDENTIFIER:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(143);
+				setState(141);
 				match(IDENTIFIER);
 				}
 				break;
 			case IDSTRING:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(144);
+				setState(142);
 				match(IDSTRING);
 				}
 				break;
 			case INT:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(145);
+				setState(143);
 				match(INT);
 				}
 				break;
 			case STR:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(146);
+				setState(144);
 				match(STR);
 				}
 				break;
 			case BOOL:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(147);
+				setState(145);
 				match(BOOL);
 				}
 				break;
 			case OBJECT:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(148);
+				setState(146);
 				match(OBJECT);
 				}
 				break;
 			case TK_SQR_IZQ:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(149);
+				setState(147);
 				match(TK_SQR_IZQ);
-				setState(150);
+				setState(148);
 				type();
-				setState(151);
+				setState(149);
 				match(TK_SQR_DER);
 				}
 				break;
@@ -993,11 +994,11 @@ public class chocPyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(155);
+			setState(153);
 			match(GLOBAL);
-			setState(156);
+			setState(154);
 			match(IDENTIFIER);
-			setState(157);
+			setState(155);
 			match(NEWLINE);
 			}
 		}
@@ -1041,11 +1042,11 @@ public class chocPyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(159);
+			setState(157);
 			match(NONLOCAL);
-			setState(160);
+			setState(158);
 			match(IDENTIFIER);
-			setState(161);
+			setState(159);
 			match(NEWLINE);
 			}
 		}
@@ -1096,13 +1097,13 @@ public class chocPyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(163);
+			setState(161);
 			typed_var();
-			setState(164);
+			setState(162);
 			match(TK_ASIG);
-			setState(165);
+			setState(163);
 			literal();
-			setState(166);
+			setState(164);
 			_la = _input.LA(1);
 			if ( !(_la==EOF || _la==NEWLINE) ) {
 			_errHandler.recoverInline(this);
@@ -1181,7 +1182,7 @@ public class chocPyParser extends Parser {
 		enterRule(_localctx, 22, RULE_stmt);
 		int _la;
 		try {
-			setState(202);
+			setState(200);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case RETURN:
@@ -1202,9 +1203,9 @@ public class chocPyParser extends Parser {
 			case IDSTRING:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(168);
+				setState(166);
 				simple_stmt();
-				setState(169);
+				setState(167);
 				_la = _input.LA(1);
 				if ( !(_la==EOF || _la==NEWLINE) ) {
 				_errHandler.recoverInline(this);
@@ -1219,44 +1220,44 @@ public class chocPyParser extends Parser {
 			case IF:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(171);
+				setState(169);
 				match(IF);
-				setState(172);
+				setState(170);
 				expr(0);
-				setState(173);
+				setState(171);
 				match(TK_DOS_PUNTOS);
-				setState(174);
+				setState(172);
 				block();
-				setState(182);
+				setState(180);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==ELIF) {
 					{
 					{
-					setState(175);
+					setState(173);
 					match(ELIF);
-					setState(176);
+					setState(174);
 					expr(0);
-					setState(177);
+					setState(175);
 					match(TK_DOS_PUNTOS);
-					setState(178);
+					setState(176);
 					block();
 					}
 					}
-					setState(184);
+					setState(182);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
-				setState(188);
+				setState(186);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==ELSE) {
 					{
-					setState(185);
+					setState(183);
 					match(ELSE);
-					setState(186);
+					setState(184);
 					match(TK_DOS_PUNTOS);
-					setState(187);
+					setState(185);
 					block();
 					}
 				}
@@ -1266,30 +1267,30 @@ public class chocPyParser extends Parser {
 			case WHILE:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(190);
+				setState(188);
 				match(WHILE);
-				setState(191);
+				setState(189);
 				expr(0);
-				setState(192);
+				setState(190);
 				match(TK_DOS_PUNTOS);
-				setState(193);
+				setState(191);
 				block();
 				}
 				break;
 			case FOR:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(195);
+				setState(193);
 				match(FOR);
-				setState(196);
+				setState(194);
 				match(IDENTIFIER);
-				setState(197);
+				setState(195);
 				match(IN);
-				setState(198);
+				setState(196);
 				expr(0);
-				setState(199);
+				setState(197);
 				match(TK_DOS_PUNTOS);
-				setState(200);
+				setState(198);
 				block();
 				}
 				break;
@@ -1352,34 +1353,34 @@ public class chocPyParser extends Parser {
 		int _la;
 		try {
 			int _alt;
-			setState(224);
+			setState(222);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,21,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,20,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(204);
+				setState(202);
 				match(PASS);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(205);
+				setState(203);
 				expr(0);
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(206);
+				setState(204);
 				match(RETURN);
-				setState(208);
+				setState(206);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TK_PAR_IZQ) | (1L << TK_SQR_IZQ) | (1L << LEN) | (1L << TRUE) | (1L << FALSE) | (1L << SELF) | (1L << NONE) | (1L << MINUS_OP) | (1L << NOT))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (IDENTIFIER - 65)) | (1L << (TK_ENTERO - 65)) | (1L << (STRING - 65)) | (1L << (IDSTRING - 65)))) != 0)) {
 					{
-					setState(207);
+					setState(205);
 					expr(0);
 					}
 				}
@@ -1389,7 +1390,7 @@ public class chocPyParser extends Parser {
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(213); 
+				setState(211); 
 				_errHandler.sync(this);
 				_alt = 1;
 				do {
@@ -1397,9 +1398,9 @@ public class chocPyParser extends Parser {
 					case 1:
 						{
 						{
-						setState(210);
+						setState(208);
 						target();
-						setState(211);
+						setState(209);
 						match(TK_ASIG);
 						}
 						}
@@ -1407,24 +1408,24 @@ public class chocPyParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(215); 
+					setState(213); 
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,20,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,19,_ctx);
 				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
-				setState(217);
+				setState(215);
 				expr(0);
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(219);
+				setState(217);
 				match(PRINT);
-				setState(220);
+				setState(218);
 				match(TK_PAR_IZQ);
-				setState(221);
+				setState(219);
 				expr(0);
-				setState(222);
+				setState(220);
 				match(TK_PAR_DER);
 				}
 				break;
@@ -1478,25 +1479,25 @@ public class chocPyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(226);
+			setState(224);
 			match(NEWLINE);
-			setState(227);
+			setState(225);
 			match(INDENT);
-			setState(229); 
+			setState(227); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(228);
+				setState(226);
 				stmt();
 				}
 				}
-				setState(231); 
+				setState(229); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << RETURN) | (1L << TK_PAR_IZQ) | (1L << PRINT) | (1L << TK_SQR_IZQ) | (1L << LEN) | (1L << TRUE) | (1L << FALSE) | (1L << SELF) | (1L << IF) | (1L << NONE) | (1L << MINUS_OP) | (1L << NOT) | (1L << PASS) | (1L << FOR) | (1L << WHILE))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (IDENTIFIER - 65)) | (1L << (TK_ENTERO - 65)) | (1L << (STRING - 65)) | (1L << (IDSTRING - 65)))) != 0) );
-			setState(233);
+			setState(231);
 			_la = _input.LA(1);
 			if ( !(_la==EOF || _la==DEDENT) ) {
 			_errHandler.recoverInline(this);
@@ -1552,7 +1553,7 @@ public class chocPyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(235);
+			setState(233);
 			_la = _input.LA(1);
 			if ( !(((((_la - 18)) & ~0x3f) == 0 && ((1L << (_la - 18)) & ((1L << (TRUE - 18)) | (1L << (FALSE - 18)) | (1L << (NONE - 18)) | (1L << (TK_ENTERO - 18)) | (1L << (STRING - 18)) | (1L << (IDSTRING - 18)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -1625,7 +1626,7 @@ public class chocPyParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(241);
+			setState(239);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case TK_PAR_IZQ:
@@ -1641,15 +1642,15 @@ public class chocPyParser extends Parser {
 			case STRING:
 			case IDSTRING:
 				{
-				setState(238);
+				setState(236);
 				cexpr(0);
 				}
 				break;
 			case NOT:
 				{
-				setState(239);
+				setState(237);
 				match(NOT);
-				setState(240);
+				setState(238);
 				expr(3);
 				}
 				break;
@@ -1657,24 +1658,24 @@ public class chocPyParser extends Parser {
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(254);
+			setState(252);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,25,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,24,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(252);
+					setState(250);
 					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,24,_ctx) ) {
+					switch ( getInterpreter().adaptivePredict(_input,23,_ctx) ) {
 					case 1:
 						{
 						_localctx = new ExprContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(243);
+						setState(241);
 						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-						setState(244);
+						setState(242);
 						_la = _input.LA(1);
 						if ( !(_la==OR || _la==AND) ) {
 						_errHandler.recoverInline(this);
@@ -1684,7 +1685,7 @@ public class chocPyParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(245);
+						setState(243);
 						expr(3);
 						}
 						break;
@@ -1692,24 +1693,24 @@ public class chocPyParser extends Parser {
 						{
 						_localctx = new ExprContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(246);
+						setState(244);
 						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
-						setState(247);
+						setState(245);
 						match(IF);
-						setState(248);
+						setState(246);
 						expr(0);
-						setState(249);
+						setState(247);
 						match(ELSE);
-						setState(250);
+						setState(248);
 						expr(2);
 						}
 						break;
 					}
 					} 
 				}
-				setState(256);
+				setState(254);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,25,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,24,_ctx);
 			}
 			}
 		}
@@ -1793,122 +1794,122 @@ public class chocPyParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(296);
+			setState(294);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,30,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,29,_ctx) ) {
 			case 1:
 				{
-				setState(258);
+				setState(256);
 				match(IDENTIFIER);
 				}
 				break;
 			case 2:
 				{
-				setState(259);
+				setState(257);
 				match(SELF);
 				}
 				break;
 			case 3:
 				{
-				setState(260);
+				setState(258);
 				literal();
 				}
 				break;
 			case 4:
 				{
-				setState(261);
+				setState(259);
 				match(TK_SQR_IZQ);
-				setState(270);
+				setState(268);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TK_PAR_IZQ) | (1L << TK_SQR_IZQ) | (1L << LEN) | (1L << TRUE) | (1L << FALSE) | (1L << SELF) | (1L << NONE) | (1L << MINUS_OP) | (1L << NOT))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (IDENTIFIER - 65)) | (1L << (TK_ENTERO - 65)) | (1L << (STRING - 65)) | (1L << (IDSTRING - 65)))) != 0)) {
 					{
-					setState(262);
+					setState(260);
 					expr(0);
-					setState(267);
+					setState(265);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 					while (_la==TK_COMA) {
 						{
 						{
-						setState(263);
+						setState(261);
 						match(TK_COMA);
-						setState(264);
+						setState(262);
 						expr(0);
 						}
 						}
-						setState(269);
+						setState(267);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
 					}
 					}
 				}
 
-				setState(272);
+				setState(270);
 				match(TK_SQR_DER);
 				}
 				break;
 			case 5:
 				{
-				setState(273);
+				setState(271);
 				match(TK_PAR_IZQ);
-				setState(274);
+				setState(272);
 				expr(0);
-				setState(275);
+				setState(273);
 				match(TK_PAR_DER);
 				}
 				break;
 			case 6:
 				{
-				setState(277);
+				setState(275);
 				match(IDENTIFIER);
-				setState(278);
+				setState(276);
 				match(TK_PAR_IZQ);
-				setState(287);
+				setState(285);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TK_PAR_IZQ) | (1L << TK_SQR_IZQ) | (1L << LEN) | (1L << TRUE) | (1L << FALSE) | (1L << SELF) | (1L << NONE) | (1L << MINUS_OP) | (1L << NOT))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (IDENTIFIER - 65)) | (1L << (TK_ENTERO - 65)) | (1L << (STRING - 65)) | (1L << (IDSTRING - 65)))) != 0)) {
 					{
-					setState(279);
+					setState(277);
 					expr(0);
-					setState(284);
+					setState(282);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 					while (_la==TK_COMA) {
 						{
 						{
-						setState(280);
+						setState(278);
 						match(TK_COMA);
-						setState(281);
+						setState(279);
 						expr(0);
 						}
 						}
-						setState(286);
+						setState(284);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
 					}
 					}
 				}
 
-				setState(289);
+				setState(287);
 				match(TK_PAR_DER);
 				}
 				break;
 			case 7:
 				{
-				setState(290);
+				setState(288);
 				match(MINUS_OP);
-				setState(291);
+				setState(289);
 				cexpr(2);
 				}
 				break;
 			case 8:
 				{
-				setState(292);
+				setState(290);
 				match(LEN);
-				setState(293);
+				setState(291);
 				match(TK_PAR_IZQ);
-				setState(294);
+				setState(292);
 				_la = _input.LA(1);
 				if ( !(((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (IDENTIFIER - 65)) | (1L << (STRING - 65)) | (1L << (IDSTRING - 65)))) != 0)) ) {
 				_errHandler.recoverInline(this);
@@ -1918,32 +1919,32 @@ public class chocPyParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(295);
+				setState(293);
 				match(TK_PAR_DER);
 				}
 				break;
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(327);
+			setState(325);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,34,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,33,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(325);
+					setState(323);
 					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,33,_ctx) ) {
+					switch ( getInterpreter().adaptivePredict(_input,32,_ctx) ) {
 					case 1:
 						{
 						_localctx = new CexprContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_cexpr);
-						setState(298);
+						setState(296);
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-						setState(299);
+						setState(297);
 						bin_op();
-						setState(300);
+						setState(298);
 						cexpr(4);
 						}
 						break;
@@ -1951,11 +1952,11 @@ public class chocPyParser extends Parser {
 						{
 						_localctx = new CexprContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_cexpr);
-						setState(302);
+						setState(300);
 						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
-						setState(303);
+						setState(301);
 						match(TK_PUNTO);
-						setState(304);
+						setState(302);
 						match(IDENTIFIER);
 						}
 						break;
@@ -1963,13 +1964,13 @@ public class chocPyParser extends Parser {
 						{
 						_localctx = new CexprContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_cexpr);
-						setState(305);
+						setState(303);
 						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
-						setState(306);
+						setState(304);
 						match(TK_SQR_IZQ);
-						setState(307);
+						setState(305);
 						expr(0);
-						setState(308);
+						setState(306);
 						match(TK_SQR_DER);
 						}
 						break;
@@ -1977,50 +1978,50 @@ public class chocPyParser extends Parser {
 						{
 						_localctx = new CexprContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_cexpr);
-						setState(310);
+						setState(308);
 						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
-						setState(311);
+						setState(309);
 						match(TK_PUNTO);
-						setState(312);
+						setState(310);
 						match(IDENTIFIER);
-						setState(313);
+						setState(311);
 						match(TK_PAR_IZQ);
-						setState(322);
+						setState(320);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
 						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TK_PAR_IZQ) | (1L << TK_SQR_IZQ) | (1L << LEN) | (1L << TRUE) | (1L << FALSE) | (1L << SELF) | (1L << NONE) | (1L << MINUS_OP) | (1L << NOT))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (IDENTIFIER - 65)) | (1L << (TK_ENTERO - 65)) | (1L << (STRING - 65)) | (1L << (IDSTRING - 65)))) != 0)) {
 							{
-							setState(314);
+							setState(312);
 							expr(0);
-							setState(319);
+							setState(317);
 							_errHandler.sync(this);
 							_la = _input.LA(1);
 							while (_la==TK_COMA) {
 								{
 								{
-								setState(315);
+								setState(313);
 								match(TK_COMA);
-								setState(316);
+								setState(314);
 								expr(0);
 								}
 								}
-								setState(321);
+								setState(319);
 								_errHandler.sync(this);
 								_la = _input.LA(1);
 							}
 							}
 						}
 
-						setState(324);
+						setState(322);
 						match(TK_PAR_DER);
 						}
 						break;
 					}
 					} 
 				}
-				setState(329);
+				setState(327);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,34,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,33,_ctx);
 			}
 			}
 		}
@@ -2074,7 +2075,7 @@ public class chocPyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(330);
+			setState(328);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << MINUS_OP) | (1L << MULT_OP) | (1L << DIV_OP) | (1L << MOD_OP) | (1L << NOT_EQUAL) | (1L << PLUS_OP) | (1L << IS) | (1L << MINOR_EQUAL) | (1L << MAYOR_EQUAL) | (1L << EQUAL) | (1L << MAYOR) | (1L << MINOR))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -2131,37 +2132,37 @@ public class chocPyParser extends Parser {
 		TargetContext _localctx = new TargetContext(_ctx, getState());
 		enterRule(_localctx, 36, RULE_target);
 		try {
-			setState(342);
+			setState(340);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,35,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,34,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(332);
+				setState(330);
 				match(IDENTIFIER);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(333);
+				setState(331);
 				cexpr(0);
-				setState(334);
+				setState(332);
 				match(TK_PUNTO);
-				setState(335);
+				setState(333);
 				match(IDENTIFIER);
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(337);
+				setState(335);
 				cexpr(0);
-				setState(338);
+				setState(336);
 				match(TK_SQR_IZQ);
-				setState(339);
+				setState(337);
 				expr(0);
-				setState(340);
+				setState(338);
 				match(TK_SQR_DER);
 				}
 				break;
@@ -2211,39 +2212,39 @@ public class chocPyParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3I\u015b\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3I\u0159\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\3\2\3\2\3\2\7\2,\n\2\f\2\16\2/\13\2\3\2\7\2\62\n"+
 		"\2\f\2\16\2\65\13\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
 		"\3\3\4\3\4\3\4\3\4\6\4H\n\4\r\4\16\4I\5\4L\n\4\3\5\3\5\3\5\3\5\3\5\3\5"+
 		"\7\5T\n\5\f\5\16\5W\13\5\5\5Y\n\5\3\5\3\5\3\5\5\5^\n\5\3\5\3\5\3\5\3\5"+
-		"\3\5\3\5\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\7\6n\n\6\f\6\16\6q\13\6\5\6s"+
-		"\n\6\3\6\3\6\3\6\5\6x\n\6\3\6\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\7\7"+
-		"\u0084\n\7\f\7\16\7\u0087\13\7\3\7\6\7\u008a\n\7\r\7\16\7\u008b\3\b\3"+
-		"\b\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\5\t\u009c\n\t\3\n\3"+
-		"\n\3\n\3\n\3\13\3\13\3\13\3\13\3\f\3\f\3\f\3\f\3\f\3\r\3\r\3\r\3\r\3\r"+
-		"\3\r\3\r\3\r\3\r\3\r\3\r\3\r\7\r\u00b7\n\r\f\r\16\r\u00ba\13\r\3\r\3\r"+
-		"\3\r\5\r\u00bf\n\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\5\r"+
-		"\u00cd\n\r\3\16\3\16\3\16\3\16\5\16\u00d3\n\16\3\16\3\16\3\16\6\16\u00d8"+
-		"\n\16\r\16\16\16\u00d9\3\16\3\16\3\16\3\16\3\16\3\16\3\16\5\16\u00e3\n"+
-		"\16\3\17\3\17\3\17\6\17\u00e8\n\17\r\17\16\17\u00e9\3\17\3\17\3\20\3\20"+
-		"\3\21\3\21\3\21\3\21\5\21\u00f4\n\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21"+
-		"\3\21\3\21\7\21\u00ff\n\21\f\21\16\21\u0102\13\21\3\22\3\22\3\22\3\22"+
-		"\3\22\3\22\3\22\3\22\7\22\u010c\n\22\f\22\16\22\u010f\13\22\5\22\u0111"+
-		"\n\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\7\22\u011d\n\22"+
-		"\f\22\16\22\u0120\13\22\5\22\u0122\n\22\3\22\3\22\3\22\3\22\3\22\3\22"+
-		"\3\22\5\22\u012b\n\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22"+
-		"\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\7\22\u0140\n\22\f\22\16"+
-		"\22\u0143\13\22\5\22\u0145\n\22\3\22\7\22\u0148\n\22\f\22\16\22\u014b"+
-		"\13\22\3\23\3\23\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\5\24"+
-		"\u0159\n\24\3\24\2\4 \"\25\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$"+
-		"&\2\t\4\2\16\16CC\3\3GG\3\3II\5\2\24\25\35\35DF\3\2#$\4\2CCEF\6\2\36!"+
-		"%&\63\63<@\2\u0181\2-\3\2\2\2\48\3\2\2\2\6K\3\2\2\2\bM\3\2\2\2\ne\3\2"+
-		"\2\2\f\u0085\3\2\2\2\16\u008d\3\2\2\2\20\u009b\3\2\2\2\22\u009d\3\2\2"+
-		"\2\24\u00a1\3\2\2\2\26\u00a5\3\2\2\2\30\u00cc\3\2\2\2\32\u00e2\3\2\2\2"+
-		"\34\u00e4\3\2\2\2\36\u00ed\3\2\2\2 \u00f3\3\2\2\2\"\u012a\3\2\2\2$\u014c"+
-		"\3\2\2\2&\u0158\3\2\2\2(,\5\26\f\2),\5\b\5\2*,\5\4\3\2+(\3\2\2\2+)\3\2"+
+		"\3\5\3\5\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\7\6n\n\6\f\6\16\6q\13\6\3\6\3"+
+		"\6\3\6\5\6v\n\6\3\6\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\7\7\u0082\n\7"+
+		"\f\7\16\7\u0085\13\7\3\7\6\7\u0088\n\7\r\7\16\7\u0089\3\b\3\b\3\b\3\b"+
+		"\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\5\t\u009a\n\t\3\n\3\n\3\n\3\n"+
+		"\3\13\3\13\3\13\3\13\3\f\3\f\3\f\3\f\3\f\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3"+
+		"\r\3\r\3\r\3\r\3\r\7\r\u00b5\n\r\f\r\16\r\u00b8\13\r\3\r\3\r\3\r\5\r\u00bd"+
+		"\n\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\5\r\u00cb\n\r\3\16"+
+		"\3\16\3\16\3\16\5\16\u00d1\n\16\3\16\3\16\3\16\6\16\u00d6\n\16\r\16\16"+
+		"\16\u00d7\3\16\3\16\3\16\3\16\3\16\3\16\3\16\5\16\u00e1\n\16\3\17\3\17"+
+		"\3\17\6\17\u00e6\n\17\r\17\16\17\u00e7\3\17\3\17\3\20\3\20\3\21\3\21\3"+
+		"\21\3\21\5\21\u00f2\n\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21"+
+		"\7\21\u00fd\n\21\f\21\16\21\u0100\13\21\3\22\3\22\3\22\3\22\3\22\3\22"+
+		"\3\22\3\22\7\22\u010a\n\22\f\22\16\22\u010d\13\22\5\22\u010f\n\22\3\22"+
+		"\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\7\22\u011b\n\22\f\22\16"+
+		"\22\u011e\13\22\5\22\u0120\n\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\5\22"+
+		"\u0129\n\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22"+
+		"\3\22\3\22\3\22\3\22\3\22\3\22\3\22\7\22\u013e\n\22\f\22\16\22\u0141\13"+
+		"\22\5\22\u0143\n\22\3\22\7\22\u0146\n\22\f\22\16\22\u0149\13\22\3\23\3"+
+		"\23\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\5\24\u0157\n\24"+
+		"\3\24\2\4 \"\25\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&\2\n\4\2\16"+
+		"\16CC\3\3GG\4\2\34\34CC\3\3II\5\2\24\25\35\35DF\3\2#$\4\2CCEF\6\2\36!"+
+		"%&\63\63<@\2\u017e\2-\3\2\2\2\48\3\2\2\2\6K\3\2\2\2\bM\3\2\2\2\ne\3\2"+
+		"\2\2\f\u0083\3\2\2\2\16\u008b\3\2\2\2\20\u0099\3\2\2\2\22\u009b\3\2\2"+
+		"\2\24\u009f\3\2\2\2\26\u00a3\3\2\2\2\30\u00ca\3\2\2\2\32\u00e0\3\2\2\2"+
+		"\34\u00e2\3\2\2\2\36\u00eb\3\2\2\2 \u00f1\3\2\2\2\"\u0128\3\2\2\2$\u014a"+
+		"\3\2\2\2&\u0156\3\2\2\2(,\5\26\f\2),\5\b\5\2*,\5\4\3\2+(\3\2\2\2+)\3\2"+
 		"\2\2+*\3\2\2\2,/\3\2\2\2-+\3\2\2\2-.\3\2\2\2.\63\3\2\2\2/-\3\2\2\2\60"+
 		"\62\5\30\r\2\61\60\3\2\2\2\62\65\3\2\2\2\63\61\3\2\2\2\63\64\3\2\2\2\64"+
 		"\66\3\2\2\2\65\63\3\2\2\2\66\67\7\2\2\3\67\3\3\2\2\289\7\t\2\29:\7C\2"+
@@ -2254,87 +2255,87 @@ public class chocPyParser extends Parser {
 		"\b\2SQ\3\2\2\2TW\3\2\2\2US\3\2\2\2UV\3\2\2\2VY\3\2\2\2WU\3\2\2\2XP\3\2"+
 		"\2\2XY\3\2\2\2YZ\3\2\2\2Z]\7\6\2\2[\\\7\7\2\2\\^\5\20\t\2][\3\2\2\2]^"+
 		"\3\2\2\2^_\3\2\2\2_`\7\b\2\2`a\7G\2\2ab\7H\2\2bc\5\f\7\2cd\7I\2\2d\t\3"+
-		"\2\2\2ef\7\3\2\2fg\7C\2\2gh\7\5\2\2hi\7\26\2\2ij\7\b\2\2jr\7E\2\2kl\7"+
-		"\22\2\2ln\5\16\b\2mk\3\2\2\2nq\3\2\2\2om\3\2\2\2op\3\2\2\2ps\3\2\2\2q"+
-		"o\3\2\2\2ro\3\2\2\2rs\3\2\2\2st\3\2\2\2tw\7\6\2\2uv\7\7\2\2vx\5\20\t\2"+
-		"wu\3\2\2\2wx\3\2\2\2xy\3\2\2\2yz\7\b\2\2z{\7G\2\2{|\7H\2\2|}\5\f\7\2}"+
-		"~\7I\2\2~\13\3\2\2\2\177\u0084\5\22\n\2\u0080\u0084\5\24\13\2\u0081\u0084"+
-		"\5\26\f\2\u0082\u0084\5\b\5\2\u0083\177\3\2\2\2\u0083\u0080\3\2\2\2\u0083"+
-		"\u0081\3\2\2\2\u0083\u0082\3\2\2\2\u0084\u0087\3\2\2\2\u0085\u0083\3\2"+
-		"\2\2\u0085\u0086\3\2\2\2\u0086\u0089\3\2\2\2\u0087\u0085\3\2\2\2\u0088"+
-		"\u008a\5\30\r\2\u0089\u0088\3\2\2\2\u008a\u008b\3\2\2\2\u008b\u0089\3"+
-		"\2\2\2\u008b\u008c\3\2\2\2\u008c\r\3\2\2\2\u008d\u008e\7C\2\2\u008e\u008f"+
-		"\7\b\2\2\u008f\u0090\5\20\t\2\u0090\17\3\2\2\2\u0091\u009c\7C\2\2\u0092"+
-		"\u009c\7F\2\2\u0093\u009c\7\n\2\2\u0094\u009c\7\f\2\2\u0095\u009c\7\r"+
-		"\2\2\u0096\u009c\7\16\2\2\u0097\u0098\7\20\2\2\u0098\u0099\5\20\t\2\u0099"+
-		"\u009a\7\21\2\2\u009a\u009c\3\2\2\2\u009b\u0091\3\2\2\2\u009b\u0092\3"+
-		"\2\2\2\u009b\u0093\3\2\2\2\u009b\u0094\3\2\2\2\u009b\u0095\3\2\2\2\u009b"+
-		"\u0096\3\2\2\2\u009b\u0097\3\2\2\2\u009c\21\3\2\2\2\u009d\u009e\7\32\2"+
-		"\2\u009e\u009f\7C\2\2\u009f\u00a0\7G\2\2\u00a0\23\3\2\2\2\u00a1\u00a2"+
-		"\7\33\2\2\u00a2\u00a3\7C\2\2\u00a3\u00a4\7G\2\2\u00a4\25\3\2\2\2\u00a5"+
-		"\u00a6\5\16\b\2\u00a6\u00a7\7\13\2\2\u00a7\u00a8\5\36\20\2\u00a8\u00a9"+
-		"\t\3\2\2\u00a9\27\3\2\2\2\u00aa\u00ab\5\32\16\2\u00ab\u00ac\t\3\2\2\u00ac"+
-		"\u00cd\3\2\2\2\u00ad\u00ae\7\27\2\2\u00ae\u00af\5 \21\2\u00af\u00b0\7"+
-		"\b\2\2\u00b0\u00b8\5\34\17\2\u00b1\u00b2\7:\2\2\u00b2\u00b3\5 \21\2\u00b3"+
-		"\u00b4\7\b\2\2\u00b4\u00b5\5\34\17\2\u00b5\u00b7\3\2\2\2\u00b6\u00b1\3"+
-		"\2\2\2\u00b7\u00ba\3\2\2\2\u00b8\u00b6\3\2\2\2\u00b8\u00b9\3\2\2\2\u00b9"+
-		"\u00be\3\2\2\2\u00ba\u00b8\3\2\2\2\u00bb\u00bc\7\30\2\2\u00bc\u00bd\7"+
-		"\b\2\2\u00bd\u00bf\5\34\17\2\u00be\u00bb\3\2\2\2\u00be\u00bf\3\2\2\2\u00bf"+
-		"\u00cd\3\2\2\2\u00c0\u00c1\7\67\2\2\u00c1\u00c2\5 \21\2\u00c2\u00c3\7"+
-		"\b\2\2\u00c3\u00c4\5\34\17\2\u00c4\u00cd\3\2\2\2\u00c5\u00c6\7/\2\2\u00c6"+
-		"\u00c7\7C\2\2\u00c7\u00c8\7\62\2\2\u00c8\u00c9\5 \21\2\u00c9\u00ca\7\b"+
-		"\2\2\u00ca\u00cb\5\34\17\2\u00cb\u00cd\3\2\2\2\u00cc\u00aa\3\2\2\2\u00cc"+
-		"\u00ad\3\2\2\2\u00cc\u00c0\3\2\2\2\u00cc\u00c5\3\2\2\2\u00cd\31\3\2\2"+
-		"\2\u00ce\u00e3\7)\2\2\u00cf\u00e3\5 \21\2\u00d0\u00d2\7\4\2\2\u00d1\u00d3"+
-		"\5 \21\2\u00d2\u00d1\3\2\2\2\u00d2\u00d3\3\2\2\2\u00d3\u00e3\3\2\2\2\u00d4"+
-		"\u00d5\5&\24\2\u00d5\u00d6\7\13\2\2\u00d6\u00d8\3\2\2\2\u00d7\u00d4\3"+
-		"\2\2\2\u00d8\u00d9\3\2\2\2\u00d9\u00d7\3\2\2\2\u00d9\u00da\3\2\2\2\u00da"+
-		"\u00db\3\2\2\2\u00db\u00dc\5 \21\2\u00dc\u00e3\3\2\2\2\u00dd\u00de\7\17"+
-		"\2\2\u00de\u00df\7\5\2\2\u00df\u00e0\5 \21\2\u00e0\u00e1\7\6\2\2\u00e1"+
-		"\u00e3\3\2\2\2\u00e2\u00ce\3\2\2\2\u00e2\u00cf\3\2\2\2\u00e2\u00d0\3\2"+
-		"\2\2\u00e2\u00d7\3\2\2\2\u00e2\u00dd\3\2\2\2\u00e3\33\3\2\2\2\u00e4\u00e5"+
-		"\7G\2\2\u00e5\u00e7\7H\2\2\u00e6\u00e8\5\30\r\2\u00e7\u00e6\3\2\2\2\u00e8"+
-		"\u00e9\3\2\2\2\u00e9\u00e7\3\2\2\2\u00e9\u00ea\3\2\2\2\u00ea\u00eb\3\2"+
-		"\2\2\u00eb\u00ec\t\4\2\2\u00ec\35\3\2\2\2\u00ed\u00ee\t\5\2\2\u00ee\37"+
-		"\3\2\2\2\u00ef\u00f0\b\21\1\2\u00f0\u00f4\5\"\22\2\u00f1\u00f2\7\"\2\2"+
-		"\u00f2\u00f4\5 \21\5\u00f3\u00ef\3\2\2\2\u00f3\u00f1\3\2\2\2\u00f4\u0100"+
-		"\3\2\2\2\u00f5\u00f6\f\4\2\2\u00f6\u00f7\t\6\2\2\u00f7\u00ff\5 \21\5\u00f8"+
-		"\u00f9\f\3\2\2\u00f9\u00fa\7\27\2\2\u00fa\u00fb\5 \21\2\u00fb\u00fc\7"+
-		"\30\2\2\u00fc\u00fd\5 \21\4\u00fd\u00ff\3\2\2\2\u00fe\u00f5\3\2\2\2\u00fe"+
-		"\u00f8\3\2\2\2\u00ff\u0102\3\2\2\2\u0100\u00fe\3\2\2\2\u0100\u0101\3\2"+
-		"\2\2\u0101!\3\2\2\2\u0102\u0100\3\2\2\2\u0103\u0104\b\22\1\2\u0104\u012b"+
-		"\7C\2\2\u0105\u012b\7\26\2\2\u0106\u012b\5\36\20\2\u0107\u0110\7\20\2"+
-		"\2\u0108\u010d\5 \21\2\u0109\u010a\7\22\2\2\u010a\u010c\5 \21\2\u010b"+
-		"\u0109\3\2\2\2\u010c\u010f\3\2\2\2\u010d\u010b\3\2\2\2\u010d\u010e\3\2"+
-		"\2\2\u010e\u0111\3\2\2\2\u010f\u010d\3\2\2\2\u0110\u0108\3\2\2\2\u0110"+
-		"\u0111\3\2\2\2\u0111\u0112\3\2\2\2\u0112\u012b\7\21\2\2\u0113\u0114\7"+
-		"\5\2\2\u0114\u0115\5 \21\2\u0115\u0116\7\6\2\2\u0116\u012b\3\2\2\2\u0117"+
-		"\u0118\7C\2\2\u0118\u0121\7\5\2\2\u0119\u011e\5 \21\2\u011a\u011b\7\22"+
-		"\2\2\u011b\u011d\5 \21\2\u011c\u011a\3\2\2\2\u011d\u0120\3\2\2\2\u011e"+
-		"\u011c\3\2\2\2\u011e\u011f\3\2\2\2\u011f\u0122\3\2\2\2\u0120\u011e\3\2"+
-		"\2\2\u0121\u0119\3\2\2\2\u0121\u0122\3\2\2\2\u0122\u0123\3\2\2\2\u0123"+
-		"\u012b\7\6\2\2\u0124\u0125\7\36\2\2\u0125\u012b\5\"\22\4\u0126\u0127\7"+
-		"\23\2\2\u0127\u0128\7\5\2\2\u0128\u0129\t\7\2\2\u0129\u012b\7\6\2\2\u012a"+
-		"\u0103\3\2\2\2\u012a\u0105\3\2\2\2\u012a\u0106\3\2\2\2\u012a\u0107\3\2"+
-		"\2\2\u012a\u0113\3\2\2\2\u012a\u0117\3\2\2\2\u012a\u0124\3\2\2\2\u012a"+
-		"\u0126\3\2\2\2\u012b\u0149\3\2\2\2\u012c\u012d\f\5\2\2\u012d\u012e\5$"+
-		"\23\2\u012e\u012f\5\"\22\6\u012f\u0148\3\2\2\2\u0130\u0131\f\t\2\2\u0131"+
-		"\u0132\7\31\2\2\u0132\u0148\7C\2\2\u0133\u0134\f\b\2\2\u0134\u0135\7\20"+
-		"\2\2\u0135\u0136\5 \21\2\u0136\u0137\7\21\2\2\u0137\u0148\3\2\2\2\u0138"+
-		"\u0139\f\6\2\2\u0139\u013a\7\31\2\2\u013a\u013b\7C\2\2\u013b\u0144\7\5"+
-		"\2\2\u013c\u0141\5 \21\2\u013d\u013e\7\22\2\2\u013e\u0140\5 \21\2\u013f"+
-		"\u013d\3\2\2\2\u0140\u0143\3\2\2\2\u0141\u013f\3\2\2\2\u0141\u0142\3\2"+
-		"\2\2\u0142\u0145\3\2\2\2\u0143\u0141\3\2\2\2\u0144\u013c\3\2\2\2\u0144"+
-		"\u0145\3\2\2\2\u0145\u0146\3\2\2\2\u0146\u0148\7\6\2\2\u0147\u012c\3\2"+
-		"\2\2\u0147\u0130\3\2\2\2\u0147\u0133\3\2\2\2\u0147\u0138\3\2\2\2\u0148"+
-		"\u014b\3\2\2\2\u0149\u0147\3\2\2\2\u0149\u014a\3\2\2\2\u014a#\3\2\2\2"+
-		"\u014b\u0149\3\2\2\2\u014c\u014d\t\b\2\2\u014d%\3\2\2\2\u014e\u0159\7"+
-		"C\2\2\u014f\u0150\5\"\22\2\u0150\u0151\7\31\2\2\u0151\u0152\7C\2\2\u0152"+
-		"\u0159\3\2\2\2\u0153\u0154\5\"\22\2\u0154\u0155\7\20\2\2\u0155\u0156\5"+
-		" \21\2\u0156\u0157\7\21\2\2\u0157\u0159\3\2\2\2\u0158\u014e\3\2\2\2\u0158"+
-		"\u014f\3\2\2\2\u0158\u0153\3\2\2\2\u0159\'\3\2\2\2&+-\63GIKUX]orw\u0083"+
-		"\u0085\u008b\u009b\u00b8\u00be\u00cc\u00d2\u00d9\u00e2\u00e9\u00f3\u00fe"+
-		"\u0100\u010d\u0110\u011e\u0121\u012a\u0141\u0144\u0147\u0149\u0158";
+		"\2\2\2ef\7\3\2\2fg\t\4\2\2gh\7\5\2\2hi\7\26\2\2ij\7\b\2\2jo\7E\2\2kl\7"+
+		"\22\2\2ln\5\16\b\2mk\3\2\2\2nq\3\2\2\2om\3\2\2\2op\3\2\2\2pr\3\2\2\2q"+
+		"o\3\2\2\2ru\7\6\2\2st\7\7\2\2tv\5\20\t\2us\3\2\2\2uv\3\2\2\2vw\3\2\2\2"+
+		"wx\7\b\2\2xy\7G\2\2yz\7H\2\2z{\5\f\7\2{|\7I\2\2|\13\3\2\2\2}\u0082\5\22"+
+		"\n\2~\u0082\5\24\13\2\177\u0082\5\26\f\2\u0080\u0082\5\b\5\2\u0081}\3"+
+		"\2\2\2\u0081~\3\2\2\2\u0081\177\3\2\2\2\u0081\u0080\3\2\2\2\u0082\u0085"+
+		"\3\2\2\2\u0083\u0081\3\2\2\2\u0083\u0084\3\2\2\2\u0084\u0087\3\2\2\2\u0085"+
+		"\u0083\3\2\2\2\u0086\u0088\5\30\r\2\u0087\u0086\3\2\2\2\u0088\u0089\3"+
+		"\2\2\2\u0089\u0087\3\2\2\2\u0089\u008a\3\2\2\2\u008a\r\3\2\2\2\u008b\u008c"+
+		"\7C\2\2\u008c\u008d\7\b\2\2\u008d\u008e\5\20\t\2\u008e\17\3\2\2\2\u008f"+
+		"\u009a\7C\2\2\u0090\u009a\7F\2\2\u0091\u009a\7\n\2\2\u0092\u009a\7\f\2"+
+		"\2\u0093\u009a\7\r\2\2\u0094\u009a\7\16\2\2\u0095\u0096\7\20\2\2\u0096"+
+		"\u0097\5\20\t\2\u0097\u0098\7\21\2\2\u0098\u009a\3\2\2\2\u0099\u008f\3"+
+		"\2\2\2\u0099\u0090\3\2\2\2\u0099\u0091\3\2\2\2\u0099\u0092\3\2\2\2\u0099"+
+		"\u0093\3\2\2\2\u0099\u0094\3\2\2\2\u0099\u0095\3\2\2\2\u009a\21\3\2\2"+
+		"\2\u009b\u009c\7\32\2\2\u009c\u009d\7C\2\2\u009d\u009e\7G\2\2\u009e\23"+
+		"\3\2\2\2\u009f\u00a0\7\33\2\2\u00a0\u00a1\7C\2\2\u00a1\u00a2\7G\2\2\u00a2"+
+		"\25\3\2\2\2\u00a3\u00a4\5\16\b\2\u00a4\u00a5\7\13\2\2\u00a5\u00a6\5\36"+
+		"\20\2\u00a6\u00a7\t\3\2\2\u00a7\27\3\2\2\2\u00a8\u00a9\5\32\16\2\u00a9"+
+		"\u00aa\t\3\2\2\u00aa\u00cb\3\2\2\2\u00ab\u00ac\7\27\2\2\u00ac\u00ad\5"+
+		" \21\2\u00ad\u00ae\7\b\2\2\u00ae\u00b6\5\34\17\2\u00af\u00b0\7:\2\2\u00b0"+
+		"\u00b1\5 \21\2\u00b1\u00b2\7\b\2\2\u00b2\u00b3\5\34\17\2\u00b3\u00b5\3"+
+		"\2\2\2\u00b4\u00af\3\2\2\2\u00b5\u00b8\3\2\2\2\u00b6\u00b4\3\2\2\2\u00b6"+
+		"\u00b7\3\2\2\2\u00b7\u00bc\3\2\2\2\u00b8\u00b6\3\2\2\2\u00b9\u00ba\7\30"+
+		"\2\2\u00ba\u00bb\7\b\2\2\u00bb\u00bd\5\34\17\2\u00bc\u00b9\3\2\2\2\u00bc"+
+		"\u00bd\3\2\2\2\u00bd\u00cb\3\2\2\2\u00be\u00bf\7\67\2\2\u00bf\u00c0\5"+
+		" \21\2\u00c0\u00c1\7\b\2\2\u00c1\u00c2\5\34\17\2\u00c2\u00cb\3\2\2\2\u00c3"+
+		"\u00c4\7/\2\2\u00c4\u00c5\7C\2\2\u00c5\u00c6\7\62\2\2\u00c6\u00c7\5 \21"+
+		"\2\u00c7\u00c8\7\b\2\2\u00c8\u00c9\5\34\17\2\u00c9\u00cb\3\2\2\2\u00ca"+
+		"\u00a8\3\2\2\2\u00ca\u00ab\3\2\2\2\u00ca\u00be\3\2\2\2\u00ca\u00c3\3\2"+
+		"\2\2\u00cb\31\3\2\2\2\u00cc\u00e1\7)\2\2\u00cd\u00e1\5 \21\2\u00ce\u00d0"+
+		"\7\4\2\2\u00cf\u00d1\5 \21\2\u00d0\u00cf\3\2\2\2\u00d0\u00d1\3\2\2\2\u00d1"+
+		"\u00e1\3\2\2\2\u00d2\u00d3\5&\24\2\u00d3\u00d4\7\13\2\2\u00d4\u00d6\3"+
+		"\2\2\2\u00d5\u00d2\3\2\2\2\u00d6\u00d7\3\2\2\2\u00d7\u00d5\3\2\2\2\u00d7"+
+		"\u00d8\3\2\2\2\u00d8\u00d9\3\2\2\2\u00d9\u00da\5 \21\2\u00da\u00e1\3\2"+
+		"\2\2\u00db\u00dc\7\17\2\2\u00dc\u00dd\7\5\2\2\u00dd\u00de\5 \21\2\u00de"+
+		"\u00df\7\6\2\2\u00df\u00e1\3\2\2\2\u00e0\u00cc\3\2\2\2\u00e0\u00cd\3\2"+
+		"\2\2\u00e0\u00ce\3\2\2\2\u00e0\u00d5\3\2\2\2\u00e0\u00db\3\2\2\2\u00e1"+
+		"\33\3\2\2\2\u00e2\u00e3\7G\2\2\u00e3\u00e5\7H\2\2\u00e4\u00e6\5\30\r\2"+
+		"\u00e5\u00e4\3\2\2\2\u00e6\u00e7\3\2\2\2\u00e7\u00e5\3\2\2\2\u00e7\u00e8"+
+		"\3\2\2\2\u00e8\u00e9\3\2\2\2\u00e9\u00ea\t\5\2\2\u00ea\35\3\2\2\2\u00eb"+
+		"\u00ec\t\6\2\2\u00ec\37\3\2\2\2\u00ed\u00ee\b\21\1\2\u00ee\u00f2\5\"\22"+
+		"\2\u00ef\u00f0\7\"\2\2\u00f0\u00f2\5 \21\5\u00f1\u00ed\3\2\2\2\u00f1\u00ef"+
+		"\3\2\2\2\u00f2\u00fe\3\2\2\2\u00f3\u00f4\f\4\2\2\u00f4\u00f5\t\7\2\2\u00f5"+
+		"\u00fd\5 \21\5\u00f6\u00f7\f\3\2\2\u00f7\u00f8\7\27\2\2\u00f8\u00f9\5"+
+		" \21\2\u00f9\u00fa\7\30\2\2\u00fa\u00fb\5 \21\4\u00fb\u00fd\3\2\2\2\u00fc"+
+		"\u00f3\3\2\2\2\u00fc\u00f6\3\2\2\2\u00fd\u0100\3\2\2\2\u00fe\u00fc\3\2"+
+		"\2\2\u00fe\u00ff\3\2\2\2\u00ff!\3\2\2\2\u0100\u00fe\3\2\2\2\u0101\u0102"+
+		"\b\22\1\2\u0102\u0129\7C\2\2\u0103\u0129\7\26\2\2\u0104\u0129\5\36\20"+
+		"\2\u0105\u010e\7\20\2\2\u0106\u010b\5 \21\2\u0107\u0108\7\22\2\2\u0108"+
+		"\u010a\5 \21\2\u0109\u0107\3\2\2\2\u010a\u010d\3\2\2\2\u010b\u0109\3\2"+
+		"\2\2\u010b\u010c\3\2\2\2\u010c\u010f\3\2\2\2\u010d\u010b\3\2\2\2\u010e"+
+		"\u0106\3\2\2\2\u010e\u010f\3\2\2\2\u010f\u0110\3\2\2\2\u0110\u0129\7\21"+
+		"\2\2\u0111\u0112\7\5\2\2\u0112\u0113\5 \21\2\u0113\u0114\7\6\2\2\u0114"+
+		"\u0129\3\2\2\2\u0115\u0116\7C\2\2\u0116\u011f\7\5\2\2\u0117\u011c\5 \21"+
+		"\2\u0118\u0119\7\22\2\2\u0119\u011b\5 \21\2\u011a\u0118\3\2\2\2\u011b"+
+		"\u011e\3\2\2\2\u011c\u011a\3\2\2\2\u011c\u011d\3\2\2\2\u011d\u0120\3\2"+
+		"\2\2\u011e\u011c\3\2\2\2\u011f\u0117\3\2\2\2\u011f\u0120\3\2\2\2\u0120"+
+		"\u0121\3\2\2\2\u0121\u0129\7\6\2\2\u0122\u0123\7\36\2\2\u0123\u0129\5"+
+		"\"\22\4\u0124\u0125\7\23\2\2\u0125\u0126\7\5\2\2\u0126\u0127\t\b\2\2\u0127"+
+		"\u0129\7\6\2\2\u0128\u0101\3\2\2\2\u0128\u0103\3\2\2\2\u0128\u0104\3\2"+
+		"\2\2\u0128\u0105\3\2\2\2\u0128\u0111\3\2\2\2\u0128\u0115\3\2\2\2\u0128"+
+		"\u0122\3\2\2\2\u0128\u0124\3\2\2\2\u0129\u0147\3\2\2\2\u012a\u012b\f\5"+
+		"\2\2\u012b\u012c\5$\23\2\u012c\u012d\5\"\22\6\u012d\u0146\3\2\2\2\u012e"+
+		"\u012f\f\t\2\2\u012f\u0130\7\31\2\2\u0130\u0146\7C\2\2\u0131\u0132\f\b"+
+		"\2\2\u0132\u0133\7\20\2\2\u0133\u0134\5 \21\2\u0134\u0135\7\21\2\2\u0135"+
+		"\u0146\3\2\2\2\u0136\u0137\f\6\2\2\u0137\u0138\7\31\2\2\u0138\u0139\7"+
+		"C\2\2\u0139\u0142\7\5\2\2\u013a\u013f\5 \21\2\u013b\u013c\7\22\2\2\u013c"+
+		"\u013e\5 \21\2\u013d\u013b\3\2\2\2\u013e\u0141\3\2\2\2\u013f\u013d\3\2"+
+		"\2\2\u013f\u0140\3\2\2\2\u0140\u0143\3\2\2\2\u0141\u013f\3\2\2\2\u0142"+
+		"\u013a\3\2\2\2\u0142\u0143\3\2\2\2\u0143\u0144\3\2\2\2\u0144\u0146\7\6"+
+		"\2\2\u0145\u012a\3\2\2\2\u0145\u012e\3\2\2\2\u0145\u0131\3\2\2\2\u0145"+
+		"\u0136\3\2\2\2\u0146\u0149\3\2\2\2\u0147\u0145\3\2\2\2\u0147\u0148\3\2"+
+		"\2\2\u0148#\3\2\2\2\u0149\u0147\3\2\2\2\u014a\u014b\t\t\2\2\u014b%\3\2"+
+		"\2\2\u014c\u0157\7C\2\2\u014d\u014e\5\"\22\2\u014e\u014f\7\31\2\2\u014f"+
+		"\u0150\7C\2\2\u0150\u0157\3\2\2\2\u0151\u0152\5\"\22\2\u0152\u0153\7\20"+
+		"\2\2\u0153\u0154\5 \21\2\u0154\u0155\7\21\2\2\u0155\u0157\3\2\2\2\u0156"+
+		"\u014c\3\2\2\2\u0156\u014d\3\2\2\2\u0156\u0151\3\2\2\2\u0157\'\3\2\2\2"+
+		"%+-\63GIKUX]ou\u0081\u0083\u0089\u0099\u00b6\u00bc\u00ca\u00d0\u00d7\u00e0"+
+		"\u00e7\u00f1\u00fc\u00fe\u010b\u010e\u011c\u011f\u0128\u013f\u0142\u0145"+
+		"\u0147\u0156";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
