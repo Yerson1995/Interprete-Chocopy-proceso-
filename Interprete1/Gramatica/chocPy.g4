@@ -140,8 +140,8 @@ class_def
     ;
 
 class_body
-    : PASS (NEWLINE| EOF)       //Pass
-    | (var_def | metd_def)+     //definicion
+    : PASS (NEWLINE| EOF)       #class_bodypass
+    | (var_def | metd_def)+     #class_bodydefinicion
     ;
 
 func_def
@@ -161,13 +161,13 @@ typed_var
     ;
 
 type
-    : IDENTIFIER                    //id
-    | IDSTRING                      //idstring
-    | INT                           //Int
-    | STR                           //Str
-    | BOOL                          //Bool
-    | OBJECT                        //Object
-    | TK_SQR_IZQ type TK_SQR_DER    //Anidado
+    : IDENTIFIER                    #typeid
+    | IDSTRING                      #typeidstring
+    | INT                           #tipeInt
+    | STR                           #typeStr
+    | BOOL                          #typeBool
+    | OBJECT                        #typeObject
+    | TK_SQR_IZQ type TK_SQR_DER    #typeAnidado
     ;
 global_decl
     : GLOBAL IDENTIFIER NEWLINE
@@ -182,18 +182,18 @@ var_def
     ;
 
 stmt
-    : simple_stmt (NEWLINE| EOF)
-    | IF expr TK_DOS_PUNTOS block (ELIF expr TK_DOS_PUNTOS block)* (ELSE TK_DOS_PUNTOS block)?  //If
-    | WHILE expr TK_DOS_PUNTOS block                                                            //While
-    | FOR IDENTIFIER IN expr TK_DOS_PUNTOS block                                                //for
+    : simple_stmt (NEWLINE| EOF)                                                                #stmtsimple
+    | IF expr TK_DOS_PUNTOS block (ELIF expr TK_DOS_PUNTOS block)* (ELSE TK_DOS_PUNTOS block)?  #stmtif
+    | WHILE expr TK_DOS_PUNTOS block                                                            #stmtwhile
+    | FOR IDENTIFIER IN expr TK_DOS_PUNTOS block                                                #stmtfor
     ;
 
 simple_stmt
-    : PASS                              //pass
-    | expr                              //expr
-    | RETURN (expr)?                    //return
-    | (target TK_ASIG)+ expr            //asignacion
-    | PRINT TK_PAR_IZQ expr TK_PAR_DER  //print
+    : PASS                              #simplestmtpass
+    | expr                              #simplestmtexpr
+    | RETURN (expr)?                    #simplestmtreturn
+    | (target TK_ASIG)+ expr            #simplestmtasignacion
+    | PRINT TK_PAR_IZQ expr TK_PAR_DER  #simplestmtprint
     ;
 
 block
@@ -201,49 +201,49 @@ block
     ;
 
 literal
-    : NONE          //none
-    | TRUE          //true
-    | FALSE         //false
-    | TK_ENTERO     //tk_entero
-    | IDSTRING      //idstring
-    | STRING        //string
+    : NONE          #literalnone
+    | TRUE          #literaltrue
+    | FALSE         #literalfalse
+    | TK_ENTERO     #literaltk_entero
+    | IDSTRING      #literalidstring
+    | STRING        #literalstring
     ;
 
 expr
-    : cexpr                     //cexpr
-    | NOT expr                  //not
-    | expr (AND | OR) expr      //andor
-    | expr IF expr ELSE expr    //exprcond
+    : cexpr                     #exprcexpr
+    | NOT expr                  #exprnot
+    | expr (AND | OR) expr      #exprandor
+    | expr IF expr ELSE expr    #exprexprcond
     ;
 
 cexpr
-    : IDENTIFIER                                                                //id
-    | SELF                                                                      //mismo
-    | literal                                                                   //valor
-    | TK_SQR_IZQ (expr (TK_COMA expr)*)? TK_SQR_DER                             //listaexpr
-    | TK_PAR_IZQ expr TK_PAR_DER                                                //anidar
-    | cexpr TK_PUNTO IDENTIFIER                                                 //objeto
-    | cexpr TK_SQR_IZQ expr TK_SQR_DER                                          //listado
-    | IDENTIFIER TK_PAR_IZQ (expr (TK_COMA expr)*)? TK_PAR_DER                  //funcion
-    | cexpr TK_PUNTO IDENTIFIER TK_PAR_IZQ (expr (TK_COMA expr)*)? TK_PAR_DER   //puntoarg
-    | cexpr bin_op cexpr                                                        //operacion
-    | MINUS_OP cexpr                                                            //negando
-    | LEN TK_PAR_IZQ (IDENTIFIER|STRING|IDSTRING) TK_PAR_DER                    //len
+    : IDENTIFIER                                                                #cexprid
+    | SELF                                                                      #cexprmismo
+    | literal                                                                   #cexprvalor
+    | TK_SQR_IZQ (expr (TK_COMA expr)*)? TK_SQR_DER                             #cexprlistaexpr
+    | TK_PAR_IZQ expr TK_PAR_DER                                                #cexpranidar
+    | cexpr TK_PUNTO IDENTIFIER                                                 #cexprobjeto
+    | cexpr TK_SQR_IZQ expr TK_SQR_DER                                          #cexprlistado
+    | IDENTIFIER TK_PAR_IZQ (expr (TK_COMA expr)*)? TK_PAR_DER                  #cexprfuncion
+    | cexpr TK_PUNTO IDENTIFIER TK_PAR_IZQ (expr (TK_COMA expr)*)? TK_PAR_DER   #cexprpuntoarg
+    | cexpr bin_op cexpr                                                        #cexproperacion
+    | MINUS_OP cexpr                                                            #cexprnegando
+    | LEN TK_PAR_IZQ (IDENTIFIER|STRING|IDSTRING) TK_PAR_DER                    #cexprlen
     ;
 
 bin_op
-    : PLUS_OP       //Mas
-    | MINUS_OP      //Menos
-    | MULT_OP       //Multiplicacion
-    | DIV_OP        //Division
-    | MOD_OP        //Modulo
-    | EQUAL         //Igual
-    | NOT_EQUAL     //Distinto
-    | MINOR_EQUAL   //Menor
-    | MAYOR_EQUAL   //Mayorigual
-    | MINOR         //Menor
-    | MAYOR         //Mayor
-    | IS            //Is
+    : PLUS_OP       #bin_opMas
+    | MINUS_OP      #bin_opMenos
+    | MULT_OP       #bin_opMultiplicacion
+    | DIV_OP        #bin_opDivision
+    | MOD_OP        #bin_opModulo
+    | EQUAL         #bin_opIgual
+    | NOT_EQUAL     #bin_opDistinto
+    | MINOR_EQUAL   #bin_opMenor
+    | MAYOR_EQUAL   #bin_opMayorigual
+    | MINOR         #bin_opMenor
+    | MAYOR         #bin_opMayor
+    | IS            #bin_opIs
     ;
 
 

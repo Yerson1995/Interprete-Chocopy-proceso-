@@ -322,9 +322,17 @@ public class chocPyParser extends Parser {
 	}
 
 	public static class Class_bodyContext extends ParserRuleContext {
-		public TerminalNode PASS() { return getToken(chocPyParser.PASS, 0); }
-		public TerminalNode NEWLINE() { return getToken(chocPyParser.NEWLINE, 0); }
-		public TerminalNode EOF() { return getToken(chocPyParser.EOF, 0); }
+		public Class_bodyContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_class_body; }
+	 
+		public Class_bodyContext() { }
+		public void copyFrom(Class_bodyContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class Class_bodydefinicionContext extends Class_bodyContext {
 		public List<Var_defContext> var_def() {
 			return getRuleContexts(Var_defContext.class);
 		}
@@ -337,21 +345,37 @@ public class chocPyParser extends Parser {
 		public Metd_defContext metd_def(int i) {
 			return getRuleContext(Metd_defContext.class,i);
 		}
-		public Class_bodyContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_class_body; }
+		public Class_bodydefinicionContext(Class_bodyContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterClass_body(this);
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterClass_bodydefinicion(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitClass_body(this);
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitClass_bodydefinicion(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitClass_body(this);
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitClass_bodydefinicion(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class Class_bodypassContext extends Class_bodyContext {
+		public TerminalNode PASS() { return getToken(chocPyParser.PASS, 0); }
+		public TerminalNode NEWLINE() { return getToken(chocPyParser.NEWLINE, 0); }
+		public TerminalNode EOF() { return getToken(chocPyParser.EOF, 0); }
+		public Class_bodypassContext(Class_bodyContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterClass_bodypass(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitClass_bodypass(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitClass_bodypass(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -365,6 +389,7 @@ public class chocPyParser extends Parser {
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case PASS:
+				_localctx = new Class_bodypassContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(65);
@@ -383,6 +408,7 @@ public class chocPyParser extends Parser {
 				break;
 			case DEF:
 			case IDENTIFIER:
+				_localctx = new Class_bodydefinicionContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(69); 
@@ -860,32 +886,136 @@ public class chocPyParser extends Parser {
 	}
 
 	public static class TypeContext extends ParserRuleContext {
-		public TerminalNode IDENTIFIER() { return getToken(chocPyParser.IDENTIFIER, 0); }
-		public TerminalNode IDSTRING() { return getToken(chocPyParser.IDSTRING, 0); }
-		public TerminalNode INT() { return getToken(chocPyParser.INT, 0); }
+		public TypeContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_type; }
+	 
+		public TypeContext() { }
+		public void copyFrom(TypeContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class TypeStrContext extends TypeContext {
 		public TerminalNode STR() { return getToken(chocPyParser.STR, 0); }
-		public TerminalNode BOOL() { return getToken(chocPyParser.BOOL, 0); }
-		public TerminalNode OBJECT() { return getToken(chocPyParser.OBJECT, 0); }
+		public TypeStrContext(TypeContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterTypeStr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitTypeStr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitTypeStr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class TypeAnidadoContext extends TypeContext {
 		public TerminalNode TK_SQR_IZQ() { return getToken(chocPyParser.TK_SQR_IZQ, 0); }
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
 		public TerminalNode TK_SQR_DER() { return getToken(chocPyParser.TK_SQR_DER, 0); }
-		public TypeContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_type; }
+		public TypeAnidadoContext(TypeContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterType(this);
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterTypeAnidado(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitType(this);
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitTypeAnidado(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitType(this);
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitTypeAnidado(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class TypeObjectContext extends TypeContext {
+		public TerminalNode OBJECT() { return getToken(chocPyParser.OBJECT, 0); }
+		public TypeObjectContext(TypeContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterTypeObject(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitTypeObject(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitTypeObject(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class TypeidContext extends TypeContext {
+		public TerminalNode IDENTIFIER() { return getToken(chocPyParser.IDENTIFIER, 0); }
+		public TypeidContext(TypeContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterTypeid(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitTypeid(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitTypeid(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class TipeIntContext extends TypeContext {
+		public TerminalNode INT() { return getToken(chocPyParser.INT, 0); }
+		public TipeIntContext(TypeContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterTipeInt(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitTipeInt(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitTipeInt(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class TypeBoolContext extends TypeContext {
+		public TerminalNode BOOL() { return getToken(chocPyParser.BOOL, 0); }
+		public TypeBoolContext(TypeContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterTypeBool(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitTypeBool(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitTypeBool(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class TypeidstringContext extends TypeContext {
+		public TerminalNode IDSTRING() { return getToken(chocPyParser.IDSTRING, 0); }
+		public TypeidstringContext(TypeContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterTypeidstring(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitTypeidstring(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitTypeidstring(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -898,6 +1028,7 @@ public class chocPyParser extends Parser {
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case IDENTIFIER:
+				_localctx = new TypeidContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(141);
@@ -905,6 +1036,7 @@ public class chocPyParser extends Parser {
 				}
 				break;
 			case IDSTRING:
+				_localctx = new TypeidstringContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(142);
@@ -912,6 +1044,7 @@ public class chocPyParser extends Parser {
 				}
 				break;
 			case INT:
+				_localctx = new TipeIntContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(143);
@@ -919,6 +1052,7 @@ public class chocPyParser extends Parser {
 				}
 				break;
 			case STR:
+				_localctx = new TypeStrContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(144);
@@ -926,6 +1060,7 @@ public class chocPyParser extends Parser {
 				}
 				break;
 			case BOOL:
+				_localctx = new TypeBoolContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(145);
@@ -933,6 +1068,7 @@ public class chocPyParser extends Parser {
 				}
 				break;
 			case OBJECT:
+				_localctx = new TypeObjectContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
 				setState(146);
@@ -940,6 +1076,7 @@ public class chocPyParser extends Parser {
 				}
 				break;
 			case TK_SQR_IZQ:
+				_localctx = new TypeAnidadoContext(_localctx);
 				enterOuterAlt(_localctx, 7);
 				{
 				setState(147);
@@ -1127,11 +1264,88 @@ public class chocPyParser extends Parser {
 	}
 
 	public static class StmtContext extends ParserRuleContext {
+		public StmtContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_stmt; }
+	 
+		public StmtContext() { }
+		public void copyFrom(StmtContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class StmtsimpleContext extends StmtContext {
 		public Simple_stmtContext simple_stmt() {
 			return getRuleContext(Simple_stmtContext.class,0);
 		}
 		public TerminalNode NEWLINE() { return getToken(chocPyParser.NEWLINE, 0); }
 		public TerminalNode EOF() { return getToken(chocPyParser.EOF, 0); }
+		public StmtsimpleContext(StmtContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterStmtsimple(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitStmtsimple(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitStmtsimple(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class StmtwhileContext extends StmtContext {
+		public TerminalNode WHILE() { return getToken(chocPyParser.WHILE, 0); }
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public TerminalNode TK_DOS_PUNTOS() { return getToken(chocPyParser.TK_DOS_PUNTOS, 0); }
+		public BlockContext block() {
+			return getRuleContext(BlockContext.class,0);
+		}
+		public StmtwhileContext(StmtContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterStmtwhile(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitStmtwhile(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitStmtwhile(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class StmtforContext extends StmtContext {
+		public TerminalNode FOR() { return getToken(chocPyParser.FOR, 0); }
+		public TerminalNode IDENTIFIER() { return getToken(chocPyParser.IDENTIFIER, 0); }
+		public TerminalNode IN() { return getToken(chocPyParser.IN, 0); }
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public TerminalNode TK_DOS_PUNTOS() { return getToken(chocPyParser.TK_DOS_PUNTOS, 0); }
+		public BlockContext block() {
+			return getRuleContext(BlockContext.class,0);
+		}
+		public StmtforContext(StmtContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterStmtfor(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitStmtfor(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitStmtfor(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class StmtifContext extends StmtContext {
 		public TerminalNode IF() { return getToken(chocPyParser.IF, 0); }
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
@@ -1154,25 +1368,18 @@ public class chocPyParser extends Parser {
 			return getToken(chocPyParser.ELIF, i);
 		}
 		public TerminalNode ELSE() { return getToken(chocPyParser.ELSE, 0); }
-		public TerminalNode WHILE() { return getToken(chocPyParser.WHILE, 0); }
-		public TerminalNode FOR() { return getToken(chocPyParser.FOR, 0); }
-		public TerminalNode IDENTIFIER() { return getToken(chocPyParser.IDENTIFIER, 0); }
-		public TerminalNode IN() { return getToken(chocPyParser.IN, 0); }
-		public StmtContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_stmt; }
+		public StmtifContext(StmtContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterStmt(this);
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterStmtif(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitStmt(this);
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitStmtif(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitStmt(this);
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitStmtif(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1201,6 +1408,7 @@ public class chocPyParser extends Parser {
 			case TK_ENTERO:
 			case STRING:
 			case IDSTRING:
+				_localctx = new StmtsimpleContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(166);
@@ -1218,6 +1426,7 @@ public class chocPyParser extends Parser {
 				}
 				break;
 			case IF:
+				_localctx = new StmtifContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(169);
@@ -1265,6 +1474,7 @@ public class chocPyParser extends Parser {
 				}
 				break;
 			case WHILE:
+				_localctx = new StmtwhileContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(188);
@@ -1278,6 +1488,7 @@ public class chocPyParser extends Parser {
 				}
 				break;
 			case FOR:
+				_localctx = new StmtforContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(193);
@@ -1310,11 +1521,98 @@ public class chocPyParser extends Parser {
 	}
 
 	public static class Simple_stmtContext extends ParserRuleContext {
+		public Simple_stmtContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_simple_stmt; }
+	 
+		public Simple_stmtContext() { }
+		public void copyFrom(Simple_stmtContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class SimplestmtpassContext extends Simple_stmtContext {
 		public TerminalNode PASS() { return getToken(chocPyParser.PASS, 0); }
+		public SimplestmtpassContext(Simple_stmtContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterSimplestmtpass(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitSimplestmtpass(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitSimplestmtpass(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class SimplestmtexprContext extends Simple_stmtContext {
 		public ExprContext expr() {
 			return getRuleContext(ExprContext.class,0);
 		}
+		public SimplestmtexprContext(Simple_stmtContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterSimplestmtexpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitSimplestmtexpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitSimplestmtexpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class SimplestmtprintContext extends Simple_stmtContext {
+		public TerminalNode PRINT() { return getToken(chocPyParser.PRINT, 0); }
+		public TerminalNode TK_PAR_IZQ() { return getToken(chocPyParser.TK_PAR_IZQ, 0); }
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public TerminalNode TK_PAR_DER() { return getToken(chocPyParser.TK_PAR_DER, 0); }
+		public SimplestmtprintContext(Simple_stmtContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterSimplestmtprint(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitSimplestmtprint(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitSimplestmtprint(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class SimplestmtreturnContext extends Simple_stmtContext {
 		public TerminalNode RETURN() { return getToken(chocPyParser.RETURN, 0); }
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public SimplestmtreturnContext(Simple_stmtContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterSimplestmtreturn(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitSimplestmtreturn(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitSimplestmtreturn(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class SimplestmtasignacionContext extends Simple_stmtContext {
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
 		public List<TargetContext> target() {
 			return getRuleContexts(TargetContext.class);
 		}
@@ -1325,24 +1623,18 @@ public class chocPyParser extends Parser {
 		public TerminalNode TK_ASIG(int i) {
 			return getToken(chocPyParser.TK_ASIG, i);
 		}
-		public TerminalNode PRINT() { return getToken(chocPyParser.PRINT, 0); }
-		public TerminalNode TK_PAR_IZQ() { return getToken(chocPyParser.TK_PAR_IZQ, 0); }
-		public TerminalNode TK_PAR_DER() { return getToken(chocPyParser.TK_PAR_DER, 0); }
-		public Simple_stmtContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_simple_stmt; }
+		public SimplestmtasignacionContext(Simple_stmtContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterSimple_stmt(this);
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterSimplestmtasignacion(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitSimple_stmt(this);
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitSimplestmtasignacion(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitSimple_stmt(this);
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitSimplestmtasignacion(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1357,6 +1649,7 @@ public class chocPyParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,20,_ctx) ) {
 			case 1:
+				_localctx = new SimplestmtpassContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(202);
@@ -1364,6 +1657,7 @@ public class chocPyParser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new SimplestmtexprContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(203);
@@ -1371,6 +1665,7 @@ public class chocPyParser extends Parser {
 				}
 				break;
 			case 3:
+				_localctx = new SimplestmtreturnContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(204);
@@ -1388,6 +1683,7 @@ public class chocPyParser extends Parser {
 				}
 				break;
 			case 4:
+				_localctx = new SimplestmtasignacionContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(211); 
@@ -1417,6 +1713,7 @@ public class chocPyParser extends Parser {
 				}
 				break;
 			case 5:
+				_localctx = new SimplestmtprintContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(217);
@@ -1521,27 +1818,115 @@ public class chocPyParser extends Parser {
 	}
 
 	public static class LiteralContext extends ParserRuleContext {
-		public TerminalNode NONE() { return getToken(chocPyParser.NONE, 0); }
-		public TerminalNode TRUE() { return getToken(chocPyParser.TRUE, 0); }
-		public TerminalNode FALSE() { return getToken(chocPyParser.FALSE, 0); }
-		public TerminalNode TK_ENTERO() { return getToken(chocPyParser.TK_ENTERO, 0); }
-		public TerminalNode IDSTRING() { return getToken(chocPyParser.IDSTRING, 0); }
-		public TerminalNode STRING() { return getToken(chocPyParser.STRING, 0); }
 		public LiteralContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_literal; }
+	 
+		public LiteralContext() { }
+		public void copyFrom(LiteralContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class LiteralstringContext extends LiteralContext {
+		public TerminalNode STRING() { return getToken(chocPyParser.STRING, 0); }
+		public LiteralstringContext(LiteralContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterLiteral(this);
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterLiteralstring(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitLiteral(this);
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitLiteralstring(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitLiteral(this);
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitLiteralstring(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class LiteralnoneContext extends LiteralContext {
+		public TerminalNode NONE() { return getToken(chocPyParser.NONE, 0); }
+		public LiteralnoneContext(LiteralContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterLiteralnone(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitLiteralnone(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitLiteralnone(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class LiteraltrueContext extends LiteralContext {
+		public TerminalNode TRUE() { return getToken(chocPyParser.TRUE, 0); }
+		public LiteraltrueContext(LiteralContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterLiteraltrue(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitLiteraltrue(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitLiteraltrue(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class Literaltk_enteroContext extends LiteralContext {
+		public TerminalNode TK_ENTERO() { return getToken(chocPyParser.TK_ENTERO, 0); }
+		public Literaltk_enteroContext(LiteralContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterLiteraltk_entero(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitLiteraltk_entero(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitLiteraltk_entero(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class LiteralfalseContext extends LiteralContext {
+		public TerminalNode FALSE() { return getToken(chocPyParser.FALSE, 0); }
+		public LiteralfalseContext(LiteralContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterLiteralfalse(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitLiteralfalse(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitLiteralfalse(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class LiteralidstringContext extends LiteralContext {
+		public TerminalNode IDSTRING() { return getToken(chocPyParser.IDSTRING, 0); }
+		public LiteralidstringContext(LiteralContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterLiteralidstring(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitLiteralidstring(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitLiteralidstring(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1549,20 +1934,60 @@ public class chocPyParser extends Parser {
 	public final LiteralContext literal() throws RecognitionException {
 		LiteralContext _localctx = new LiteralContext(_ctx, getState());
 		enterRule(_localctx, 28, RULE_literal);
-		int _la;
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(233);
-			_la = _input.LA(1);
-			if ( !(((((_la - 18)) & ~0x3f) == 0 && ((1L << (_la - 18)) & ((1L << (TRUE - 18)) | (1L << (FALSE - 18)) | (1L << (NONE - 18)) | (1L << (TK_ENTERO - 18)) | (1L << (STRING - 18)) | (1L << (IDSTRING - 18)))) != 0)) ) {
-			_errHandler.recoverInline(this);
-			}
-			else {
-				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-				_errHandler.reportMatch(this);
-				consume();
-			}
+			setState(239);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case NONE:
+				_localctx = new LiteralnoneContext(_localctx);
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(233);
+				match(NONE);
+				}
+				break;
+			case TRUE:
+				_localctx = new LiteraltrueContext(_localctx);
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(234);
+				match(TRUE);
+				}
+				break;
+			case FALSE:
+				_localctx = new LiteralfalseContext(_localctx);
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(235);
+				match(FALSE);
+				}
+				break;
+			case TK_ENTERO:
+				_localctx = new Literaltk_enteroContext(_localctx);
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(236);
+				match(TK_ENTERO);
+				}
+				break;
+			case IDSTRING:
+				_localctx = new LiteralidstringContext(_localctx);
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(237);
+				match(IDSTRING);
+				}
+				break;
+			case STRING:
+				_localctx = new LiteralstringContext(_localctx);
+				enterOuterAlt(_localctx, 6);
+				{
+				setState(238);
+				match(STRING);
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1577,10 +2002,80 @@ public class chocPyParser extends Parser {
 	}
 
 	public static class ExprContext extends ParserRuleContext {
+		public ExprContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_expr; }
+	 
+		public ExprContext() { }
+		public void copyFrom(ExprContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class ExprcexprContext extends ExprContext {
 		public CexprContext cexpr() {
 			return getRuleContext(CexprContext.class,0);
 		}
+		public ExprcexprContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterExprcexpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitExprcexpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitExprcexpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprnotContext extends ExprContext {
 		public TerminalNode NOT() { return getToken(chocPyParser.NOT, 0); }
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public ExprnotContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterExprnot(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitExprnot(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitExprnot(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprexprcondContext extends ExprContext {
+		public List<ExprContext> expr() {
+			return getRuleContexts(ExprContext.class);
+		}
+		public ExprContext expr(int i) {
+			return getRuleContext(ExprContext.class,i);
+		}
+		public TerminalNode IF() { return getToken(chocPyParser.IF, 0); }
+		public TerminalNode ELSE() { return getToken(chocPyParser.ELSE, 0); }
+		public ExprexprcondContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterExprexprcond(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitExprexprcond(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitExprexprcond(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprandorContext extends ExprContext {
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
@@ -1589,23 +2084,18 @@ public class chocPyParser extends Parser {
 		}
 		public TerminalNode AND() { return getToken(chocPyParser.AND, 0); }
 		public TerminalNode OR() { return getToken(chocPyParser.OR, 0); }
-		public TerminalNode IF() { return getToken(chocPyParser.IF, 0); }
-		public TerminalNode ELSE() { return getToken(chocPyParser.ELSE, 0); }
-		public ExprContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_expr; }
+		public ExprandorContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterExpr(this);
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterExprandor(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitExpr(this);
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitExprandor(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitExpr(this);
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitExprandor(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1626,7 +2116,7 @@ public class chocPyParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(239);
+			setState(245);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case TK_PAR_IZQ:
@@ -1642,15 +2132,22 @@ public class chocPyParser extends Parser {
 			case STRING:
 			case IDSTRING:
 				{
-				setState(236);
+				_localctx = new ExprcexprContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+
+				setState(242);
 				cexpr(0);
 				}
 				break;
 			case NOT:
 				{
-				setState(237);
+				_localctx = new ExprnotContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(243);
 				match(NOT);
-				setState(238);
+				setState(244);
 				expr(3);
 				}
 				break;
@@ -1658,24 +2155,24 @@ public class chocPyParser extends Parser {
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(252);
+			setState(258);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,24,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,25,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(250);
+					setState(256);
 					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,23,_ctx) ) {
+					switch ( getInterpreter().adaptivePredict(_input,24,_ctx) ) {
 					case 1:
 						{
-						_localctx = new ExprContext(_parentctx, _parentState);
+						_localctx = new ExprandorContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(241);
+						setState(247);
 						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-						setState(242);
+						setState(248);
 						_la = _input.LA(1);
 						if ( !(_la==OR || _la==AND) ) {
 						_errHandler.recoverInline(this);
@@ -1685,32 +2182,32 @@ public class chocPyParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(243);
+						setState(249);
 						expr(3);
 						}
 						break;
 					case 2:
 						{
-						_localctx = new ExprContext(_parentctx, _parentState);
+						_localctx = new ExprexprcondContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(244);
+						setState(250);
 						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
-						setState(245);
+						setState(251);
 						match(IF);
-						setState(246);
+						setState(252);
 						expr(0);
-						setState(247);
+						setState(253);
 						match(ELSE);
-						setState(248);
+						setState(254);
 						expr(2);
 						}
 						break;
 					}
 					} 
 				}
-				setState(254);
+				setState(260);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,24,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,25,_ctx);
 			}
 			}
 		}
@@ -1726,11 +2223,220 @@ public class chocPyParser extends Parser {
 	}
 
 	public static class CexprContext extends ParserRuleContext {
+		public CexprContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_cexpr; }
+	 
+		public CexprContext() { }
+		public void copyFrom(CexprContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class CexpridContext extends CexprContext {
 		public TerminalNode IDENTIFIER() { return getToken(chocPyParser.IDENTIFIER, 0); }
+		public CexpridContext(CexprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterCexprid(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitCexprid(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitCexprid(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class CexprnegandoContext extends CexprContext {
+		public TerminalNode MINUS_OP() { return getToken(chocPyParser.MINUS_OP, 0); }
+		public CexprContext cexpr() {
+			return getRuleContext(CexprContext.class,0);
+		}
+		public CexprnegandoContext(CexprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterCexprnegando(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitCexprnegando(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitCexprnegando(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class CexproperacionContext extends CexprContext {
+		public List<CexprContext> cexpr() {
+			return getRuleContexts(CexprContext.class);
+		}
+		public CexprContext cexpr(int i) {
+			return getRuleContext(CexprContext.class,i);
+		}
+		public Bin_opContext bin_op() {
+			return getRuleContext(Bin_opContext.class,0);
+		}
+		public CexproperacionContext(CexprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterCexproperacion(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitCexproperacion(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitCexproperacion(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class CexprlenContext extends CexprContext {
+		public TerminalNode LEN() { return getToken(chocPyParser.LEN, 0); }
+		public TerminalNode TK_PAR_IZQ() { return getToken(chocPyParser.TK_PAR_IZQ, 0); }
+		public TerminalNode TK_PAR_DER() { return getToken(chocPyParser.TK_PAR_DER, 0); }
+		public TerminalNode IDENTIFIER() { return getToken(chocPyParser.IDENTIFIER, 0); }
+		public TerminalNode STRING() { return getToken(chocPyParser.STRING, 0); }
+		public TerminalNode IDSTRING() { return getToken(chocPyParser.IDSTRING, 0); }
+		public CexprlenContext(CexprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterCexprlen(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitCexprlen(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitCexprlen(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class CexprpuntoargContext extends CexprContext {
+		public CexprContext cexpr() {
+			return getRuleContext(CexprContext.class,0);
+		}
+		public TerminalNode TK_PUNTO() { return getToken(chocPyParser.TK_PUNTO, 0); }
+		public TerminalNode IDENTIFIER() { return getToken(chocPyParser.IDENTIFIER, 0); }
+		public TerminalNode TK_PAR_IZQ() { return getToken(chocPyParser.TK_PAR_IZQ, 0); }
+		public TerminalNode TK_PAR_DER() { return getToken(chocPyParser.TK_PAR_DER, 0); }
+		public List<ExprContext> expr() {
+			return getRuleContexts(ExprContext.class);
+		}
+		public ExprContext expr(int i) {
+			return getRuleContext(ExprContext.class,i);
+		}
+		public List<TerminalNode> TK_COMA() { return getTokens(chocPyParser.TK_COMA); }
+		public TerminalNode TK_COMA(int i) {
+			return getToken(chocPyParser.TK_COMA, i);
+		}
+		public CexprpuntoargContext(CexprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterCexprpuntoarg(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitCexprpuntoarg(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitCexprpuntoarg(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class CexprmismoContext extends CexprContext {
 		public TerminalNode SELF() { return getToken(chocPyParser.SELF, 0); }
+		public CexprmismoContext(CexprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterCexprmismo(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitCexprmismo(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitCexprmismo(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class CexprobjetoContext extends CexprContext {
+		public CexprContext cexpr() {
+			return getRuleContext(CexprContext.class,0);
+		}
+		public TerminalNode TK_PUNTO() { return getToken(chocPyParser.TK_PUNTO, 0); }
+		public TerminalNode IDENTIFIER() { return getToken(chocPyParser.IDENTIFIER, 0); }
+		public CexprobjetoContext(CexprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterCexprobjeto(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitCexprobjeto(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitCexprobjeto(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class CexprfuncionContext extends CexprContext {
+		public TerminalNode IDENTIFIER() { return getToken(chocPyParser.IDENTIFIER, 0); }
+		public TerminalNode TK_PAR_IZQ() { return getToken(chocPyParser.TK_PAR_IZQ, 0); }
+		public TerminalNode TK_PAR_DER() { return getToken(chocPyParser.TK_PAR_DER, 0); }
+		public List<ExprContext> expr() {
+			return getRuleContexts(ExprContext.class);
+		}
+		public ExprContext expr(int i) {
+			return getRuleContext(ExprContext.class,i);
+		}
+		public List<TerminalNode> TK_COMA() { return getTokens(chocPyParser.TK_COMA); }
+		public TerminalNode TK_COMA(int i) {
+			return getToken(chocPyParser.TK_COMA, i);
+		}
+		public CexprfuncionContext(CexprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterCexprfuncion(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitCexprfuncion(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitCexprfuncion(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class CexprvalorContext extends CexprContext {
 		public LiteralContext literal() {
 			return getRuleContext(LiteralContext.class,0);
 		}
+		public CexprvalorContext(CexprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterCexprvalor(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitCexprvalor(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitCexprvalor(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class CexprlistaexprContext extends CexprContext {
 		public TerminalNode TK_SQR_IZQ() { return getToken(chocPyParser.TK_SQR_IZQ, 0); }
 		public TerminalNode TK_SQR_DER() { return getToken(chocPyParser.TK_SQR_DER, 0); }
 		public List<ExprContext> expr() {
@@ -1743,37 +2449,63 @@ public class chocPyParser extends Parser {
 		public TerminalNode TK_COMA(int i) {
 			return getToken(chocPyParser.TK_COMA, i);
 		}
-		public TerminalNode TK_PAR_IZQ() { return getToken(chocPyParser.TK_PAR_IZQ, 0); }
-		public TerminalNode TK_PAR_DER() { return getToken(chocPyParser.TK_PAR_DER, 0); }
-		public TerminalNode MINUS_OP() { return getToken(chocPyParser.MINUS_OP, 0); }
-		public List<CexprContext> cexpr() {
-			return getRuleContexts(CexprContext.class);
-		}
-		public CexprContext cexpr(int i) {
-			return getRuleContext(CexprContext.class,i);
-		}
-		public TerminalNode LEN() { return getToken(chocPyParser.LEN, 0); }
-		public TerminalNode STRING() { return getToken(chocPyParser.STRING, 0); }
-		public TerminalNode IDSTRING() { return getToken(chocPyParser.IDSTRING, 0); }
-		public Bin_opContext bin_op() {
-			return getRuleContext(Bin_opContext.class,0);
-		}
-		public TerminalNode TK_PUNTO() { return getToken(chocPyParser.TK_PUNTO, 0); }
-		public CexprContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_cexpr; }
+		public CexprlistaexprContext(CexprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterCexpr(this);
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterCexprlistaexpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitCexpr(this);
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitCexprlistaexpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitCexpr(this);
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitCexprlistaexpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class CexpranidarContext extends CexprContext {
+		public TerminalNode TK_PAR_IZQ() { return getToken(chocPyParser.TK_PAR_IZQ, 0); }
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public TerminalNode TK_PAR_DER() { return getToken(chocPyParser.TK_PAR_DER, 0); }
+		public CexpranidarContext(CexprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterCexpranidar(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitCexpranidar(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitCexpranidar(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class CexprlistadoContext extends CexprContext {
+		public CexprContext cexpr() {
+			return getRuleContext(CexprContext.class,0);
+		}
+		public TerminalNode TK_SQR_IZQ() { return getToken(chocPyParser.TK_SQR_IZQ, 0); }
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public TerminalNode TK_SQR_DER() { return getToken(chocPyParser.TK_SQR_DER, 0); }
+		public CexprlistadoContext(CexprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterCexprlistado(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitCexprlistado(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitCexprlistado(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1794,122 +2526,147 @@ public class chocPyParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(294);
+			setState(300);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,29,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,30,_ctx) ) {
 			case 1:
 				{
-				setState(256);
+				_localctx = new CexpridContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+
+				setState(262);
 				match(IDENTIFIER);
 				}
 				break;
 			case 2:
 				{
-				setState(257);
+				_localctx = new CexprmismoContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(263);
 				match(SELF);
 				}
 				break;
 			case 3:
 				{
-				setState(258);
+				_localctx = new CexprvalorContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(264);
 				literal();
 				}
 				break;
 			case 4:
 				{
-				setState(259);
+				_localctx = new CexprlistaexprContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(265);
 				match(TK_SQR_IZQ);
-				setState(268);
+				setState(274);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TK_PAR_IZQ) | (1L << TK_SQR_IZQ) | (1L << LEN) | (1L << TRUE) | (1L << FALSE) | (1L << SELF) | (1L << NONE) | (1L << MINUS_OP) | (1L << NOT))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (IDENTIFIER - 65)) | (1L << (TK_ENTERO - 65)) | (1L << (STRING - 65)) | (1L << (IDSTRING - 65)))) != 0)) {
 					{
-					setState(260);
+					setState(266);
 					expr(0);
-					setState(265);
+					setState(271);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 					while (_la==TK_COMA) {
 						{
 						{
-						setState(261);
+						setState(267);
 						match(TK_COMA);
-						setState(262);
+						setState(268);
 						expr(0);
 						}
 						}
-						setState(267);
+						setState(273);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
 					}
 					}
 				}
 
-				setState(270);
+				setState(276);
 				match(TK_SQR_DER);
 				}
 				break;
 			case 5:
 				{
-				setState(271);
+				_localctx = new CexpranidarContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(277);
 				match(TK_PAR_IZQ);
-				setState(272);
+				setState(278);
 				expr(0);
-				setState(273);
+				setState(279);
 				match(TK_PAR_DER);
 				}
 				break;
 			case 6:
 				{
-				setState(275);
+				_localctx = new CexprfuncionContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(281);
 				match(IDENTIFIER);
-				setState(276);
+				setState(282);
 				match(TK_PAR_IZQ);
-				setState(285);
+				setState(291);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TK_PAR_IZQ) | (1L << TK_SQR_IZQ) | (1L << LEN) | (1L << TRUE) | (1L << FALSE) | (1L << SELF) | (1L << NONE) | (1L << MINUS_OP) | (1L << NOT))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (IDENTIFIER - 65)) | (1L << (TK_ENTERO - 65)) | (1L << (STRING - 65)) | (1L << (IDSTRING - 65)))) != 0)) {
 					{
-					setState(277);
+					setState(283);
 					expr(0);
-					setState(282);
+					setState(288);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 					while (_la==TK_COMA) {
 						{
 						{
-						setState(278);
+						setState(284);
 						match(TK_COMA);
-						setState(279);
+						setState(285);
 						expr(0);
 						}
 						}
-						setState(284);
+						setState(290);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
 					}
 					}
 				}
 
-				setState(287);
+				setState(293);
 				match(TK_PAR_DER);
 				}
 				break;
 			case 7:
 				{
-				setState(288);
+				_localctx = new CexprnegandoContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(294);
 				match(MINUS_OP);
-				setState(289);
+				setState(295);
 				cexpr(2);
 				}
 				break;
 			case 8:
 				{
-				setState(290);
+				_localctx = new CexprlenContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(296);
 				match(LEN);
-				setState(291);
+				setState(297);
 				match(TK_PAR_IZQ);
-				setState(292);
+				setState(298);
 				_la = _input.LA(1);
 				if ( !(((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (IDENTIFIER - 65)) | (1L << (STRING - 65)) | (1L << (IDSTRING - 65)))) != 0)) ) {
 				_errHandler.recoverInline(this);
@@ -1919,109 +2676,109 @@ public class chocPyParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(293);
+				setState(299);
 				match(TK_PAR_DER);
 				}
 				break;
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(325);
+			setState(331);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,33,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,34,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(323);
+					setState(329);
 					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,32,_ctx) ) {
+					switch ( getInterpreter().adaptivePredict(_input,33,_ctx) ) {
 					case 1:
 						{
-						_localctx = new CexprContext(_parentctx, _parentState);
+						_localctx = new CexproperacionContext(new CexprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_cexpr);
-						setState(296);
+						setState(302);
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-						setState(297);
+						setState(303);
 						bin_op();
-						setState(298);
+						setState(304);
 						cexpr(4);
 						}
 						break;
 					case 2:
 						{
-						_localctx = new CexprContext(_parentctx, _parentState);
+						_localctx = new CexprobjetoContext(new CexprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_cexpr);
-						setState(300);
+						setState(306);
 						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
-						setState(301);
+						setState(307);
 						match(TK_PUNTO);
-						setState(302);
+						setState(308);
 						match(IDENTIFIER);
 						}
 						break;
 					case 3:
 						{
-						_localctx = new CexprContext(_parentctx, _parentState);
+						_localctx = new CexprlistadoContext(new CexprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_cexpr);
-						setState(303);
+						setState(309);
 						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
-						setState(304);
+						setState(310);
 						match(TK_SQR_IZQ);
-						setState(305);
+						setState(311);
 						expr(0);
-						setState(306);
+						setState(312);
 						match(TK_SQR_DER);
 						}
 						break;
 					case 4:
 						{
-						_localctx = new CexprContext(_parentctx, _parentState);
+						_localctx = new CexprpuntoargContext(new CexprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_cexpr);
-						setState(308);
+						setState(314);
 						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
-						setState(309);
+						setState(315);
 						match(TK_PUNTO);
-						setState(310);
+						setState(316);
 						match(IDENTIFIER);
-						setState(311);
+						setState(317);
 						match(TK_PAR_IZQ);
-						setState(320);
+						setState(326);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
 						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TK_PAR_IZQ) | (1L << TK_SQR_IZQ) | (1L << LEN) | (1L << TRUE) | (1L << FALSE) | (1L << SELF) | (1L << NONE) | (1L << MINUS_OP) | (1L << NOT))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (IDENTIFIER - 65)) | (1L << (TK_ENTERO - 65)) | (1L << (STRING - 65)) | (1L << (IDSTRING - 65)))) != 0)) {
 							{
-							setState(312);
+							setState(318);
 							expr(0);
-							setState(317);
+							setState(323);
 							_errHandler.sync(this);
 							_la = _input.LA(1);
 							while (_la==TK_COMA) {
 								{
 								{
-								setState(313);
+								setState(319);
 								match(TK_COMA);
-								setState(314);
+								setState(320);
 								expr(0);
 								}
 								}
-								setState(319);
+								setState(325);
 								_errHandler.sync(this);
 								_la = _input.LA(1);
 							}
 							}
 						}
 
-						setState(322);
+						setState(328);
 						match(TK_PAR_DER);
 						}
 						break;
 					}
 					} 
 				}
-				setState(327);
+				setState(333);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,33,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,34,_ctx);
 			}
 			}
 		}
@@ -2037,33 +2794,201 @@ public class chocPyParser extends Parser {
 	}
 
 	public static class Bin_opContext extends ParserRuleContext {
-		public TerminalNode PLUS_OP() { return getToken(chocPyParser.PLUS_OP, 0); }
-		public TerminalNode MINUS_OP() { return getToken(chocPyParser.MINUS_OP, 0); }
-		public TerminalNode MULT_OP() { return getToken(chocPyParser.MULT_OP, 0); }
-		public TerminalNode DIV_OP() { return getToken(chocPyParser.DIV_OP, 0); }
-		public TerminalNode MOD_OP() { return getToken(chocPyParser.MOD_OP, 0); }
-		public TerminalNode EQUAL() { return getToken(chocPyParser.EQUAL, 0); }
-		public TerminalNode NOT_EQUAL() { return getToken(chocPyParser.NOT_EQUAL, 0); }
-		public TerminalNode MINOR_EQUAL() { return getToken(chocPyParser.MINOR_EQUAL, 0); }
-		public TerminalNode MAYOR_EQUAL() { return getToken(chocPyParser.MAYOR_EQUAL, 0); }
-		public TerminalNode MINOR() { return getToken(chocPyParser.MINOR, 0); }
-		public TerminalNode MAYOR() { return getToken(chocPyParser.MAYOR, 0); }
-		public TerminalNode IS() { return getToken(chocPyParser.IS, 0); }
 		public Bin_opContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_bin_op; }
+	 
+		public Bin_opContext() { }
+		public void copyFrom(Bin_opContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class Bin_opModuloContext extends Bin_opContext {
+		public TerminalNode MOD_OP() { return getToken(chocPyParser.MOD_OP, 0); }
+		public Bin_opModuloContext(Bin_opContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterBin_op(this);
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterBin_opModulo(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitBin_op(this);
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitBin_opModulo(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitBin_op(this);
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitBin_opModulo(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class Bin_opMenorContext extends Bin_opContext {
+		public TerminalNode MINOR_EQUAL() { return getToken(chocPyParser.MINOR_EQUAL, 0); }
+		public TerminalNode MINOR() { return getToken(chocPyParser.MINOR, 0); }
+		public Bin_opMenorContext(Bin_opContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterBin_opMenor(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitBin_opMenor(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitBin_opMenor(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class Bin_opMenosContext extends Bin_opContext {
+		public TerminalNode MINUS_OP() { return getToken(chocPyParser.MINUS_OP, 0); }
+		public Bin_opMenosContext(Bin_opContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterBin_opMenos(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitBin_opMenos(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitBin_opMenos(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class Bin_opIgualContext extends Bin_opContext {
+		public TerminalNode EQUAL() { return getToken(chocPyParser.EQUAL, 0); }
+		public Bin_opIgualContext(Bin_opContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterBin_opIgual(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitBin_opIgual(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitBin_opIgual(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class Bin_opIsContext extends Bin_opContext {
+		public TerminalNode IS() { return getToken(chocPyParser.IS, 0); }
+		public Bin_opIsContext(Bin_opContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterBin_opIs(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitBin_opIs(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitBin_opIs(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class Bin_opMultiplicacionContext extends Bin_opContext {
+		public TerminalNode MULT_OP() { return getToken(chocPyParser.MULT_OP, 0); }
+		public Bin_opMultiplicacionContext(Bin_opContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterBin_opMultiplicacion(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitBin_opMultiplicacion(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitBin_opMultiplicacion(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class Bin_opMayorigualContext extends Bin_opContext {
+		public TerminalNode MAYOR_EQUAL() { return getToken(chocPyParser.MAYOR_EQUAL, 0); }
+		public Bin_opMayorigualContext(Bin_opContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterBin_opMayorigual(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitBin_opMayorigual(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitBin_opMayorigual(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class Bin_opMasContext extends Bin_opContext {
+		public TerminalNode PLUS_OP() { return getToken(chocPyParser.PLUS_OP, 0); }
+		public Bin_opMasContext(Bin_opContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterBin_opMas(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitBin_opMas(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitBin_opMas(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class Bin_opDivisionContext extends Bin_opContext {
+		public TerminalNode DIV_OP() { return getToken(chocPyParser.DIV_OP, 0); }
+		public Bin_opDivisionContext(Bin_opContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterBin_opDivision(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitBin_opDivision(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitBin_opDivision(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class Bin_opDistintoContext extends Bin_opContext {
+		public TerminalNode NOT_EQUAL() { return getToken(chocPyParser.NOT_EQUAL, 0); }
+		public Bin_opDistintoContext(Bin_opContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterBin_opDistinto(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitBin_opDistinto(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitBin_opDistinto(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class Bin_opMayorContext extends Bin_opContext {
+		public TerminalNode MAYOR() { return getToken(chocPyParser.MAYOR, 0); }
+		public Bin_opMayorContext(Bin_opContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterBin_opMayor(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitBin_opMayor(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitBin_opMayor(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2071,20 +2996,108 @@ public class chocPyParser extends Parser {
 	public final Bin_opContext bin_op() throws RecognitionException {
 		Bin_opContext _localctx = new Bin_opContext(_ctx, getState());
 		enterRule(_localctx, 34, RULE_bin_op);
-		int _la;
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(328);
-			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << MINUS_OP) | (1L << MULT_OP) | (1L << DIV_OP) | (1L << MOD_OP) | (1L << NOT_EQUAL) | (1L << PLUS_OP) | (1L << IS) | (1L << MINOR_EQUAL) | (1L << MAYOR_EQUAL) | (1L << EQUAL) | (1L << MAYOR) | (1L << MINOR))) != 0)) ) {
-			_errHandler.recoverInline(this);
-			}
-			else {
-				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-				_errHandler.reportMatch(this);
-				consume();
-			}
+			setState(346);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case PLUS_OP:
+				_localctx = new Bin_opMasContext(_localctx);
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(334);
+				match(PLUS_OP);
+				}
+				break;
+			case MINUS_OP:
+				_localctx = new Bin_opMenosContext(_localctx);
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(335);
+				match(MINUS_OP);
+				}
+				break;
+			case MULT_OP:
+				_localctx = new Bin_opMultiplicacionContext(_localctx);
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(336);
+				match(MULT_OP);
+				}
+				break;
+			case DIV_OP:
+				_localctx = new Bin_opDivisionContext(_localctx);
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(337);
+				match(DIV_OP);
+				}
+				break;
+			case MOD_OP:
+				_localctx = new Bin_opModuloContext(_localctx);
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(338);
+				match(MOD_OP);
+				}
+				break;
+			case EQUAL:
+				_localctx = new Bin_opIgualContext(_localctx);
+				enterOuterAlt(_localctx, 6);
+				{
+				setState(339);
+				match(EQUAL);
+				}
+				break;
+			case NOT_EQUAL:
+				_localctx = new Bin_opDistintoContext(_localctx);
+				enterOuterAlt(_localctx, 7);
+				{
+				setState(340);
+				match(NOT_EQUAL);
+				}
+				break;
+			case MINOR_EQUAL:
+				_localctx = new Bin_opMenorContext(_localctx);
+				enterOuterAlt(_localctx, 8);
+				{
+				setState(341);
+				match(MINOR_EQUAL);
+				}
+				break;
+			case MAYOR_EQUAL:
+				_localctx = new Bin_opMayorigualContext(_localctx);
+				enterOuterAlt(_localctx, 9);
+				{
+				setState(342);
+				match(MAYOR_EQUAL);
+				}
+				break;
+			case MINOR:
+				_localctx = new Bin_opMenorContext(_localctx);
+				enterOuterAlt(_localctx, 10);
+				{
+				setState(343);
+				match(MINOR);
+				}
+				break;
+			case MAYOR:
+				_localctx = new Bin_opMayorContext(_localctx);
+				enterOuterAlt(_localctx, 11);
+				{
+				setState(344);
+				match(MAYOR);
+				}
+				break;
+			case IS:
+				_localctx = new Bin_opIsContext(_localctx);
+				enterOuterAlt(_localctx, 12);
+				{
+				setState(345);
+				match(IS);
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2132,37 +3145,37 @@ public class chocPyParser extends Parser {
 		TargetContext _localctx = new TargetContext(_ctx, getState());
 		enterRule(_localctx, 36, RULE_target);
 		try {
-			setState(340);
+			setState(358);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,34,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,36,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(330);
+				setState(348);
 				match(IDENTIFIER);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(331);
+				setState(349);
 				cexpr(0);
-				setState(332);
+				setState(350);
 				match(TK_PUNTO);
-				setState(333);
+				setState(351);
 				match(IDENTIFIER);
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(335);
+				setState(353);
 				cexpr(0);
-				setState(336);
+				setState(354);
 				match(TK_SQR_IZQ);
-				setState(337);
+				setState(355);
 				expr(0);
-				setState(338);
+				setState(356);
 				match(TK_SQR_DER);
 				}
 				break;
@@ -2212,7 +3225,7 @@ public class chocPyParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3I\u0159\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3I\u016b\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\3\2\3\2\3\2\7\2,\n\2\f\2\16\2/\13\2\3\2\7\2\62\n"+
@@ -2228,37 +3241,38 @@ public class chocPyParser extends Parser {
 		"\n\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\5\r\u00cb\n\r\3\16"+
 		"\3\16\3\16\3\16\5\16\u00d1\n\16\3\16\3\16\3\16\6\16\u00d6\n\16\r\16\16"+
 		"\16\u00d7\3\16\3\16\3\16\3\16\3\16\3\16\3\16\5\16\u00e1\n\16\3\17\3\17"+
-		"\3\17\6\17\u00e6\n\17\r\17\16\17\u00e7\3\17\3\17\3\20\3\20\3\21\3\21\3"+
-		"\21\3\21\5\21\u00f2\n\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21"+
-		"\7\21\u00fd\n\21\f\21\16\21\u0100\13\21\3\22\3\22\3\22\3\22\3\22\3\22"+
-		"\3\22\3\22\7\22\u010a\n\22\f\22\16\22\u010d\13\22\5\22\u010f\n\22\3\22"+
-		"\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\7\22\u011b\n\22\f\22\16"+
-		"\22\u011e\13\22\5\22\u0120\n\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\5\22"+
-		"\u0129\n\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22"+
-		"\3\22\3\22\3\22\3\22\3\22\3\22\3\22\7\22\u013e\n\22\f\22\16\22\u0141\13"+
-		"\22\5\22\u0143\n\22\3\22\7\22\u0146\n\22\f\22\16\22\u0149\13\22\3\23\3"+
-		"\23\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\5\24\u0157\n\24"+
-		"\3\24\2\4 \"\25\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&\2\n\4\2\16"+
-		"\16CC\3\3GG\4\2\34\34CC\3\3II\5\2\24\25\35\35DF\3\2#$\4\2CCEF\6\2\36!"+
-		"%&\63\63<@\2\u017e\2-\3\2\2\2\48\3\2\2\2\6K\3\2\2\2\bM\3\2\2\2\ne\3\2"+
-		"\2\2\f\u0083\3\2\2\2\16\u008b\3\2\2\2\20\u0099\3\2\2\2\22\u009b\3\2\2"+
-		"\2\24\u009f\3\2\2\2\26\u00a3\3\2\2\2\30\u00ca\3\2\2\2\32\u00e0\3\2\2\2"+
-		"\34\u00e2\3\2\2\2\36\u00eb\3\2\2\2 \u00f1\3\2\2\2\"\u0128\3\2\2\2$\u014a"+
-		"\3\2\2\2&\u0156\3\2\2\2(,\5\26\f\2),\5\b\5\2*,\5\4\3\2+(\3\2\2\2+)\3\2"+
-		"\2\2+*\3\2\2\2,/\3\2\2\2-+\3\2\2\2-.\3\2\2\2.\63\3\2\2\2/-\3\2\2\2\60"+
-		"\62\5\30\r\2\61\60\3\2\2\2\62\65\3\2\2\2\63\61\3\2\2\2\63\64\3\2\2\2\64"+
-		"\66\3\2\2\2\65\63\3\2\2\2\66\67\7\2\2\3\67\3\3\2\2\289\7\t\2\29:\7C\2"+
-		"\2:;\7\5\2\2;<\t\2\2\2<=\7\6\2\2=>\7\b\2\2>?\7G\2\2?@\7H\2\2@A\5\6\4\2"+
-		"AB\7I\2\2B\5\3\2\2\2CD\7)\2\2DL\t\3\2\2EH\5\26\f\2FH\5\n\6\2GE\3\2\2\2"+
-		"GF\3\2\2\2HI\3\2\2\2IG\3\2\2\2IJ\3\2\2\2JL\3\2\2\2KC\3\2\2\2KG\3\2\2\2"+
-		"L\7\3\2\2\2MN\7\3\2\2NO\7C\2\2OX\7\5\2\2PU\5\16\b\2QR\7\22\2\2RT\5\16"+
-		"\b\2SQ\3\2\2\2TW\3\2\2\2US\3\2\2\2UV\3\2\2\2VY\3\2\2\2WU\3\2\2\2XP\3\2"+
-		"\2\2XY\3\2\2\2YZ\3\2\2\2Z]\7\6\2\2[\\\7\7\2\2\\^\5\20\t\2][\3\2\2\2]^"+
-		"\3\2\2\2^_\3\2\2\2_`\7\b\2\2`a\7G\2\2ab\7H\2\2bc\5\f\7\2cd\7I\2\2d\t\3"+
-		"\2\2\2ef\7\3\2\2fg\t\4\2\2gh\7\5\2\2hi\7\26\2\2ij\7\b\2\2jo\7E\2\2kl\7"+
-		"\22\2\2ln\5\16\b\2mk\3\2\2\2nq\3\2\2\2om\3\2\2\2op\3\2\2\2pr\3\2\2\2q"+
-		"o\3\2\2\2ru\7\6\2\2st\7\7\2\2tv\5\20\t\2us\3\2\2\2uv\3\2\2\2vw\3\2\2\2"+
-		"wx\7\b\2\2xy\7G\2\2yz\7H\2\2z{\5\f\7\2{|\7I\2\2|\13\3\2\2\2}\u0082\5\22"+
+		"\3\17\6\17\u00e6\n\17\r\17\16\17\u00e7\3\17\3\17\3\20\3\20\3\20\3\20\3"+
+		"\20\3\20\5\20\u00f2\n\20\3\21\3\21\3\21\3\21\5\21\u00f8\n\21\3\21\3\21"+
+		"\3\21\3\21\3\21\3\21\3\21\3\21\3\21\7\21\u0103\n\21\f\21\16\21\u0106\13"+
+		"\21\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\7\22\u0110\n\22\f\22\16\22"+
+		"\u0113\13\22\5\22\u0115\n\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3"+
+		"\22\3\22\7\22\u0121\n\22\f\22\16\22\u0124\13\22\5\22\u0126\n\22\3\22\3"+
+		"\22\3\22\3\22\3\22\3\22\3\22\5\22\u012f\n\22\3\22\3\22\3\22\3\22\3\22"+
+		"\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22"+
+		"\7\22\u0144\n\22\f\22\16\22\u0147\13\22\5\22\u0149\n\22\3\22\7\22\u014c"+
+		"\n\22\f\22\16\22\u014f\13\22\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3"+
+		"\23\3\23\3\23\3\23\5\23\u015d\n\23\3\24\3\24\3\24\3\24\3\24\3\24\3\24"+
+		"\3\24\3\24\3\24\5\24\u0169\n\24\3\24\2\4 \"\25\2\4\6\b\n\f\16\20\22\24"+
+		"\26\30\32\34\36 \"$&\2\b\4\2\16\16CC\3\3GG\4\2\34\34CC\3\3II\3\2#$\4\2"+
+		"CCEF\2\u01a0\2-\3\2\2\2\48\3\2\2\2\6K\3\2\2\2\bM\3\2\2\2\ne\3\2\2\2\f"+
+		"\u0083\3\2\2\2\16\u008b\3\2\2\2\20\u0099\3\2\2\2\22\u009b\3\2\2\2\24\u009f"+
+		"\3\2\2\2\26\u00a3\3\2\2\2\30\u00ca\3\2\2\2\32\u00e0\3\2\2\2\34\u00e2\3"+
+		"\2\2\2\36\u00f1\3\2\2\2 \u00f7\3\2\2\2\"\u012e\3\2\2\2$\u015c\3\2\2\2"+
+		"&\u0168\3\2\2\2(,\5\26\f\2),\5\b\5\2*,\5\4\3\2+(\3\2\2\2+)\3\2\2\2+*\3"+
+		"\2\2\2,/\3\2\2\2-+\3\2\2\2-.\3\2\2\2.\63\3\2\2\2/-\3\2\2\2\60\62\5\30"+
+		"\r\2\61\60\3\2\2\2\62\65\3\2\2\2\63\61\3\2\2\2\63\64\3\2\2\2\64\66\3\2"+
+		"\2\2\65\63\3\2\2\2\66\67\7\2\2\3\67\3\3\2\2\289\7\t\2\29:\7C\2\2:;\7\5"+
+		"\2\2;<\t\2\2\2<=\7\6\2\2=>\7\b\2\2>?\7G\2\2?@\7H\2\2@A\5\6\4\2AB\7I\2"+
+		"\2B\5\3\2\2\2CD\7)\2\2DL\t\3\2\2EH\5\26\f\2FH\5\n\6\2GE\3\2\2\2GF\3\2"+
+		"\2\2HI\3\2\2\2IG\3\2\2\2IJ\3\2\2\2JL\3\2\2\2KC\3\2\2\2KG\3\2\2\2L\7\3"+
+		"\2\2\2MN\7\3\2\2NO\7C\2\2OX\7\5\2\2PU\5\16\b\2QR\7\22\2\2RT\5\16\b\2S"+
+		"Q\3\2\2\2TW\3\2\2\2US\3\2\2\2UV\3\2\2\2VY\3\2\2\2WU\3\2\2\2XP\3\2\2\2"+
+		"XY\3\2\2\2YZ\3\2\2\2Z]\7\6\2\2[\\\7\7\2\2\\^\5\20\t\2][\3\2\2\2]^\3\2"+
+		"\2\2^_\3\2\2\2_`\7\b\2\2`a\7G\2\2ab\7H\2\2bc\5\f\7\2cd\7I\2\2d\t\3\2\2"+
+		"\2ef\7\3\2\2fg\t\4\2\2gh\7\5\2\2hi\7\26\2\2ij\7\b\2\2jo\7E\2\2kl\7\22"+
+		"\2\2ln\5\16\b\2mk\3\2\2\2nq\3\2\2\2om\3\2\2\2op\3\2\2\2pr\3\2\2\2qo\3"+
+		"\2\2\2ru\7\6\2\2st\7\7\2\2tv\5\20\t\2us\3\2\2\2uv\3\2\2\2vw\3\2\2\2wx"+
+		"\7\b\2\2xy\7G\2\2yz\7H\2\2z{\5\f\7\2{|\7I\2\2|\13\3\2\2\2}\u0082\5\22"+
 		"\n\2~\u0082\5\24\13\2\177\u0082\5\26\f\2\u0080\u0082\5\b\5\2\u0081}\3"+
 		"\2\2\2\u0081~\3\2\2\2\u0081\177\3\2\2\2\u0081\u0080\3\2\2\2\u0082\u0085"+
 		"\3\2\2\2\u0083\u0081\3\2\2\2\u0083\u0084\3\2\2\2\u0084\u0087\3\2\2\2\u0085"+
@@ -2296,46 +3310,55 @@ public class chocPyParser extends Parser {
 		"\33\3\2\2\2\u00e2\u00e3\7G\2\2\u00e3\u00e5\7H\2\2\u00e4\u00e6\5\30\r\2"+
 		"\u00e5\u00e4\3\2\2\2\u00e6\u00e7\3\2\2\2\u00e7\u00e5\3\2\2\2\u00e7\u00e8"+
 		"\3\2\2\2\u00e8\u00e9\3\2\2\2\u00e9\u00ea\t\5\2\2\u00ea\35\3\2\2\2\u00eb"+
-		"\u00ec\t\6\2\2\u00ec\37\3\2\2\2\u00ed\u00ee\b\21\1\2\u00ee\u00f2\5\"\22"+
-		"\2\u00ef\u00f0\7\"\2\2\u00f0\u00f2\5 \21\5\u00f1\u00ed\3\2\2\2\u00f1\u00ef"+
-		"\3\2\2\2\u00f2\u00fe\3\2\2\2\u00f3\u00f4\f\4\2\2\u00f4\u00f5\t\7\2\2\u00f5"+
-		"\u00fd\5 \21\5\u00f6\u00f7\f\3\2\2\u00f7\u00f8\7\27\2\2\u00f8\u00f9\5"+
-		" \21\2\u00f9\u00fa\7\30\2\2\u00fa\u00fb\5 \21\4\u00fb\u00fd\3\2\2\2\u00fc"+
-		"\u00f3\3\2\2\2\u00fc\u00f6\3\2\2\2\u00fd\u0100\3\2\2\2\u00fe\u00fc\3\2"+
-		"\2\2\u00fe\u00ff\3\2\2\2\u00ff!\3\2\2\2\u0100\u00fe\3\2\2\2\u0101\u0102"+
-		"\b\22\1\2\u0102\u0129\7C\2\2\u0103\u0129\7\26\2\2\u0104\u0129\5\36\20"+
-		"\2\u0105\u010e\7\20\2\2\u0106\u010b\5 \21\2\u0107\u0108\7\22\2\2\u0108"+
-		"\u010a\5 \21\2\u0109\u0107\3\2\2\2\u010a\u010d\3\2\2\2\u010b\u0109\3\2"+
-		"\2\2\u010b\u010c\3\2\2\2\u010c\u010f\3\2\2\2\u010d\u010b\3\2\2\2\u010e"+
-		"\u0106\3\2\2\2\u010e\u010f\3\2\2\2\u010f\u0110\3\2\2\2\u0110\u0129\7\21"+
-		"\2\2\u0111\u0112\7\5\2\2\u0112\u0113\5 \21\2\u0113\u0114\7\6\2\2\u0114"+
-		"\u0129\3\2\2\2\u0115\u0116\7C\2\2\u0116\u011f\7\5\2\2\u0117\u011c\5 \21"+
-		"\2\u0118\u0119\7\22\2\2\u0119\u011b\5 \21\2\u011a\u0118\3\2\2\2\u011b"+
-		"\u011e\3\2\2\2\u011c\u011a\3\2\2\2\u011c\u011d\3\2\2\2\u011d\u0120\3\2"+
-		"\2\2\u011e\u011c\3\2\2\2\u011f\u0117\3\2\2\2\u011f\u0120\3\2\2\2\u0120"+
-		"\u0121\3\2\2\2\u0121\u0129\7\6\2\2\u0122\u0123\7\36\2\2\u0123\u0129\5"+
-		"\"\22\4\u0124\u0125\7\23\2\2\u0125\u0126\7\5\2\2\u0126\u0127\t\b\2\2\u0127"+
-		"\u0129\7\6\2\2\u0128\u0101\3\2\2\2\u0128\u0103\3\2\2\2\u0128\u0104\3\2"+
-		"\2\2\u0128\u0105\3\2\2\2\u0128\u0111\3\2\2\2\u0128\u0115\3\2\2\2\u0128"+
-		"\u0122\3\2\2\2\u0128\u0124\3\2\2\2\u0129\u0147\3\2\2\2\u012a\u012b\f\5"+
-		"\2\2\u012b\u012c\5$\23\2\u012c\u012d\5\"\22\6\u012d\u0146\3\2\2\2\u012e"+
-		"\u012f\f\t\2\2\u012f\u0130\7\31\2\2\u0130\u0146\7C\2\2\u0131\u0132\f\b"+
-		"\2\2\u0132\u0133\7\20\2\2\u0133\u0134\5 \21\2\u0134\u0135\7\21\2\2\u0135"+
-		"\u0146\3\2\2\2\u0136\u0137\f\6\2\2\u0137\u0138\7\31\2\2\u0138\u0139\7"+
-		"C\2\2\u0139\u0142\7\5\2\2\u013a\u013f\5 \21\2\u013b\u013c\7\22\2\2\u013c"+
-		"\u013e\5 \21\2\u013d\u013b\3\2\2\2\u013e\u0141\3\2\2\2\u013f\u013d\3\2"+
-		"\2\2\u013f\u0140\3\2\2\2\u0140\u0143\3\2\2\2\u0141\u013f\3\2\2\2\u0142"+
-		"\u013a\3\2\2\2\u0142\u0143\3\2\2\2\u0143\u0144\3\2\2\2\u0144\u0146\7\6"+
-		"\2\2\u0145\u012a\3\2\2\2\u0145\u012e\3\2\2\2\u0145\u0131\3\2\2\2\u0145"+
-		"\u0136\3\2\2\2\u0146\u0149\3\2\2\2\u0147\u0145\3\2\2\2\u0147\u0148\3\2"+
-		"\2\2\u0148#\3\2\2\2\u0149\u0147\3\2\2\2\u014a\u014b\t\t\2\2\u014b%\3\2"+
-		"\2\2\u014c\u0157\7C\2\2\u014d\u014e\5\"\22\2\u014e\u014f\7\31\2\2\u014f"+
-		"\u0150\7C\2\2\u0150\u0157\3\2\2\2\u0151\u0152\5\"\22\2\u0152\u0153\7\20"+
-		"\2\2\u0153\u0154\5 \21\2\u0154\u0155\7\21\2\2\u0155\u0157\3\2\2\2\u0156"+
-		"\u014c\3\2\2\2\u0156\u014d\3\2\2\2\u0156\u0151\3\2\2\2\u0157\'\3\2\2\2"+
-		"%+-\63GIKUX]ou\u0081\u0083\u0089\u0099\u00b6\u00bc\u00ca\u00d0\u00d7\u00e0"+
-		"\u00e7\u00f1\u00fc\u00fe\u010b\u010e\u011c\u011f\u0128\u013f\u0142\u0145"+
-		"\u0147\u0156";
+		"\u00f2\7\35\2\2\u00ec\u00f2\7\24\2\2\u00ed\u00f2\7\25\2\2\u00ee\u00f2"+
+		"\7D\2\2\u00ef\u00f2\7F\2\2\u00f0\u00f2\7E\2\2\u00f1\u00eb\3\2\2\2\u00f1"+
+		"\u00ec\3\2\2\2\u00f1\u00ed\3\2\2\2\u00f1\u00ee\3\2\2\2\u00f1\u00ef\3\2"+
+		"\2\2\u00f1\u00f0\3\2\2\2\u00f2\37\3\2\2\2\u00f3\u00f4\b\21\1\2\u00f4\u00f8"+
+		"\5\"\22\2\u00f5\u00f6\7\"\2\2\u00f6\u00f8\5 \21\5\u00f7\u00f3\3\2\2\2"+
+		"\u00f7\u00f5\3\2\2\2\u00f8\u0104\3\2\2\2\u00f9\u00fa\f\4\2\2\u00fa\u00fb"+
+		"\t\6\2\2\u00fb\u0103\5 \21\5\u00fc\u00fd\f\3\2\2\u00fd\u00fe\7\27\2\2"+
+		"\u00fe\u00ff\5 \21\2\u00ff\u0100\7\30\2\2\u0100\u0101\5 \21\4\u0101\u0103"+
+		"\3\2\2\2\u0102\u00f9\3\2\2\2\u0102\u00fc\3\2\2\2\u0103\u0106\3\2\2\2\u0104"+
+		"\u0102\3\2\2\2\u0104\u0105\3\2\2\2\u0105!\3\2\2\2\u0106\u0104\3\2\2\2"+
+		"\u0107\u0108\b\22\1\2\u0108\u012f\7C\2\2\u0109\u012f\7\26\2\2\u010a\u012f"+
+		"\5\36\20\2\u010b\u0114\7\20\2\2\u010c\u0111\5 \21\2\u010d\u010e\7\22\2"+
+		"\2\u010e\u0110\5 \21\2\u010f\u010d\3\2\2\2\u0110\u0113\3\2\2\2\u0111\u010f"+
+		"\3\2\2\2\u0111\u0112\3\2\2\2\u0112\u0115\3\2\2\2\u0113\u0111\3\2\2\2\u0114"+
+		"\u010c\3\2\2\2\u0114\u0115\3\2\2\2\u0115\u0116\3\2\2\2\u0116\u012f\7\21"+
+		"\2\2\u0117\u0118\7\5\2\2\u0118\u0119\5 \21\2\u0119\u011a\7\6\2\2\u011a"+
+		"\u012f\3\2\2\2\u011b\u011c\7C\2\2\u011c\u0125\7\5\2\2\u011d\u0122\5 \21"+
+		"\2\u011e\u011f\7\22\2\2\u011f\u0121\5 \21\2\u0120\u011e\3\2\2\2\u0121"+
+		"\u0124\3\2\2\2\u0122\u0120\3\2\2\2\u0122\u0123\3\2\2\2\u0123\u0126\3\2"+
+		"\2\2\u0124\u0122\3\2\2\2\u0125\u011d\3\2\2\2\u0125\u0126\3\2\2\2\u0126"+
+		"\u0127\3\2\2\2\u0127\u012f\7\6\2\2\u0128\u0129\7\36\2\2\u0129\u012f\5"+
+		"\"\22\4\u012a\u012b\7\23\2\2\u012b\u012c\7\5\2\2\u012c\u012d\t\7\2\2\u012d"+
+		"\u012f\7\6\2\2\u012e\u0107\3\2\2\2\u012e\u0109\3\2\2\2\u012e\u010a\3\2"+
+		"\2\2\u012e\u010b\3\2\2\2\u012e\u0117\3\2\2\2\u012e\u011b\3\2\2\2\u012e"+
+		"\u0128\3\2\2\2\u012e\u012a\3\2\2\2\u012f\u014d\3\2\2\2\u0130\u0131\f\5"+
+		"\2\2\u0131\u0132\5$\23\2\u0132\u0133\5\"\22\6\u0133\u014c\3\2\2\2\u0134"+
+		"\u0135\f\t\2\2\u0135\u0136\7\31\2\2\u0136\u014c\7C\2\2\u0137\u0138\f\b"+
+		"\2\2\u0138\u0139\7\20\2\2\u0139\u013a\5 \21\2\u013a\u013b\7\21\2\2\u013b"+
+		"\u014c\3\2\2\2\u013c\u013d\f\6\2\2\u013d\u013e\7\31\2\2\u013e\u013f\7"+
+		"C\2\2\u013f\u0148\7\5\2\2\u0140\u0145\5 \21\2\u0141\u0142\7\22\2\2\u0142"+
+		"\u0144\5 \21\2\u0143\u0141\3\2\2\2\u0144\u0147\3\2\2\2\u0145\u0143\3\2"+
+		"\2\2\u0145\u0146\3\2\2\2\u0146\u0149\3\2\2\2\u0147\u0145\3\2\2\2\u0148"+
+		"\u0140\3\2\2\2\u0148\u0149\3\2\2\2\u0149\u014a\3\2\2\2\u014a\u014c\7\6"+
+		"\2\2\u014b\u0130\3\2\2\2\u014b\u0134\3\2\2\2\u014b\u0137\3\2\2\2\u014b"+
+		"\u013c\3\2\2\2\u014c\u014f\3\2\2\2\u014d\u014b\3\2\2\2\u014d\u014e\3\2"+
+		"\2\2\u014e#\3\2\2\2\u014f\u014d\3\2\2\2\u0150\u015d\7&\2\2\u0151\u015d"+
+		"\7\36\2\2\u0152\u015d\7\37\2\2\u0153\u015d\7 \2\2\u0154\u015d\7!\2\2\u0155"+
+		"\u015d\7>\2\2\u0156\u015d\7%\2\2\u0157\u015d\7<\2\2\u0158\u015d\7=\2\2"+
+		"\u0159\u015d\7@\2\2\u015a\u015d\7?\2\2\u015b\u015d\7\63\2\2\u015c\u0150"+
+		"\3\2\2\2\u015c\u0151\3\2\2\2\u015c\u0152\3\2\2\2\u015c\u0153\3\2\2\2\u015c"+
+		"\u0154\3\2\2\2\u015c\u0155\3\2\2\2\u015c\u0156\3\2\2\2\u015c\u0157\3\2"+
+		"\2\2\u015c\u0158\3\2\2\2\u015c\u0159\3\2\2\2\u015c\u015a\3\2\2\2\u015c"+
+		"\u015b\3\2\2\2\u015d%\3\2\2\2\u015e\u0169\7C\2\2\u015f\u0160\5\"\22\2"+
+		"\u0160\u0161\7\31\2\2\u0161\u0162\7C\2\2\u0162\u0169\3\2\2\2\u0163\u0164"+
+		"\5\"\22\2\u0164\u0165\7\20\2\2\u0165\u0166\5 \21\2\u0166\u0167\7\21\2"+
+		"\2\u0167\u0169\3\2\2\2\u0168\u015e\3\2\2\2\u0168\u015f\3\2\2\2\u0168\u0163"+
+		"\3\2\2\2\u0169\'\3\2\2\2\'+-\63GIKUX]ou\u0081\u0083\u0089\u0099\u00b6"+
+		"\u00bc\u00ca\u00d0\u00d7\u00e0\u00e7\u00f1\u00f7\u0102\u0104\u0111\u0114"+
+		"\u0122\u0125\u012e\u0145\u0148\u014b\u014d\u015c\u0168";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
