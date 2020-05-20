@@ -226,18 +226,13 @@ cexpr
     | cexpr TK_SQR_IZQ expr TK_SQR_DER
     | IDENTIFIER TK_PAR_IZQ (expr (TK_COMA expr)*)? TK_PAR_DER
     | cexpr TK_PUNTO IDENTIFIER TK_PAR_IZQ (expr (TK_COMA expr)*)? TK_PAR_DER
-    | cexpr logop cexpr
     | cexpr multdiv cexpr
     | cexpr bin_op cexpr
+    | cexpr logop cexpr
     | MINUS_OP cexpr
     | LEN TK_PAR_IZQ (IDENTIFIER|STRING|IDSTRING|
     TK_SQR_IZQ (expr (TK_COMA expr)*)? TK_SQR_DER ) TK_PAR_DER
     ;
-
-multdiv
-    :MULT_OP
-    |DIV_OP
-    | MOD_OP;
 logop:
     EQUAL
     | NOT_EQUAL
@@ -247,6 +242,11 @@ logop:
     | MAYOR
     | IS
     ;
+multdiv
+    :MULT_OP
+    |DIV_OP
+    | MOD_OP;
+
 bin_op
     : //MULT_OP
     | PLUS_OP

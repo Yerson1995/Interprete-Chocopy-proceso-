@@ -32,13 +32,13 @@ public class chocPyParser extends Parser {
 		RULE_metd_def = 4, RULE_func_body = 5, RULE_typed_var = 6, RULE_type = 7, 
 		RULE_global_decl = 8, RULE_nonlocal_decl = 9, RULE_var_def = 10, RULE_stmt = 11, 
 		RULE_simple_stmt = 12, RULE_block = 13, RULE_literal = 14, RULE_expr = 15, 
-		RULE_cexpr = 16, RULE_multdiv = 17, RULE_logop = 18, RULE_bin_op = 19, 
+		RULE_cexpr = 16, RULE_logop = 17, RULE_multdiv = 18, RULE_bin_op = 19, 
 		RULE_target = 20;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"program", "class_def", "class_body", "func_def", "metd_def", "func_body", 
 			"typed_var", "type", "global_decl", "nonlocal_decl", "var_def", "stmt", 
-			"simple_stmt", "block", "literal", "expr", "cexpr", "multdiv", "logop", 
+			"simple_stmt", "block", "literal", "expr", "cexpr", "logop", "multdiv", 
 			"bin_op", "target"
 		};
 	}
@@ -2255,14 +2255,14 @@ public class chocPyParser extends Parser {
 		public TerminalNode LEN() { return getToken(chocPyParser.LEN, 0); }
 		public TerminalNode STRING() { return getToken(chocPyParser.STRING, 0); }
 		public TerminalNode IDSTRING() { return getToken(chocPyParser.IDSTRING, 0); }
-		public LogopContext logop() {
-			return getRuleContext(LogopContext.class,0);
-		}
 		public MultdivContext multdiv() {
 			return getRuleContext(MultdivContext.class,0);
 		}
 		public Bin_opContext bin_op() {
 			return getRuleContext(Bin_opContext.class,0);
+		}
+		public LogopContext logop() {
+			return getRuleContext(LogopContext.class,0);
 		}
 		public CexprContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -2500,7 +2500,7 @@ public class chocPyParser extends Parser {
 						setState(324);
 						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
 						setState(325);
-						logop();
+						multdiv();
 						setState(326);
 						cexpr(6);
 						}
@@ -2512,7 +2512,7 @@ public class chocPyParser extends Parser {
 						setState(328);
 						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
 						setState(329);
-						multdiv();
+						bin_op();
 						setState(330);
 						cexpr(5);
 						}
@@ -2524,7 +2524,7 @@ public class chocPyParser extends Parser {
 						setState(332);
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
 						setState(333);
-						bin_op();
+						logop();
 						setState(334);
 						cexpr(4);
 						}
@@ -2617,59 +2617,6 @@ public class chocPyParser extends Parser {
 		return _localctx;
 	}
 
-	public static class MultdivContext extends ParserRuleContext {
-		public TerminalNode MULT_OP() { return getToken(chocPyParser.MULT_OP, 0); }
-		public TerminalNode DIV_OP() { return getToken(chocPyParser.DIV_OP, 0); }
-		public TerminalNode MOD_OP() { return getToken(chocPyParser.MOD_OP, 0); }
-		public MultdivContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_multdiv; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterMultdiv(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitMultdiv(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitMultdiv(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final MultdivContext multdiv() throws RecognitionException {
-		MultdivContext _localctx = new MultdivContext(_ctx, getState());
-		enterRule(_localctx, 34, RULE_multdiv);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(364);
-			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << MULT_OP) | (1L << DIV_OP) | (1L << MOD_OP))) != 0)) ) {
-			_errHandler.recoverInline(this);
-			}
-			else {
-				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-				_errHandler.reportMatch(this);
-				consume();
-			}
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
 	public static class LogopContext extends ParserRuleContext {
 		public TerminalNode EQUAL() { return getToken(chocPyParser.EQUAL, 0); }
 		public TerminalNode NOT_EQUAL() { return getToken(chocPyParser.NOT_EQUAL, 0); }
@@ -2699,14 +2646,67 @@ public class chocPyParser extends Parser {
 
 	public final LogopContext logop() throws RecognitionException {
 		LogopContext _localctx = new LogopContext(_ctx, getState());
-		enterRule(_localctx, 36, RULE_logop);
+		enterRule(_localctx, 34, RULE_logop);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(364);
+			_la = _input.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NOT_EQUAL) | (1L << IS) | (1L << MINOR_EQUAL) | (1L << MAYOR_EQUAL) | (1L << EQUAL) | (1L << MAYOR) | (1L << MINOR))) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class MultdivContext extends ParserRuleContext {
+		public TerminalNode MULT_OP() { return getToken(chocPyParser.MULT_OP, 0); }
+		public TerminalNode DIV_OP() { return getToken(chocPyParser.DIV_OP, 0); }
+		public TerminalNode MOD_OP() { return getToken(chocPyParser.MOD_OP, 0); }
+		public MultdivContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_multdiv; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).enterMultdiv(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof chocPyListener ) ((chocPyListener)listener).exitMultdiv(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof chocPyVisitor ) return ((chocPyVisitor<? extends T>)visitor).visitMultdiv(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final MultdivContext multdiv() throws RecognitionException {
+		MultdivContext _localctx = new MultdivContext(_ctx, getState());
+		enterRule(_localctx, 36, RULE_multdiv);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(366);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NOT_EQUAL) | (1L << IS) | (1L << MINOR_EQUAL) | (1L << MAYOR_EQUAL) | (1L << EQUAL) | (1L << MAYOR) | (1L << MINOR))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << MULT_OP) | (1L << DIV_OP) | (1L << MOD_OP))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -2937,7 +2937,7 @@ public class chocPyParser extends Parser {
 		"\23\3\24\3\24\3\25\3\25\3\25\5\25\u0176\n\25\3\26\3\26\3\26\3\26\3\26"+
 		"\3\26\3\26\3\26\3\26\3\26\5\26\u0182\n\26\3\26\2\4 \"\27\2\4\6\b\n\f\16"+
 		"\20\22\24\26\30\32\34\36 \"$&(*\2\t\4\2\16\16CC\3\3GG\4\2\34\34CC\3\3"+
-		"II\3\2#$\3\2\37!\5\2%%\63\63<@\2\u01b5\2\61\3\2\2\2\4<\3\2\2\2\6O\3\2"+
+		"II\3\2#$\5\2%%\63\63<@\3\2\37!\2\u01b5\2\61\3\2\2\2\4<\3\2\2\2\6O\3\2"+
 		"\2\2\bQ\3\2\2\2\ni\3\2\2\2\f\u0087\3\2\2\2\16\u008f\3\2\2\2\20\u009d\3"+
 		"\2\2\2\22\u009f\3\2\2\2\24\u00a3\3\2\2\2\26\u00a7\3\2\2\2\30\u00ce\3\2"+
 		"\2\2\32\u00e4\3\2\2\2\34\u00e6\3\2\2\2\36\u00f5\3\2\2\2 \u00fb\3\2\2\2"+
@@ -3027,8 +3027,8 @@ public class chocPyParser extends Parser {
 		"\2\2\u0144\u0110\3\2\2\2\u0144\u0111\3\2\2\2\u0144\u011d\3\2\2\2\u0144"+
 		"\u0121\3\2\2\2\u0144\u012e\3\2\2\2\u0144\u0130\3\2\2\2\u0145\u016b\3\2"+
 		"\2\2\u0146\u0147\f\7\2\2\u0147\u0148\5&\24\2\u0148\u0149\5\"\22\b\u0149"+
-		"\u016a\3\2\2\2\u014a\u014b\f\6\2\2\u014b\u014c\5$\23\2\u014c\u014d\5\""+
-		"\22\7\u014d\u016a\3\2\2\2\u014e\u014f\f\5\2\2\u014f\u0150\5(\25\2\u0150"+
+		"\u016a\3\2\2\2\u014a\u014b\f\6\2\2\u014b\u014c\5(\25\2\u014c\u014d\5\""+
+		"\22\7\u014d\u016a\3\2\2\2\u014e\u014f\f\5\2\2\u014f\u0150\5$\23\2\u0150"+
 		"\u0151\5\"\22\6\u0151\u016a\3\2\2\2\u0152\u0153\f\13\2\2\u0153\u0154\7"+
 		"\31\2\2\u0154\u016a\7C\2\2\u0155\u0156\f\n\2\2\u0156\u0157\7\20\2\2\u0157"+
 		"\u0158\5 \21\2\u0158\u0159\7\21\2\2\u0159\u016a\3\2\2\2\u015a\u015b\f"+

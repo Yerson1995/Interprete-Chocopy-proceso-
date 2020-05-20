@@ -26,8 +26,90 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T>{
         }
         else if(ctx.TK_PAR_IZQ()!=null){
             //visitExpr
+        }else if(ctx.logop()!=null){
+            //visitExpr
+            String op = ctx.logop().getText();
+            String a = (String) visitCexpr(ctx.cexpr(0));
+            String b = (String) visitCexpr(ctx.cexpr(1));
+            boolean resultado;
+            try {
+                Integer.parseInt(a);
+                Integer.parseInt(b);
+                resultado = true;
+            } catch (NumberFormatException excepcion) {
+                resultado = false;
+            }
+            if(resultado){
+                Integer ra;
+                Integer rb;
+                ra=Integer.parseInt(a);
+                rb=Integer.parseInt(b);
+                boolean rt = false;
+                switch(op){
+                    case">":
+                        if(ra>rb)
+                        {
+                            System.out.println("mayor");
+                            rt=true;
+                        }else
+                            rt=false;
+                        break;
+                    case"<":
+                        if(ra<rb)
+                        {
+                            System.out.println("menor");
+                            rt=true;
+                        }else
+                            rt=false;
+                        break;
+                    case"<=":
+                        if(ra<=rb)
+                        {
+                            System.out.println("menorigual");
+                            rt=true;
+                        }else
+                            rt=false;
+                        break;
+                    case">=":
+                        if(ra>=rb)
+                        {
+                            System.out.println("mayorigual");
+                            rt=true;
+                        }else
+                            rt=false;
+                        break;
+                    case"==":
+                        if(ra==rb)
+                        {
+                            System.out.println("igual");
+                            rt=true;
+                        }else
+                            rt=false;
+                        break;
+                    case"!=":
+                        if(ra!=rb)
+                        {
+                            System.out.println("diferente");
+                            rt=true;
+                        }else
+                            rt=false;
+                        break;
+                }
+
+                System.out.println("print def"+rt);
+                return (T) Boolean.toString(rt)  ;
+            }else{
+
+            }
         }else {
-            String op = ctx.bin_op().getText();
+            String op = null;
+            if(ctx.bin_op()!=null)
+            op = ctx.bin_op().getText();
+            else if(ctx.multdiv()!=null)
+                op = ctx.multdiv().getText();
+            //else if (ctx.logop()!=null)
+                //op = ctx.logop().getText();
+
             String a = (String) visitCexpr(ctx.cexpr(0));
             String b = (String) visitCexpr(ctx.cexpr(1));
 
@@ -70,10 +152,6 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T>{
             }else{
 
             }
-            System.out.println(b.getClass());
-
-
-
             System.out.println("print def");
             //visitExpr
         }
