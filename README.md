@@ -1,2 +1,2 @@
 # Interprete-Chocopy-proceso-
-Cronica de una muerte anunciada
+Just do it
