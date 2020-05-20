@@ -233,10 +233,10 @@ cexpr
     ;
 
 bin_op
-    : PLUS_OP
-    | MINUS_OP
-    | MULT_OP
+    : MULT_OP
     | DIV_OP
+    |PLUS_OP
+    | MINUS_OP
     | MOD_OP
     | EQUAL
     | NOT_EQUAL
