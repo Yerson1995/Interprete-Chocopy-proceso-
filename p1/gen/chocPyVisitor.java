@@ -272,6 +272,18 @@ public interface chocPyVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCexpr(chocPyParser.CexprContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link chocPyParser#multdiv}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMultdiv(chocPyParser.MultdivContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link chocPyParser#logop}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLogop(chocPyParser.LogopContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link chocPyParser#bin_op}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

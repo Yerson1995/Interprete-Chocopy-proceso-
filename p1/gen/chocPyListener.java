@@ -453,6 +453,26 @@ public interface chocPyListener extends ParseTreeListener {
 	 */
 	void exitCexpr(chocPyParser.CexprContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link chocPyParser#multdiv}.
+	 * @param ctx the parse tree
+	 */
+	void enterMultdiv(chocPyParser.MultdivContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link chocPyParser#multdiv}.
+	 * @param ctx the parse tree
+	 */
+	void exitMultdiv(chocPyParser.MultdivContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link chocPyParser#logop}.
+	 * @param ctx the parse tree
+	 */
+	void enterLogop(chocPyParser.LogopContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link chocPyParser#logop}.
+	 * @param ctx the parse tree
+	 */
+	void exitLogop(chocPyParser.LogopContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link chocPyParser#bin_op}.
 	 * @param ctx the parse tree
 	 */
