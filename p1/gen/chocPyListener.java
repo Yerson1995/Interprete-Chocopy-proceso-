@@ -323,125 +323,15 @@ public interface chocPyListener extends ParseTreeListener {
 	 */
 	void exitBlock(chocPyParser.BlockContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code literalnone}
-	 * labeled alternative in {@link chocPyParser#literal}.
+	 * Enter a parse tree produced by {@link chocPyParser#literal}.
 	 * @param ctx the parse tree
 	 */
-	void enterLiteralnone(chocPyParser.LiteralnoneContext ctx);
+	void enterLiteral(chocPyParser.LiteralContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code literalnone}
-	 * labeled alternative in {@link chocPyParser#literal}.
+	 * Exit a parse tree produced by {@link chocPyParser#literal}.
 	 * @param ctx the parse tree
 	 */
-	void exitLiteralnone(chocPyParser.LiteralnoneContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code literaltrue}
-	 * labeled alternative in {@link chocPyParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void enterLiteraltrue(chocPyParser.LiteraltrueContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code literaltrue}
-	 * labeled alternative in {@link chocPyParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void exitLiteraltrue(chocPyParser.LiteraltrueContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code literalfalse}
-	 * labeled alternative in {@link chocPyParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void enterLiteralfalse(chocPyParser.LiteralfalseContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code literalfalse}
-	 * labeled alternative in {@link chocPyParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void exitLiteralfalse(chocPyParser.LiteralfalseContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code literaltk_entero}
-	 * labeled alternative in {@link chocPyParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void enterLiteraltk_entero(chocPyParser.Literaltk_enteroContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code literaltk_entero}
-	 * labeled alternative in {@link chocPyParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void exitLiteraltk_entero(chocPyParser.Literaltk_enteroContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code literalidstring}
-	 * labeled alternative in {@link chocPyParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void enterLiteralidstring(chocPyParser.LiteralidstringContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code literalidstring}
-	 * labeled alternative in {@link chocPyParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void exitLiteralidstring(chocPyParser.LiteralidstringContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code literalstring}
-	 * labeled alternative in {@link chocPyParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void enterLiteralstring(chocPyParser.LiteralstringContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code literalstring}
-	 * labeled alternative in {@link chocPyParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void exitLiteralstring(chocPyParser.LiteralstringContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code exprcexpr}
-	 * labeled alternative in {@link chocPyParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterExprcexpr(chocPyParser.ExprcexprContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code exprcexpr}
-	 * labeled alternative in {@link chocPyParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitExprcexpr(chocPyParser.ExprcexprContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code exprnot}
-	 * labeled alternative in {@link chocPyParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterExprnot(chocPyParser.ExprnotContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code exprnot}
-	 * labeled alternative in {@link chocPyParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitExprnot(chocPyParser.ExprnotContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code exprexprcond}
-	 * labeled alternative in {@link chocPyParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterExprexprcond(chocPyParser.ExprexprcondContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code exprexprcond}
-	 * labeled alternative in {@link chocPyParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitExprexprcond(chocPyParser.ExprexprcondContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code exprandor}
-	 * labeled alternative in {@link chocPyParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterExprandor(chocPyParser.ExprandorContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code exprandor}
-	 * labeled alternative in {@link chocPyParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitExprandor(chocPyParser.ExprandorContext ctx);
+	void exitLiteral(chocPyParser.LiteralContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link chocPyParser#cexpr}.
 	 * @param ctx the parse tree
@@ -452,6 +342,16 @@ public interface chocPyListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCexpr(chocPyParser.CexprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link chocPyParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpr(chocPyParser.ExprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link chocPyParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpr(chocPyParser.ExprContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link chocPyParser#logop}.
 	 * @param ctx the parse tree

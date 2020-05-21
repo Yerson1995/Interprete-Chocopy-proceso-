@@ -196,81 +196,23 @@ public interface chocPyVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBlock(chocPyParser.BlockContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code literalnone}
-	 * labeled alternative in {@link chocPyParser#literal}.
+	 * Visit a parse tree produced by {@link chocPyParser#literal}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLiteralnone(chocPyParser.LiteralnoneContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code literaltrue}
-	 * labeled alternative in {@link chocPyParser#literal}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLiteraltrue(chocPyParser.LiteraltrueContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code literalfalse}
-	 * labeled alternative in {@link chocPyParser#literal}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLiteralfalse(chocPyParser.LiteralfalseContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code literaltk_entero}
-	 * labeled alternative in {@link chocPyParser#literal}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLiteraltk_entero(chocPyParser.Literaltk_enteroContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code literalidstring}
-	 * labeled alternative in {@link chocPyParser#literal}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLiteralidstring(chocPyParser.LiteralidstringContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code literalstring}
-	 * labeled alternative in {@link chocPyParser#literal}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLiteralstring(chocPyParser.LiteralstringContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code exprcexpr}
-	 * labeled alternative in {@link chocPyParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExprcexpr(chocPyParser.ExprcexprContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code exprnot}
-	 * labeled alternative in {@link chocPyParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExprnot(chocPyParser.ExprnotContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code exprexprcond}
-	 * labeled alternative in {@link chocPyParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExprexprcond(chocPyParser.ExprexprcondContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code exprandor}
-	 * labeled alternative in {@link chocPyParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExprandor(chocPyParser.ExprandorContext ctx);
+	T visitLiteral(chocPyParser.LiteralContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link chocPyParser#cexpr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitCexpr(chocPyParser.CexprContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link chocPyParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpr(chocPyParser.ExprContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link chocPyParser#logop}.
 	 * @param ctx the parse tree

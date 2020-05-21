@@ -1,5 +1,3 @@
-import com.sun.jdi.BooleanValue;
-
 import java.util.HashMap;
 
 public class Myvisitors<T> extends chocPyBaseVisitor<T>{
@@ -26,8 +24,10 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T>{
         }else if(ctx.TK_SQR_IZQ()!=null){
             //visitExpr
         }
-        else if(ctx.TK_PAR_IZQ()!=null){
-            //visitExpr
+        else if(ctx.TK_PAR_IZQ()!=null&&ctx.IDENTIFIER()==null){
+            return visitExpr(ctx.expr(0));
+        }else if(ctx.MINUS_OP()!=null){
+            return visitExpr(ctx.expr(0));
         }else if(ctx.logop()!=null){
             //visitExpr
             String op = ctx.logop().getText();
@@ -99,9 +99,62 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T>{
                 }
 
                 System.out.println("print def"+rt);
-                return (T) Boolean.toString(rt)  ;
+                return (T) (Boolean)(rt)  ;
             }else{
+                if(a.equals("True")||a.equals("False")){
+                    switch(op){
+                        case">":
+                            int line = ctx.cexpr(0).literal().FALSE().getSymbol().getLine();
+                            System.err.printf("error compare"+line);
+                            System.exit(-1);
+                            break;
+                        /*case"<":
+                            if(ra<rb)
+                            {
+                                System.out.println("menor");
+                                rt=true;
+                            }else
+                                rt=false;
+                            break;
+                        case"<=":
+                            if(ra<=rb)
+                            {
+                                System.out.println("menorigual");
+                                rt=true;
+                            }else
+                                rt=false;
+                            break;
+                        case">=":
+                            if(ra>=rb)
+                            {
+                                System.out.println("mayorigual");
+                                rt=true;
+                            }else
+                                rt=false;
+                            break;
+                        case"==":
+                            if(ra==rb)
+                            {
+                                System.out.println("igual");
+                                rt=true;
+                            }else
+                                rt=false;
+                            break;
+                        case"!=":
+                            if(ra!=rb)
+                            {
+                                System.out.println("diferente");
+                                rt=true;
+                            }else
+                                rt=false;
+                            break;*/
+                    }
+                    /*System.err.printf("error compare");
+                    System.exit(-1);*/
+                }else if(b.equals("True")||b.equals("False")){
 
+                }
+                System.out.println("print def strings"+a);
             }
         }else {
             String op = null;
@@ -114,7 +167,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T>{
 
             String a = (String) visitCexpr(ctx.cexpr(0));
             String b = (String) visitCexpr(ctx.cexpr(1));
-
+            System.out.println("operando"+a+" "+b);
             boolean resultado;
             try {
                 Integer.parseInt(a);
@@ -146,15 +199,38 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T>{
                     case"*":
                         rt=ra*rb;
                         break;
+                    case"%":
+                        rt=ra%rb;
+                        break;
 
                 }
 
                 System.out.println("print def"+rt);
                 return (T) Integer.toString(rt)  ;
             }else{
+                boolean error;
+                try {
+                    Integer.parseInt(a);
+                    error = true;
+                } catch (NumberFormatException excepcion) {
+                    error = false;
+                }
+                boolean error2;
+                try {
+                    Integer.parseInt(b);
+                    error2 = true;
+                } catch (NumberFormatException excepcion) {
+                    error2 = false;
+                }
+                error=error&&error2;
+                if(error){
 
+                }else{
+
+                }
+                System.out.println("print string def"+error);
             }
-            System.out.println("print def");
+
             //visitExpr
         }
         return null;
@@ -163,26 +239,27 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T>{
     public T visitExpr(chocPyParser.ExprContext ctx) {
         if(ctx.NOT()!=null){
             try{
-                boolean n=Boolean.parseBoolean((String)visitExpr(ctx.expr(0)));
+                boolean n=(Boolean)visitExpr(ctx.expr(0));
                 System.out.println("Not devuelve "+!n);
                 return (T)(Boolean)!n;
             }
-            catch (Error e){
+            catch (Exception e){
                 System.out.println("expresion no booleana");
                 System.exit(-1);
             }
         }
         else if(ctx.cexpr()!=null){
+            System.out.println("expr"+ctx.cexpr().getText());
             return visitCexpr(ctx.cexpr());
         }
         else if(ctx.IF()!=null){
             boolean cond2=false;
             boolean cond1=false;
             try{
-                cond1=Boolean.parseBoolean((String)visitExpr(ctx.expr(1)));
+                cond1=(Boolean)visitExpr(ctx.expr(1));
                 cond2=true;
             }
-            catch (Error e){
+            catch (Exception e){
                 System.out.println("expresion no booleana");
                 System.exit(-1);
             }
@@ -204,11 +281,11 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T>{
             boolean cond2=false;
             boolean cond1=false;
             try{
-                cond1=Boolean.parseBoolean((String)visitExpr(ctx.expr(0)));
-                cond3=Boolean.parseBoolean((String)visitExpr(ctx.expr(1)));
+                cond1=(Boolean)visitExpr(ctx.expr(0));
+                cond3=(Boolean)visitExpr(ctx.expr(1));
                 cond2=true;
             }
-            catch (Error e){
+            catch (Exception e){
                 System.out.println("expresion no booleana");
                 System.exit(-1);
             }
@@ -232,5 +309,4 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T>{
         }
         return null;
     }
-
 }

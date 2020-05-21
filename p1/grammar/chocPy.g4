@@ -201,19 +201,19 @@ block
     ;
 
 literal
-    : NONE          #literalnone
-    | TRUE          #literaltrue
-    | FALSE         #literalfalse
-    | TK_ENTERO     #literaltk_entero
-    | IDSTRING      #literalidstring
-    | STRING        #literalstring
+    : NONE
+    | TRUE
+    | FALSE
+    | TK_ENTERO
+    | IDSTRING
+    | STRING
     ;
 
 expr
-    : cexpr                     #exprcexpr
-    | NOT expr                  #exprnot
-    | expr (AND | OR) expr      #exprandor
-    | expr IF expr ELSE expr    #exprexprcond
+    : cexpr
+    | NOT expr
+    | expr (AND | OR) expr
+    | expr IF expr ELSE expr
     ;
 
 cexpr
