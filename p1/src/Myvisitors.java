@@ -1,3 +1,5 @@
+import com.sun.jdi.BooleanValue;
+
 import java.util.HashMap;
 
 public class Myvisitors<T> extends chocPyBaseVisitor<T>{
@@ -157,4 +159,78 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T>{
         }
         return null;
     }
+    @Override
+    public T visitExpr(chocPyParser.ExprContext ctx) {
+        if(ctx.NOT()!=null){
+            try{
+                boolean n=Boolean.parseBoolean((String)visitExpr(ctx.expr(0)));
+                System.out.println("Not devuelve "+!n);
+                return (T)(Boolean)!n;
+            }
+            catch (Error e){
+                System.out.println("expresion no booleana");
+                System.exit(-1);
+            }
+        }
+        else if(ctx.cexpr()!=null){
+            return visitCexpr(ctx.cexpr());
+        }
+        else if(ctx.IF()!=null){
+            boolean cond2=false;
+            boolean cond1=false;
+            try{
+                cond1=Boolean.parseBoolean((String)visitExpr(ctx.expr(1)));
+                cond2=true;
+            }
+            catch (Error e){
+                System.out.println("expresion no booleana");
+                System.exit(-1);
+            }
+            finally{
+                if(cond2) {
+                    if (cond1) {
+                        return visitExpr(ctx.expr(0));
+                    } else {
+                        return visitExpr(ctx.expr(2));
+                    }
+                }
+                else{
+                    System.out.println("El error te debio haber sacado como esta aqui");
+                }
+            }
+        }
+        else{
+            boolean cond3=false;
+            boolean cond2=false;
+            boolean cond1=false;
+            try{
+                cond1=Boolean.parseBoolean((String)visitExpr(ctx.expr(0)));
+                cond3=Boolean.parseBoolean((String)visitExpr(ctx.expr(1)));
+                cond2=true;
+            }
+            catch (Error e){
+                System.out.println("expresion no booleana");
+                System.exit(-1);
+            }
+            finally{
+                if(cond2) {
+                    if (ctx.AND() != null) {
+                        System.out.println("AND res "+(cond1 && cond3));
+                        return (T) (Boolean) (cond1 && cond3);
+                    } else if (ctx.OR() != null) {
+                        System.out.println("O sca R "+(cond1 || cond3));
+                        return (T) (Boolean) (cond1 || cond3);
+                    } else {
+                        System.out.println("De verdad no te reconocio");
+                        return visitChildren(ctx);
+                    }
+                }
+                else{
+                    System.out.println("El error te debio haber sacado como esta aqui");
+                }
+            }
+        }
+        return null;
+    }
+
 }
