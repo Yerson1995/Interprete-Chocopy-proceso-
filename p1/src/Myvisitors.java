@@ -31,8 +31,19 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T>{
         }else if(ctx.logop()!=null){
             //visitExpr
             String op = ctx.logop().getText();
-            String a = (String) visitCexpr(ctx.cexpr(0));
-            String b = (String) visitCexpr(ctx.cexpr(1));
+            String a;
+            String b;
+            try{
+                a = (String) visitCexpr(ctx.cexpr(0));
+            }catch( ClassCastException excepcion) {
+                a = Boolean.toString((Boolean) visitCexpr(ctx.cexpr(0)));
+            }
+            try{
+                b = (String) visitCexpr(ctx.cexpr(1));
+            }catch( ClassCastException excepcion) {
+                b = Boolean.toString((Boolean) visitCexpr(ctx.cexpr(1)));
+            }
+            System.out.println("operando"+a+" "+b);
             boolean resultado;
             try {
                 Integer.parseInt(a);
@@ -101,60 +112,88 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T>{
                 System.out.println("print def"+rt);
                 return (T) (Boolean)(rt)  ;
             }else{
-                if(a.equals("True")||a.equals("False")){
-                    switch(op){
-                        case">":
-                            int line = ctx.cexpr(0).literal().FALSE().getSymbol().getLine();
-                            System.err.printf("error compare"+line);
-                            System.exit(-1);
-                            break;
-                        /*case"<":
-                            if(ra<rb)
-                            {
-                                System.out.println("menor");
-                                rt=true;
-                            }else
-                                rt=false;
-                            break;
-                        case"<=":
-                            if(ra<=rb)
-                            {
-                                System.out.println("menorigual");
-                                rt=true;
-                            }else
-                                rt=false;
-                            break;
-                        case">=":
-                            if(ra>=rb)
-                            {
-                                System.out.println("mayorigual");
-                                rt=true;
-                            }else
-                                rt=false;
-                            break;
-                        case"==":
-                            if(ra==rb)
-                            {
-                                System.out.println("igual");
-                                rt=true;
-                            }else
-                                rt=false;
-                            break;
-                        case"!=":
-                            if(ra!=rb)
-                            {
-                                System.out.println("diferente");
-                                rt=true;
-                            }else
-                                rt=false;
-                            break;*/
-                    }
-                    /*System.err.printf("error compare");
-                    System.exit(-1);*/
-                }else if(b.equals("True")||b.equals("False")){
-
+                boolean error;
+                boolean error1;
+                try {
+                    Integer.parseInt(a);
+                    error1 = false;
+                } catch (NumberFormatException excepcion) {
+                    error1 = true;
                 }
-                System.out.println("print def strings"+a);
+                boolean error2;
+                try {
+                    Integer.parseInt(b);
+                    error2 = false;
+                } catch (NumberFormatException excepcion) {
+                    error2 = true;
+                }
+                error=error1&&error2;
+                boolean r = false;
+                if(error){//no hay algun numero
+                    if((a.equals("True")||a.equals("False")
+                            ||a.equals("true")||a.equals("false"))
+                            &&(b.equals("True")||b.equals("False")
+                            ||b.equals("true")||b.equals("false"))){
+
+                        switch(op){
+                            case"==":
+                                if(a.equals("True")||a.equals("true"))
+                                {
+
+                                    //System.out.println("igual");
+                                    if(b.equals("True")||b.equals("true")){
+                                        System.out.println(a+"ambos"+b);
+                                        r=(true);
+                                    }
+
+
+                                }else if( a.equals("False")||a.equals("False"))
+                                {
+                                    if(b.equals("False")||b.equals("false")){
+                                        System.out.println(a+"ambos"+b);
+                                        r=(true);
+                                    }
+                                }else{
+                                    r=(false);
+                                }
+                                break;
+                            case"!=":
+                                if(a.equals("True")||a.equals("true"))
+                                {
+                                    //System.out.println("igual");
+                                    if(b.equals("False")||b.equals("false")){
+                                        System.out.println(a+"ambos"+b);
+                                        r=(true);
+                                    }
+
+                                }else if( a.equals("False")||a.equals("False"))
+                                {
+                                    if(b.equals("True")||b.equals("true")){
+                                        System.out.println(a+"ambos"+b);
+                                        r=(true);
+                                    }
+
+                                }else{
+                                    r=(false);
+                                }
+                            default:
+                                int line = ctx.cexpr(0).literal().FALSE().getSymbol().getLine();
+                                System.err.printf("error compare"+line);
+                                System.exit(-1);
+                                break;
+                        }
+
+                    }else if(b.equals(a)){
+                        r=true;
+                    }else{
+                        r=false;
+                    }
+                    System.out.println("resultado =="+r);
+                    return (T) (Boolean) r;
+                }else{//hay numero
+                    System.err.printf("error comparacion ");
+                    System.exit(-1);
+                }
             }
         }else {
             String op = null;
@@ -162,9 +201,6 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T>{
             op = ctx.bin_op().getText();
             else if(ctx.multdiv()!=null)
                 op = ctx.multdiv().getText();
-            //else if (ctx.logop()!=null)
-                //op = ctx.logop().getText();
-
             String a = (String) visitCexpr(ctx.cexpr(0));
             String b = (String) visitCexpr(ctx.cexpr(1));
             System.out.println("operando"+a+" "+b);
@@ -191,7 +227,9 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T>{
                         break;
                     case"//":
                         if(rb==0){
-                            System.err.printf("error div por 0");
+                            int line=ctx.cexpr(0).literal().TK_ENTERO().getSymbol().getLine();
+                            //int pos=ctx.cexpr(0).literal().TK_ENTERO().getSymbol().;
+                            System.err.printf("error div por 0 linea"+line);
                             System.exit(-1);
                         }
                         rt=ra/rb;
@@ -204,34 +242,54 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T>{
                         break;
 
                 }
-
                 System.out.println("print def"+rt);
                 return (T) Integer.toString(rt)  ;
             }else{
                 boolean error;
                 try {
                     Integer.parseInt(a);
-                    error = true;
-                } catch (NumberFormatException excepcion) {
                     error = false;
+                } catch (NumberFormatException excepcion) {
+                    error = true;
                 }
                 boolean error2;
                 try {
                     Integer.parseInt(b);
-                    error2 = true;
-                } catch (NumberFormatException excepcion) {
                     error2 = false;
+                } catch (NumberFormatException excepcion) {
+                    error2 = true;
                 }
                 error=error&&error2;
-                if(error){
+                if(error){//ambos no son numeros
+                    if((b.equals("True")||b.equals("False"))||(a.equals("True")||a.equals("False"))){
+                        System.out.println("print error bool string def");
+                    }
+                    else{
+                        System.out.println(a+" "+b);
+                        String c="";
+                        switch(op){
+                            case"+":
 
-                }else{
-
+                                for(int i=0;i<a.length()-1;i++){
+                                    c=c+a.charAt(i);
+                                }
+                                for(int i=1;i<b.length();i++) {
+                                    c = c + b.charAt(i);
+                                }
+                                break;
+                            default:
+                                System.out.println("error operacion invalida string");
+                        }
+                        //System.out.println("generado"+c);
+                        return (T) c;
+                    }
+                }else{//alguno es numero
+                    System.out.println("error numero + string");
                 }
-                System.out.println("print string def"+error);
+
             }
 
-            //visitExpr
+
         }
         return null;
     }
