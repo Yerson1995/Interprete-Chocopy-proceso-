@@ -1,7 +1,170 @@
 import java.util.HashMap;
 
-public class Myvisitors<T> extends chocPyBaseVisitor<T>{
-    HashMap<String,Object> tabla = new HashMap<>();
+public class Myvisitors<T> extends chocPyBaseVisitor<T> {
+    HashMap<String, Object> tabla = new HashMap<>();
+
+    @Override
+    public T visitType(chocPyParser.TypeContext ctx) {
+        if (ctx.IDENTIFIER() != null) {
+            String identi = ctx.IDENTIFIER().getText();
+            System.out.println("IDENTIFIER: " + identi);
+            Object value;
+            if ((value = tabla.get(identi)) == null) {
+                int line = ctx.IDENTIFIER().getSymbol().getLine();
+                int col = ctx.IDENTIFIER().getSymbol().getCharPositionInLine();
+                System.err.printf("Error ubicando IDENTIFIER");
+                System.exit(-1);
+                return null;
+            } else {
+                return (T) value;
+            }
+        } else if (ctx.IDSTRING() != null) {
+            String stringi = ctx.IDSTRING().getText();
+            System.out.println("IDSTRING: " + stringi);
+            Object value;
+            if ((value = tabla.get(stringi)) == null) {
+                int line = ctx.IDSTRING().getSymbol().getLine();
+                int col = ctx.IDSTRING().getSymbol().getCharPositionInLine();
+                System.err.printf("Error ubicando IDSTRING");
+                System.exit(-1);
+                return null;
+            } else {
+                return (T) value;
+            }
+        } else if (ctx.INT() != null) {
+            String inti = ctx.INT().getText();
+            System.out.println("INT: " + inti);
+            Object value;
+            if ((value = tabla.get(inti)) == null) {
+                int line = ctx.INT().getSymbol().getLine();
+                int col = ctx.INT().getSymbol().getCharPositionInLine();
+                System.err.printf("Error ubicando INT");
+                System.exit(-1);
+                return null;
+            } else {
+                return (T) value;
+            }
+        } else if (ctx.STR() != null) {
+            String stri = ctx.STR().getText();
+            System.out.println("STR: " + stri);
+            Object value;
+            if ((value = tabla.get(stri)) == null) {
+                int line = ctx.STR().getSymbol().getLine();
+                int col = ctx.STR().getSymbol().getCharPositionInLine();
+                System.err.printf("Error ubicando STR");
+                System.exit(-1);
+                return null;
+            } else {
+                return (T) value;
+            }
+        } else if (ctx.BOOL() != null) {
+            String booli = ctx.BOOL().getText();
+            System.out.println("BOOL: " + booli);
+            Object value;
+            if ((value = tabla.get(booli)) == null) {
+                int line = ctx.BOOL().getSymbol().getLine();
+                int col = ctx.BOOL().getSymbol().getCharPositionInLine();
+                System.err.printf("Error ubicando BOOL");
+                System.exit(-1);
+                return null;
+            } else {
+                return  (T) value;
+            }
+        } else if (ctx.OBJECT() != null) {
+            String objecti = ctx.OBJECT().getText();
+            System.out.println("OBJECT: " + objecti);
+            Object value;
+            if ((value = tabla.get(objecti)) == null) {
+                int line = ctx.OBJECT().getSymbol().getLine();
+                int col = ctx.OBJECT().getSymbol().getCharPositionInLine();
+                System.err.printf("Error ubicando BOOL");
+                System.exit(-1);
+                return null;
+            } else {
+                return (T) value;
+            }
+        } else{
+            System.out.println("Error TYPE");
+            System.err.printf("error");
+            System.exit(-1);
+            return null;
+        }
+    }
+
+
+    @Override
+    public T visitTyped_var(chocPyParser.Typed_varContext ctx ){
+        Object value;
+        if(ctx.IDENTIFIER()!=null) {
+            String identivar = ctx.IDENTIFIER().getText();
+            System.out.println("IDENTIFIER: " + identivar);
+            if ((value = tabla.get(identivar)) == null) {
+                int line = ctx.IDENTIFIER().getSymbol().getLine();
+                int col = ctx.IDENTIFIER().getSymbol().getCharPositionInLine();
+                System.err.printf("Error ubicando IDENTIFIER");
+                System.exit(-1);
+                return null;
+            } else {
+                if (ctx.TK_DOS_PUNTOS()!=null){
+                    String tdot = ctx.TK_DOS_PUNTOS().getText();
+                    System.out.println("tk_dos_puntos:"+tdot);
+                    if (ctx.type()!=null){
+                        System.out.println("type: "+ctx.type().getText());
+                        return visitType(ctx.type());
+                    }else{
+                        System.err.printf("Error, no se encuentra el tipo de variable a identificar");
+                        System.exit(-1);
+                        return null;
+                    }
+                //return (T) value;
+                }else{
+                    System.err.printf("Error, no se encuentra 2 puntos");
+                    System.exit(-1);
+                    return null;
+                }
+            }
+        }else {
+            System.out.println("Error TYPED");
+            System.err.printf("error");
+            System.exit(-1);
+            return null;
+        }
+    }
+
+    @Override
+    public T visitVar_def(chocPyParser.Var_defContext ctx ){
+        if (ctx.typed_var()!=null){
+            String tyvar = ctx.typed_var().getText();
+            System.out.println("typed_var"+tyvar);
+            if (ctx.TK_ASIG()!=null){
+                String asig = ctx.TK_ASIG().getText();
+                System.out.println("tk:asig"+asig);
+                if(ctx.literal()!=null){
+                    String lite = ctx.literal().getText();
+                    System.out.println("literal"+lite);
+                    return (T) lite;
+                    //if(ctx.NEWLINE!=null){
+                    //System.out.println("FIN DE LINEA");
+                    //}else if(ctx.EOF!=null){
+                    //System.out.println("FIN DE ARCHIVO");
+                    //}
+                }else{
+                    System.err.printf("Error, no se asigno un elemento");
+                    System.exit(-1);
+                    return null;}
+            }else{
+                System.err.printf("Error, no se encontro TK_ASIG");
+                System.exit(-1);
+                return null;
+            }
+        }else{
+            System.err.printf("Error, no sea impedido");
+            System.exit(-1);
+            return null;
+        }
+
+    }
+
     @Override
     public T visitCexpr(chocPyParser.CexprContext ctx ){
         if(ctx.literal()!=null){
