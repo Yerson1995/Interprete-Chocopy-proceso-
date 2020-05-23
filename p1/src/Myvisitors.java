@@ -91,7 +91,6 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
         }
     }
 
-
     @Override
     public T visitTyped_var(chocPyParser.Typed_varContext ctx ){
         Object value;
@@ -529,5 +528,83 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             }
         }
         return null;
+    }
+    @Override
+    public T visitSimple_stmt(chocPyParser.Simple_stmtContext ctx) {
+        if(ctx.PASS()!=null){
+            //no se hace nada
+            System.out.println("se ejecuto un pass");
+        }
+        else if(ctx.RETURN()!=null){
+            if(ctx.expr()!=null){
+                T Rep=visitExpr(ctx.expr());
+                //codigo clase
+            }
+            System.out.println("se ejecuto un return");
+        }
+        else if(ctx.target(0)!=null){
+            T rep=visitExpr(ctx.expr());
+            for(int i=0;i<ctx.target().size();i++){
+                String name=visitTarget(ctx.target(i)).toString();//obtiene el nombre de el target no su valor
+                if(tabla.get(name)!=null){
+                    tabla.replace(name,rep);
+                }
+                else{
+                    System.out.println(name+" no ha sido inicializado");
+                    System.exit(-1);
+                }
+                //System.out.println(ctx.target().size());
+            }
+            System.out.println("se ejecuto un target");
+        }
+        else if(ctx.PRINT()!=null){
+            String argu=(String)visitExpr(ctx.expr());
+            String aux="";
+            for(int i=1;i<argu.length()-1;i++){
+                if(argu.charAt(i)=='\\'){
+                    if(i+1<argu.length()-1){
+                        if(argu.charAt(i+1)=='n'){
+                            System.out.println(aux);
+                            i=i+1;
+                            aux="";
+                        }
+                        else if(argu.charAt(i+1)=='t'){
+                            aux=aux+"    ";
+                            i=i+1;
+                        }else if(argu.charAt(i+1)=='"'){
+                            aux=aux+"    ";
+                            i=i+1;
+                        }else if(argu.charAt(i+1)=='\''){
+                            aux=aux+"    ";
+                            i=i+1;
+                        }
+                    }
+                    else{
+                        System.out.println("Simbolo \\ al final de el argumento del print en "+argu);
+                        System.exit(-1);
+                    }
+                }
+                else aux=aux+argu.charAt(i);
+            }
+            System.out.println(aux);
+            //System.out.println(argu);
+            //System.out.println(visitExpr(ctx.expr()));
+            System.out.println("se ejecuto un print");
+        }
+        else{
+            System.out.println("se ejecuto un expr");
+            return visitExpr(ctx.expr());
+        }
+        return null;
+    }
+    @Override
+    public T visitTarget(chocPyParser.TargetContext ctx) {
+        if(ctx.cexpr()!=null){
+            //Expresiones complicadas
+        }
+        else{
+            return (T)ctx.IDENTIFIER().getText();
+        }
+        return super.visitTarget(ctx);
     }
 }

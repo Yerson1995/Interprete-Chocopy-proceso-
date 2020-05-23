@@ -1,4 +1,4 @@
-// Generated from C:/Users/Home/IdeaProjects/p1/grammar\chocPy.g4 by ANTLR 4.8
+// Generated from E:/ProyectosIntelliJIDEA/Java/Java/Interprete-Chocopy-proceso--master/p1/grammar\chocPy.g4 by ANTLR 4.8
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -39,25 +39,13 @@ public class chocPyBaseListener implements chocPyListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterClass_bodypass(chocPyParser.Class_bodypassContext ctx) { }
+	@Override public void enterClass_body(chocPyParser.Class_bodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitClass_bodypass(chocPyParser.Class_bodypassContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterClass_bodydefinicion(chocPyParser.Class_bodydefinicionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitClass_bodydefinicion(chocPyParser.Class_bodydefinicionContext ctx) { }
+	@Override public void exitClass_body(chocPyParser.Class_bodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -111,85 +99,13 @@ public class chocPyBaseListener implements chocPyListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTypeid(chocPyParser.TypeidContext ctx) { }
+	@Override public void enterType(chocPyParser.TypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTypeid(chocPyParser.TypeidContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTypeidstring(chocPyParser.TypeidstringContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTypeidstring(chocPyParser.TypeidstringContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTipeInt(chocPyParser.TipeIntContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTipeInt(chocPyParser.TipeIntContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTypeStr(chocPyParser.TypeStrContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTypeStr(chocPyParser.TypeStrContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTypeBool(chocPyParser.TypeBoolContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTypeBool(chocPyParser.TypeBoolContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTypeObject(chocPyParser.TypeObjectContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTypeObject(chocPyParser.TypeObjectContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTypeAnidado(chocPyParser.TypeAnidadoContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTypeAnidado(chocPyParser.TypeAnidadoContext ctx) { }
+	@Override public void exitType(chocPyParser.TypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -279,61 +195,13 @@ public class chocPyBaseListener implements chocPyListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSimplestmtpass(chocPyParser.SimplestmtpassContext ctx) { }
+	@Override public void enterSimple_stmt(chocPyParser.Simple_stmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSimplestmtpass(chocPyParser.SimplestmtpassContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSimplestmtexpr(chocPyParser.SimplestmtexprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSimplestmtexpr(chocPyParser.SimplestmtexprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSimplestmtreturn(chocPyParser.SimplestmtreturnContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSimplestmtreturn(chocPyParser.SimplestmtreturnContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSimplestmtasignacion(chocPyParser.SimplestmtasignacionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSimplestmtasignacion(chocPyParser.SimplestmtasignacionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSimplestmtprint(chocPyParser.SimplestmtprintContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSimplestmtprint(chocPyParser.SimplestmtprintContext ctx) { }
+	@Override public void exitSimple_stmt(chocPyParser.Simple_stmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -363,18 +231,6 @@ public class chocPyBaseListener implements chocPyListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCexpr(chocPyParser.CexprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCexpr(chocPyParser.CexprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterExpr(chocPyParser.ExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -382,6 +238,18 @@ public class chocPyBaseListener implements chocPyListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExpr(chocPyParser.ExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCexpr(chocPyParser.CexprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCexpr(chocPyParser.CexprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

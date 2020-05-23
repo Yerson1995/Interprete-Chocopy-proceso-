@@ -140,8 +140,8 @@ class_def
     ;
 
 class_body
-    : PASS (NEWLINE| EOF)       #class_bodypass
-    | (var_def | metd_def)+     #class_bodydefinicion
+    : PASS (NEWLINE| EOF)
+    | (var_def | metd_def)+
     ;
 
 func_def
@@ -161,13 +161,13 @@ typed_var
     ;
 
 type
-    : IDENTIFIER                    #typeid
-    | IDSTRING                      #typeidstring
-    | INT                           #tipeInt
-    | STR                           #typeStr
-    | BOOL                          #typeBool
-    | OBJECT                        #typeObject
-    | TK_SQR_IZQ type TK_SQR_DER    #typeAnidado
+    : IDENTIFIER
+    | IDSTRING
+    | INT
+    | STR
+    | BOOL
+    | OBJECT
+    | TK_SQR_IZQ type TK_SQR_DER
     ;
 global_decl
     : GLOBAL IDENTIFIER NEWLINE
@@ -189,11 +189,11 @@ stmt
     ;
 
 simple_stmt
-    : PASS                              #simplestmtpass
-    | expr                              #simplestmtexpr
-    | RETURN (expr)?                    #simplestmtreturn
-    | (target TK_ASIG)+ expr            #simplestmtasignacion
-    | PRINT TK_PAR_IZQ expr TK_PAR_DER  #simplestmtprint
+    : PASS
+    | expr
+    | RETURN (expr)?
+    | (target TK_ASIG)+ expr
+    | PRINT TK_PAR_IZQ expr TK_PAR_DER
     ;
 
 block
