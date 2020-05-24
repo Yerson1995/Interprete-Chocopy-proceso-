@@ -141,6 +141,8 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                 if(ctx.literal()!=null){
                     String lite = ctx.literal().getText();
                     System.out.println("literal"+lite);
+                    //con la tabla inicial
+                    tabla.put("a",lite);//arreglo temporal para guardar cualquier cosa en a
                     return (T) lite;
                     //if(ctx.NEWLINE!=null){
                     //System.out.println("FIN DE LINEA");
@@ -172,7 +174,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             return (T) lit;
         }else if(ctx.IDENTIFIER()!=null){
             String name = ctx.IDENTIFIER().getText();
-            System.out.println("print def"+name);
+            System.out.println("print def a "+name);
             Object value;
             if((value=tabla.get(name))==null){
                 int line = ctx.IDENTIFIER().getSymbol().getLine();
@@ -271,7 +273,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                         break;
                 }
 
-                System.out.println("print def"+rt);
+                System.out.println("print def b"+rt);
                 return (T) (Boolean)(rt)  ;
             }else{
                 boolean error;
@@ -404,7 +406,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                         break;
 
                 }
-                System.out.println("print def"+rt);
+                System.out.println("print def c"+rt);
                 return (T) Integer.toString(rt)  ;
             }else{
                 boolean error;
@@ -560,7 +562,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
         else if(ctx.PRINT()!=null){
             String argu=(String)visitExpr(ctx.expr());
             String aux="";
-            for(int i=1;i<argu.length()-1;i++){
+            for(int i=0;i<argu.length();i++){
                 if(argu.charAt(i)=='\\'){
                     if(i+1<argu.length()-1){
                         if(argu.charAt(i+1)=='n'){
