@@ -1,4 +1,4 @@
-// Generated from C:/Users/Home/IdeaProjects/p1/grammar\chocPy.g4 by ANTLR 4.8
+// Generated from E:/ProyectosIntelliJIDEA/Java/Java/Interprete-Chocopy-proceso--master/p1/grammar\chocPy.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

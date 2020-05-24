@@ -140,8 +140,8 @@ class_def
     ;
 
 class_body
-    : PASS (NEWLINE| EOF)       #class_bodypass
-    | (var_def | metd_def)+     #class_bodydefinicion
+    : PASS (NEWLINE| EOF)
+    | (var_def | metd_def)+
     ;
 
 func_def
@@ -182,18 +182,18 @@ var_def
     ;
 
 stmt
-    : simple_stmt (NEWLINE| EOF)                                                                #stmtsimple
-    | IF expr TK_DOS_PUNTOS block (ELIF expr TK_DOS_PUNTOS block)* (ELSE TK_DOS_PUNTOS block)?  #stmtif
-    | WHILE expr TK_DOS_PUNTOS block                                                            #stmtwhile
-    | FOR IDENTIFIER IN expr TK_DOS_PUNTOS block                                                #stmtfor
+    : simple_stmt (NEWLINE| EOF)
+    | IF expr TK_DOS_PUNTOS block (ELIF expr TK_DOS_PUNTOS block)* (ELSE TK_DOS_PUNTOS block)?
+    | WHILE expr TK_DOS_PUNTOS block
+    | FOR IDENTIFIER IN expr TK_DOS_PUNTOS block
     ;
 
 simple_stmt
-    : PASS                              #simplestmtpass
-    | expr                              #simplestmtexpr
-    | RETURN (expr)?                    #simplestmtreturn
-    | (target TK_ASIG)+ expr            #simplestmtasignacion
-    | PRINT TK_PAR_IZQ expr TK_PAR_DER  #simplestmtprint
+    : PASS
+    | expr
+    | RETURN (expr)?
+    | (target TK_ASIG)+ expr
+    | PRINT TK_PAR_IZQ expr TK_PAR_DER
     ;
 
 block
@@ -226,10 +226,10 @@ cexpr
     | cexpr TK_SQR_IZQ expr TK_SQR_DER
     | IDENTIFIER TK_PAR_IZQ (expr (TK_COMA expr)*)? TK_PAR_DER
     | cexpr TK_PUNTO IDENTIFIER TK_PAR_IZQ (expr (TK_COMA expr)*)? TK_PAR_DER
-    | MINUS_OP cexpr
     | cexpr multdiv cexpr
     | cexpr bin_op cexpr
     | cexpr logop cexpr
+    | MINUS_OP cexpr
     | LEN TK_PAR_IZQ (IDENTIFIER|STRING|IDSTRING|
     TK_SQR_IZQ (expr (TK_COMA expr)*)? TK_SQR_DER ) TK_PAR_DER
     ;

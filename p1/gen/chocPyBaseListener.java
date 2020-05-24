@@ -1,4 +1,4 @@
-// Generated from C:/Users/Home/IdeaProjects/p1/grammar\chocPy.g4 by ANTLR 4.8
+// Generated from E:/ProyectosIntelliJIDEA/Java/Java/Interprete-Chocopy-proceso--master/p1/grammar\chocPy.g4 by ANTLR 4.8
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -39,25 +39,13 @@ public class chocPyBaseListener implements chocPyListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterClass_bodypass(chocPyParser.Class_bodypassContext ctx) { }
+	@Override public void enterClass_body(chocPyParser.Class_bodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitClass_bodypass(chocPyParser.Class_bodypassContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterClass_bodydefinicion(chocPyParser.Class_bodydefinicionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitClass_bodydefinicion(chocPyParser.Class_bodydefinicionContext ctx) { }
+	@Override public void exitClass_body(chocPyParser.Class_bodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -159,109 +147,25 @@ public class chocPyBaseListener implements chocPyListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStmtsimple(chocPyParser.StmtsimpleContext ctx) { }
+	@Override public void enterStmt(chocPyParser.StmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStmtsimple(chocPyParser.StmtsimpleContext ctx) { }
+	@Override public void exitStmt(chocPyParser.StmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStmtif(chocPyParser.StmtifContext ctx) { }
+	@Override public void enterSimple_stmt(chocPyParser.Simple_stmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStmtif(chocPyParser.StmtifContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterStmtwhile(chocPyParser.StmtwhileContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitStmtwhile(chocPyParser.StmtwhileContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterStmtfor(chocPyParser.StmtforContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitStmtfor(chocPyParser.StmtforContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSimplestmtpass(chocPyParser.SimplestmtpassContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSimplestmtpass(chocPyParser.SimplestmtpassContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSimplestmtexpr(chocPyParser.SimplestmtexprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSimplestmtexpr(chocPyParser.SimplestmtexprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSimplestmtreturn(chocPyParser.SimplestmtreturnContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSimplestmtreturn(chocPyParser.SimplestmtreturnContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSimplestmtasignacion(chocPyParser.SimplestmtasignacionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSimplestmtasignacion(chocPyParser.SimplestmtasignacionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSimplestmtprint(chocPyParser.SimplestmtprintContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSimplestmtprint(chocPyParser.SimplestmtprintContext ctx) { }
+	@Override public void exitSimple_stmt(chocPyParser.Simple_stmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
