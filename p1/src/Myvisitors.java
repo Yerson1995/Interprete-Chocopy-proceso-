@@ -1,7 +1,7 @@
 import java.util.HashMap;
 
-public class Myvisitors<T> extends chocPyBaseVisitor<T> {
-    HashMap<String, Object> tabla = new HashMap<>();
+public class Myvisitors<T> extends chocPyBaseVisitor<T>{
+    HashMap<String,Object> tabla = new HashMap<>();
 
     @Override
     public T visitType(chocPyParser.TypeContext ctx) {
@@ -115,7 +115,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                         System.exit(-1);
                         return null;
                     }
-                //return (T) value;
+                    //return (T) value;
                 }else{
                     System.err.printf("Error, no se encuentra 2 puntos");
                     System.exit(-1);
@@ -165,7 +165,6 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
         }
 
     }
-
     @Override
     public T visitCexpr(chocPyParser.CexprContext ctx ){
         if(ctx.literal()!=null){
@@ -174,7 +173,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             return (T) lit;
         }else if(ctx.IDENTIFIER()!=null){
             String name = ctx.IDENTIFIER().getText();
-            System.out.println("print def a "+name);
+            System.out.println("print def"+name);
             Object value;
             if((value=tabla.get(name))==null){
                 int line = ctx.IDENTIFIER().getSymbol().getLine();
@@ -191,7 +190,10 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
         else if(ctx.TK_PAR_IZQ()!=null&&ctx.IDENTIFIER()==null){
             return visitExpr(ctx.expr(0));
         }else if(ctx.MINUS_OP()!=null){
-            return visitExpr(ctx.expr(0));
+            System.out.println("minus"+ctx.cexpr(0).getText());
+            int r=Integer.parseInt((String) visitCexpr(ctx.cexpr(0)))*-1;
+            String ret= Integer.toString(r);
+            return (T)(ret);
         }else if(ctx.logop()!=null){
             //visitExpr
             String op = ctx.logop().getText();
@@ -273,7 +275,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                         break;
                 }
 
-                System.out.println("print def b"+rt);
+                System.out.println("print def"+rt);
                 return (T) (Boolean)(rt)  ;
             }else{
                 boolean error;
@@ -406,7 +408,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                         break;
 
                 }
-                System.out.println("print def c"+rt);
+                System.out.println("print def"+rt);
                 return (T) Integer.toString(rt)  ;
             }else{
                 boolean error;
@@ -444,7 +446,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                             default:
                                 System.out.println("error operacion invalida string");
                         }
-                        //System.out.println("generado"+c);
+                        System.out.println("generado"+c);
                         return (T) c;
                     }
                 }else{//alguno es numero
@@ -530,83 +532,5 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             }
         }
         return null;
-    }
-    @Override
-    public T visitSimple_stmt(chocPyParser.Simple_stmtContext ctx) {
-        if(ctx.PASS()!=null){
-            //no se hace nada
-            System.out.println("se ejecuto un pass");
-        }
-        else if(ctx.RETURN()!=null){
-            if(ctx.expr()!=null){
-                T Rep=visitExpr(ctx.expr());
-                //codigo clase
-            }
-            System.out.println("se ejecuto un return");
-        }
-        else if(ctx.target(0)!=null){
-            T rep=visitExpr(ctx.expr());
-            for(int i=0;i<ctx.target().size();i++){
-                String name=visitTarget(ctx.target(i)).toString();//obtiene el nombre de el target no su valor
-                if(tabla.get(name)!=null){
-                    tabla.replace(name,rep);
-                }
-                else{
-                    System.out.println(name+" no ha sido inicializado");
-                    System.exit(-1);
-                }
-                //System.out.println(ctx.target().size());
-            }
-            System.out.println("se ejecuto un target");
-        }
-        else if(ctx.PRINT()!=null){
-            String argu=(String)visitExpr(ctx.expr());
-            String aux="";
-            for(int i=0;i<argu.length();i++){
-                if(argu.charAt(i)=='\\'){
-                    if(i+1<argu.length()-1){
-                        if(argu.charAt(i+1)=='n'){
-                            System.out.println(aux);
-                            i=i+1;
-                            aux="";
-                        }
-                        else if(argu.charAt(i+1)=='t'){
-                            aux=aux+"    ";
-                            i=i+1;
-                        }else if(argu.charAt(i+1)=='"'){
-                            aux=aux+"    ";
-                            i=i+1;
-                        }else if(argu.charAt(i+1)=='\''){
-                            aux=aux+"    ";
-                            i=i+1;
-                        }
-                    }
-                    else{
-                        System.out.println("Simbolo \\ al final de el argumento del print en "+argu);
-                        System.exit(-1);
-                    }
-                }
-                else aux=aux+argu.charAt(i);
-            }
-            System.out.println(aux);
-            //System.out.println(argu);
-            //System.out.println(visitExpr(ctx.expr()));
-            System.out.println("se ejecuto un print");
-        }
-        else{
-            System.out.println("se ejecuto un expr");
-            return visitExpr(ctx.expr());
-        }
-        return null;
-    }
-    @Override
-    public T visitTarget(chocPyParser.TargetContext ctx) {
-        if(ctx.cexpr()!=null){
-            //Expresiones complicadas
-        }
-        else{
-            return (T)ctx.IDENTIFIER().getText();
-        }
-        return super.visitTarget(ctx);
     }
 }

@@ -1,4 +1,4 @@
-// Generated from E:/ProyectosIntelliJIDEA/Java/Java/Interprete-Chocopy-proceso--master/p1/grammar\chocPy.g4 by ANTLR 4.8
+// Generated from C:/Users/Home/IdeaProjects/p1/grammar\chocPy.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -22,11 +22,19 @@ public interface chocPyVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitClass_def(chocPyParser.Class_defContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link chocPyParser#class_body}.
+	 * Visit a parse tree produced by the {@code class_bodypass}
+	 * labeled alternative in {@link chocPyParser#class_body}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitClass_body(chocPyParser.Class_bodyContext ctx);
+	T visitClass_bodypass(chocPyParser.Class_bodypassContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code class_bodydefinicion}
+	 * labeled alternative in {@link chocPyParser#class_body}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitClass_bodydefinicion(chocPyParser.Class_bodydefinicionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link chocPyParser#func_def}.
 	 * @param ctx the parse tree
@@ -104,11 +112,40 @@ public interface chocPyVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStmtfor(chocPyParser.StmtforContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link chocPyParser#simple_stmt}.
+	 * Visit a parse tree produced by the {@code simplestmtpass}
+	 * labeled alternative in {@link chocPyParser#simple_stmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSimple_stmt(chocPyParser.Simple_stmtContext ctx);
+	T visitSimplestmtpass(chocPyParser.SimplestmtpassContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code simplestmtexpr}
+	 * labeled alternative in {@link chocPyParser#simple_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSimplestmtexpr(chocPyParser.SimplestmtexprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code simplestmtreturn}
+	 * labeled alternative in {@link chocPyParser#simple_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSimplestmtreturn(chocPyParser.SimplestmtreturnContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code simplestmtasignacion}
+	 * labeled alternative in {@link chocPyParser#simple_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSimplestmtasignacion(chocPyParser.SimplestmtasignacionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code simplestmtprint}
+	 * labeled alternative in {@link chocPyParser#simple_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSimplestmtprint(chocPyParser.SimplestmtprintContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link chocPyParser#block}.
 	 * @param ctx the parse tree

@@ -1,4 +1,4 @@
-// Generated from E:/ProyectosIntelliJIDEA/Java/Java/Interprete-Chocopy-proceso--master/p1/grammar\chocPy.g4 by ANTLR 4.8
+// Generated from C:/Users/Home/IdeaProjects/p1/grammar\chocPy.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -27,15 +27,29 @@ public interface chocPyListener extends ParseTreeListener {
 	 */
 	void exitClass_def(chocPyParser.Class_defContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link chocPyParser#class_body}.
+	 * Enter a parse tree produced by the {@code class_bodypass}
+	 * labeled alternative in {@link chocPyParser#class_body}.
 	 * @param ctx the parse tree
 	 */
-	void enterClass_body(chocPyParser.Class_bodyContext ctx);
+	void enterClass_bodypass(chocPyParser.Class_bodypassContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link chocPyParser#class_body}.
+	 * Exit a parse tree produced by the {@code class_bodypass}
+	 * labeled alternative in {@link chocPyParser#class_body}.
 	 * @param ctx the parse tree
 	 */
-	void exitClass_body(chocPyParser.Class_bodyContext ctx);
+	void exitClass_bodypass(chocPyParser.Class_bodypassContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code class_bodydefinicion}
+	 * labeled alternative in {@link chocPyParser#class_body}.
+	 * @param ctx the parse tree
+	 */
+	void enterClass_bodydefinicion(chocPyParser.Class_bodydefinicionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code class_bodydefinicion}
+	 * labeled alternative in {@link chocPyParser#class_body}.
+	 * @param ctx the parse tree
+	 */
+	void exitClass_bodydefinicion(chocPyParser.Class_bodydefinicionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link chocPyParser#func_def}.
 	 * @param ctx the parse tree
@@ -165,15 +179,65 @@ public interface chocPyListener extends ParseTreeListener {
 	 */
 	void exitStmtfor(chocPyParser.StmtforContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link chocPyParser#simple_stmt}.
+	 * Enter a parse tree produced by the {@code simplestmtpass}
+	 * labeled alternative in {@link chocPyParser#simple_stmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterSimple_stmt(chocPyParser.Simple_stmtContext ctx);
+	void enterSimplestmtpass(chocPyParser.SimplestmtpassContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link chocPyParser#simple_stmt}.
+	 * Exit a parse tree produced by the {@code simplestmtpass}
+	 * labeled alternative in {@link chocPyParser#simple_stmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitSimple_stmt(chocPyParser.Simple_stmtContext ctx);
+	void exitSimplestmtpass(chocPyParser.SimplestmtpassContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code simplestmtexpr}
+	 * labeled alternative in {@link chocPyParser#simple_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterSimplestmtexpr(chocPyParser.SimplestmtexprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code simplestmtexpr}
+	 * labeled alternative in {@link chocPyParser#simple_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitSimplestmtexpr(chocPyParser.SimplestmtexprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code simplestmtreturn}
+	 * labeled alternative in {@link chocPyParser#simple_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterSimplestmtreturn(chocPyParser.SimplestmtreturnContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code simplestmtreturn}
+	 * labeled alternative in {@link chocPyParser#simple_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitSimplestmtreturn(chocPyParser.SimplestmtreturnContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code simplestmtasignacion}
+	 * labeled alternative in {@link chocPyParser#simple_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterSimplestmtasignacion(chocPyParser.SimplestmtasignacionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code simplestmtasignacion}
+	 * labeled alternative in {@link chocPyParser#simple_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitSimplestmtasignacion(chocPyParser.SimplestmtasignacionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code simplestmtprint}
+	 * labeled alternative in {@link chocPyParser#simple_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterSimplestmtprint(chocPyParser.SimplestmtprintContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code simplestmtprint}
+	 * labeled alternative in {@link chocPyParser#simple_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitSimplestmtprint(chocPyParser.SimplestmtprintContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link chocPyParser#block}.
 	 * @param ctx the parse tree
