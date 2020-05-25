@@ -67,9 +67,27 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                 System.err.printf("Error ubicando BOOL");
                 System.exit(-1);
                 return null;
-            } else {
-                return  (T) value;
+            }   else if (ctx.TK_SQR_IZQ() != null) {
+            String pari = ctx.TK_SQR_IZQ().getText();
+            System.out.println("tk_SQR_IZR:"+pari);
+            if (ctx.type()!=null){
+                System.out.println("type: "+ctx.type().getText());
+                visitType(ctx.type());
+                if (ctx.TK_SQR_DER() != null) {
+                    String pard = ctx.TK_SQR_DER().getText();
+                    System.out.println("tk_SQR_DER:"+pard);
+                    return null;
+                }else{
+                    System.err.printf("Error, no se encuentra vari en []");
+                    System.exit(-1);
+                    return null;
+                }
+            }else{
+                System.err.printf("Error, no se encuentra el tipo de variable a identificar");
+                System.exit(-1);
+                return null;
             }
+        }
         } else if (ctx.OBJECT() != null) {
             String objecti = ctx.OBJECT().getText();
             System.out.println("OBJECT: " + objecti);
