@@ -223,8 +223,9 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                         System.out.println("se inserto cadena");
                     } else if(tyvar.equals("[bool]")||tyvar.equals("[int]")||tyvar.equals("[str]")) {
                         if (lite.equals("None")) {
-                            VariableP temp = new VariableP(name, lite, tyvar);
-                            tabla.put(name, temp);
+                            ArrayList l = new ArrayList();
+                            Arreglo temp = new Arreglo(name, l, tyvar);
+                            tablaA.put(name, temp);
                             System.out.println("se inserto arreglo");
                         }else{
                             System.out.println("No es valido para una variable booleana");
@@ -232,7 +233,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                     }
                     else{
                         System.out.println("Error texto");
-                }
+                    }
                 }
             }
             System.out.println("typed_var"+tyvar);
@@ -269,7 +270,6 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
         }
 
     }
-    
     @Override
     public T visitCexpr(chocPyParser.CexprContext ctx ){
         if(ctx.literal()!=null){
@@ -293,6 +293,48 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             }
         }else if(ctx.TK_SQR_IZQ()!=null&&ctx.LEN()==null){
             //visitExpr
+            String a=ctx.cexpr(0).getText();
+            T pos = visitExpr(ctx.expr(0));
+            String r=pos.toString();
+            System.out.println("indice"+r);
+            boolean error1;
+            try {
+                Integer.parseInt(r);
+                error1 = false;
+            } catch (NumberFormatException excepcion) {
+                error1 = true;
+            }
+            if(error1){
+                //error
+                System.out.println("error yv7 poca fe");
+            }
+            Arreglo valueA =new Arreglo(null,null,null);
+            if((valueA= tablaA.get(a))!=null){
+                int p=Integer.parseInt(r);
+                if(p<0||p>=valueA.getElementos().size()){
+                    //error
+                }
+                System.out.println("soy un arreglo");
+                return (T) valueA.elementos.get(p);
+            }else{
+                VariableP value =new VariableP(null,null,null);
+                if((value= tabla.get(a))!=null){
+                    int p=Integer.parseInt(r);
+                    if(p<0||p>=value.getElementos().toString().length()-2){
+                        //error
+                        System.out.println("error ");
+                    }
+                    //System.out.println("soy un string"+p);
+                    String ret= String.valueOf(value.getElementos().toString().charAt(p+1));
+                    ret='"'+ret+'"';
+                    System.out.println("soy un string"+p+"retorno"+ret);
+                    return (T) ret;
+                }
+                else{
+                    //error
+                }
+            }
+            System.out.println("es elemento de arreglo"+a);
         }
         else if(ctx.TK_PAR_IZQ()!=null&&ctx.IDENTIFIER()==null&&ctx.LEN()==null){
             return visitExpr(ctx.expr(0));
@@ -303,7 +345,9 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             return (T)(ret);
         }else if(ctx.LEN()!=null){
             if(ctx.IDENTIFIER()!=null){
+                String a = (String) visitCexpr(ctx.cexpr(0));
                 //
+
                 //System.out.println("acaestoy");
             }else if(ctx.STRING()!=null){
                 String a= ctx.STRING().getText();
@@ -715,7 +759,8 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                     System.out.println("es arreglo");
                 }if(ctx.target(i).TK_SQR_IZQ()!=null){
                     if(tablaA.get(ctx.target(i).IDENTIFIER())!=null){
-
+                        String val = ctx.expr().getText();
+                        System.out.println(val);
                     }else{
                         System.out.println("es error no hay arreglo con ese nombre");
                     }
