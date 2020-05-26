@@ -768,6 +768,53 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             T rep=visitExpr(ctx.expr());
             for(int i=0;i<ctx.target().size();i++){
                 System.out.println(ctx.target(i).getText());
+                String name = ctx.target(i).getText();
+                System.out.println(rep.toString());
+                boolean error1;
+                try {
+                    Integer.parseInt(rep.toString());
+                    error1 = true;
+                } catch (NumberFormatException excepcion) {
+                    error1 = false;
+                }
+                boolean error2=false;
+                if(rep.toString().equals("True")||rep.toString().equals("False")){
+                    error2=true;
+                }
+                if(tabla.get(name)!=null){
+                    VariableP tempa=tabla.get(name);
+                    String tipo= tempa.getTipo();
+                    if((error1&&tipo.equals("int"))){
+                        VariableP temp= new VariableP(name,rep,tempa.getTipo());
+                        tabla.replace(name,temp);
+                        System.out.println("no es elemento de arreglo");
+                    }
+                    else{
+                        if(error2&&tipo.equals("bool")){
+                            VariableP temp= new VariableP(name,rep,tempa.getTipo());
+                            tabla.replace(name,temp);
+                            System.out.println("no es elemento de arreglo");
+                        }else if(!error2&&tipo.equals("str")){
+                            VariableP temp= new VariableP(name,rep,tempa.getTipo());
+                            tabla.replace(name,temp);
+                            System.out.println("no es elemento de arreglo");
+                        }
+                        else{
+                            System.out.println("error tipos");
+                        }
+                    }
+                }else if(tablaA.get(name)!=null){
+
+                    System.out.println("es arreglo");
+                }if(ctx.target(i).TK_SQR_IZQ()!=null){
+                    if(tablaA.get(ctx.target(i).IDENTIFIER())!=null){
+                        String val = ctx.expr().getText();
+                        System.out.println(val);
+                    }else{
+                        System.out.println("es error no hay arreglo con ese nombre");
+                    }
+                    System.out.println("es elemento de arreglo");
+                }
                 /*String name=visitTarget(ctx.target(i)).toString();//obtiene el nombre de el target no su valor
                 if(tabla.get(name)!=null){
                     tabla.replace(name,rep);
@@ -775,7 +822,9 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                 else{
                     System.out.println(name+" no ha sido inicializado");
                     System.exit(-1);
-                }*/
+                }*//*
+            aqui se busca en la tabla
+            */
                 //System.out.println(ctx.target().size());
             }
             System.out.println("se ejecuto un target");
