@@ -2,20 +2,26 @@ import java.util.HashMap;
 
 public class Myvisitors<T> extends chocPyBaseVisitor<T> {
     String funcion_actual="";
-    int nivel=0;
     HashMap<String, VariableP> tabla = new HashMap<>();
-    HashMap<String, Clase> tablaclass = new HashMap<>();
-    HashMap<String, Funcion> tablafunciones = new HashMap<>();
-    HashMap<String, Arreglo> tablaArreglos = new HashMap<>();
+    HashMap<String, Object> tablaclass = new HashMap<>();
+    HashMap<String, Object> tablafunciones = new HashMap<>();
+    HashMap<String, Object> tablatemp = new HashMap<>();
 
     public boolean var_exists(String name){
-        return  false;
+        VariableP value =new VariableP(null,null,null);
+        if((value= tabla.get(name))==null)
+        return  true;
+        else
+            return false;
+
     }
     public Object var_value(String name){
-        return  false;
+        Object value;
+        value= (VariableP) tabla.get(name).getElementos();
+        return  value;
     }
     public void var_rplc_value(String name, Object value){
-
+        tabla.get(name).setElemento(value);
     }
     @Override
     public T visitType(chocPyParser.TypeContext ctx) {
@@ -98,26 +104,26 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                 return (T) value;
             }
         }  else if (ctx.TK_SQR_IZQ() != null) {
-                String pari = ctx.TK_SQR_IZQ().getText();
-                System.out.println("tk_SQR_IZR:"+pari);
-                if (ctx.type()!=null){
-                    System.out.println("type: "+ctx.type().getText());
-                    visitType(ctx.type());
-                    if (ctx.TK_SQR_DER() != null) {
-                        String pard = ctx.TK_SQR_DER().getText();
-                        System.out.println("tk_SQR_DER:"+pard);
-                        return null;
-                    }else{
-                        System.err.printf("Error, no se encuentra vari en []");
-                        System.exit(-1);
-                        return null;
-                    }
-                }else {
-                    System.err.printf("Error, no se encuentra el tipo de variable a identificar");
+            String pari = ctx.TK_SQR_IZQ().getText();
+            System.out.println("tk_SQR_IZR:"+pari);
+            if (ctx.type()!=null){
+                System.out.println("type: "+ctx.type().getText());
+                visitType(ctx.type());
+                if (ctx.TK_SQR_DER() != null) {
+                    String pard = ctx.TK_SQR_DER().getText();
+                    System.out.println("tk_SQR_DER:"+pard);
+                    return null;
+                }else{
+                    System.err.printf("Error, no se encuentra vari en []");
                     System.exit(-1);
                     return null;
                 }
+            }else {
+                System.err.printf("Error, no se encuentra el tipo de variable a identificar");
+                System.exit(-1);
+                return null;
             }
+        }
         else{
             System.out.println("Error TYPE");
             System.err.printf("error");
@@ -133,23 +139,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             String identivar = ctx.IDENTIFIER().getText();
             System.out.println("IDENTIFIER: " + identivar);
             if ((value = tabla.get(identivar)) == null) {/*
-
-
-
-
-
-
-
-
-
             aqui se busca en la tabla
-
-
-
-
-
-
-
             */
                 int line = ctx.IDENTIFIER().getSymbol().getLine();
                 int col = ctx.IDENTIFIER().getSymbol().getCharPositionInLine();
@@ -168,7 +158,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                         System.exit(-1);
                         return null;
                     }
-                //return (T) value;
+                    //return (T) value;
                 }else{
                     System.err.printf("Error, no se encuentra 2 puntos");
                     System.exit(-1);
@@ -186,7 +176,37 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
     @Override
     public T visitVar_def(chocPyParser.Var_defContext ctx ){
         if (ctx.typed_var()!=null){
-            String tyvar = ctx.typed_var().getText();
+            String tyvar = ctx.typed_var().type().getText();
+            String name = ctx.typed_var().IDENTIFIER().getText();
+            System.out.println("capturado"+tyvar+name);
+            if (!var_exists(name)){
+                System.out.println("error variable repetida");
+                //error
+            }else{
+               // System.out.println("im here");
+                String lite = ctx.literal().getText();
+                //System.out.println("im here"+lite);
+                boolean error1;
+                try {
+                    Integer.parseInt(lite);
+                    error1 = true;
+                } catch (NumberFormatException excepcion) {
+                    error1 = false;
+                }
+                System.out.println("r"+error1);
+                if(error1){
+                    if(tyvar.equals("int")){
+                        //System.out.println("aca");
+                        VariableP temp = new VariableP(name,lite,tyvar);
+                        tabla.put(name,temp);
+                        System.out.println("se inserto");
+                    }else{
+                        //error no coinciden los tipos
+                    }
+                }else{
+
+                }
+            }
             System.out.println("typed_var"+tyvar);
             if (ctx.TK_ASIG()!=null){
                 String asig = ctx.TK_ASIG().getText();
@@ -194,7 +214,12 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                 if(ctx.literal()!=null){
                     String lite = ctx.literal().getText();
                     System.out.println("literal"+lite);
-                    return (T) lite;
+
+                    //con la tabla inicial
+
+                    /*
+            aqui se insertar en la tabla
+            */return (T) lite;
                     //if(ctx.NEWLINE!=null){
                     //System.out.println("FIN DE LINEA");
                     //}else if(ctx.EOF!=null){
@@ -225,24 +250,8 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             String name = ctx.IDENTIFIER().getText();
             System.out.println("print def"+name);
             Object value;
-            if((value=tabla.get(name))==null){/*
-
-
-
-
-
-
-
-
-
+            if((value=tabla.get(name).getElementos())==null){/*
             aqui se busca en la tabla
-
-
-
-
-
-
-
             */
                 int line = ctx.IDENTIFIER().getSymbol().getLine();
                 int col =ctx.IDENTIFIER().getSymbol().getCharPositionInLine();
@@ -252,16 +261,32 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             }else {
                 return (T) value;
             }
-        }else if(ctx.TK_SQR_IZQ()!=null){
+        }else if(ctx.TK_SQR_IZQ()!=null&&ctx.LEN()==null){
             //visitExpr
         }
-        else if(ctx.TK_PAR_IZQ()!=null&&ctx.IDENTIFIER()==null){
+        else if(ctx.TK_PAR_IZQ()!=null&&ctx.IDENTIFIER()==null&&ctx.LEN()==null){
             return visitExpr(ctx.expr(0));
         }else if(ctx.MINUS_OP()!=null){
             System.out.println("minus"+ctx.cexpr(0).getText());
             int r=Integer.parseInt((String) visitCexpr(ctx.cexpr(0)))*-1;
             String ret= Integer.toString(r);
             return (T)(ret);
+        }else if(ctx.LEN()!=null){
+            if(ctx.IDENTIFIER()!=null){
+                //
+                //System.out.println("acaestoy");
+            }else if(ctx.STRING()!=null){
+                String a= ctx.STRING().getText();
+                System.out.println(a);
+                Integer r=a.length()-2;
+                String ret= Integer.toString(r);
+                return(T) ret;
+            }else if(ctx.TK_SQR_IZQ()!=null) {
+                //System.out.println("acaestoy");
+                int a = ctx.expr().size();
+                System.out.println(a);
+                return null;
+            }
         }else if(ctx.logop()!=null){
             //visitExpr
             String op = ctx.logop().getText();
@@ -627,14 +652,16 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                 else{
                     System.out.println(name+" no ha sido inicializado");
                     System.exit(-1);
-                }*/
+                }*//*
+            aqui se busca en la tabla
+            */
                 //System.out.println(ctx.target().size());
             }
             System.out.println("se ejecuto un target");
         }
         else if(ctx.PRINT()!=null){
             String argu=(String)visitExpr(ctx.expr());
-            //String argAndres=ctx.expr().getText();
+            String argAndres=ctx.expr().getText();
             String aux="";
             for(int i=0;i<argu.length();i++){
                 if(argu.charAt(i)=='\\'){
@@ -663,7 +690,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                 else aux=aux+argu.charAt(i);
             }
             System.out.println(aux);
-            //System.out.println(argAndres);
+            System.out.println(argAndres);
             //System.out.println(argu);
             //System.out.println(visitExpr(ctx.expr()));
             System.out.println("se ejecuto un print");
@@ -688,9 +715,8 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
     public T visitStmt(chocPyParser.StmtContext ctx) {
         if(ctx.FOR()!=null){
             //codigo for
-            String id=ctx.IDENTIFIER().getText();
-            var_exists(id);
-            //var_exists((String)visitExpr(ctx.expr(0)));
+            String a= ctx.IDENTIFIER().getText();
+            System.out.print(a);
         }
         else if(ctx.WHILE()!=null){
             boolean cond=(Boolean)visitExpr(ctx.expr(0) );
@@ -732,11 +758,9 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
 
     @Override
     public T visitBlock(chocPyParser.BlockContext ctx) {
-        nivel++;
         for(int i=0;i<ctx.stmt().size();i++){
             visitStmt(ctx.stmt(i));
         }
-        nivel=nivel-1;
         return null;
     }
 }
