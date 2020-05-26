@@ -97,26 +97,26 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                 return (T) value;
             }
         }  else if (ctx.TK_SQR_IZQ() != null) {
-                String pari = ctx.TK_SQR_IZQ().getText();
-                System.out.println("tk_SQR_IZR:"+pari);
-                if (ctx.type()!=null){
-                    System.out.println("type: "+ctx.type().getText());
-                    visitType(ctx.type());
-                    if (ctx.TK_SQR_DER() != null) {
-                        String pard = ctx.TK_SQR_DER().getText();
-                        System.out.println("tk_SQR_DER:"+pard);
-                        return null;
-                    }else{
-                        System.err.printf("Error, no se encuentra vari en []");
-                        System.exit(-1);
-                        return null;
-                    }
-                }else {
-                    System.err.printf("Error, no se encuentra el tipo de variable a identificar");
+            String pari = ctx.TK_SQR_IZQ().getText();
+            System.out.println("tk_SQR_IZR:"+pari);
+            if (ctx.type()!=null){
+                System.out.println("type: "+ctx.type().getText());
+                visitType(ctx.type());
+                if (ctx.TK_SQR_DER() != null) {
+                    String pard = ctx.TK_SQR_DER().getText();
+                    System.out.println("tk_SQR_DER:"+pard);
+                    return null;
+                }else{
+                    System.err.printf("Error, no se encuentra vari en []");
                     System.exit(-1);
                     return null;
                 }
+            }else {
+                System.err.printf("Error, no se encuentra el tipo de variable a identificar");
+                System.exit(-1);
+                return null;
             }
+        }
         else{
             System.out.println("Error TYPE");
             System.err.printf("error");
@@ -132,23 +132,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             String identivar = ctx.IDENTIFIER().getText();
             System.out.println("IDENTIFIER: " + identivar);
             if ((value = tabla.get(identivar)) == null) {/*
-
-
-
-
-
-
-
-
-
             aqui se busca en la tabla
-
-
-
-
-
-
-
             */
                 int line = ctx.IDENTIFIER().getSymbol().getLine();
                 int col = ctx.IDENTIFIER().getSymbol().getCharPositionInLine();
@@ -167,7 +151,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                         System.exit(-1);
                         return null;
                     }
-                //return (T) value;
+                    //return (T) value;
                 }else{
                     System.err.printf("Error, no se encuentra 2 puntos");
                     System.exit(-1);
@@ -196,23 +180,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                     //con la tabla inicial
                     tabla.put("a",lite);//arreglo temporal para guardar cualquier cosa en a
                     /*
-
-
-
-
-
-
-
-
-
             aqui se insertar en la tabla
-
-
-
-
-
-
-
             */return (T) lite;
                     //if(ctx.NEWLINE!=null){
                     //System.out.println("FIN DE LINEA");
@@ -245,23 +213,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             System.out.println("print def"+name);
             Object value;
             if((value=tabla.get(name))==null){/*
-
-
-
-
-
-
-
-
-
             aqui se busca en la tabla
-
-
-
-
-
-
-
             */
                 int line = ctx.IDENTIFIER().getSymbol().getLine();
                 int col =ctx.IDENTIFIER().getSymbol().getCharPositionInLine();
@@ -271,16 +223,32 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             }else {
                 return (T) value;
             }
-        }else if(ctx.TK_SQR_IZQ()!=null){
+        }else if(ctx.TK_SQR_IZQ()!=null&&ctx.LEN()==null){
             //visitExpr
         }
-        else if(ctx.TK_PAR_IZQ()!=null&&ctx.IDENTIFIER()==null){
+        else if(ctx.TK_PAR_IZQ()!=null&&ctx.IDENTIFIER()==null&&ctx.LEN()==null){
             return visitExpr(ctx.expr(0));
         }else if(ctx.MINUS_OP()!=null){
             System.out.println("minus"+ctx.cexpr(0).getText());
             int r=Integer.parseInt((String) visitCexpr(ctx.cexpr(0)))*-1;
             String ret= Integer.toString(r);
             return (T)(ret);
+        }else if(ctx.LEN()!=null){
+            if(ctx.IDENTIFIER()!=null){
+                //
+                //System.out.println("acaestoy");
+            }else if(ctx.STRING()!=null){
+                String a= ctx.STRING().getText();
+                System.out.println(a);
+                Integer r=a.length()-2;
+                String ret= Integer.toString(r);
+                return(T) ret;
+            }else if(ctx.TK_SQR_IZQ()!=null) {
+                //System.out.println("acaestoy");
+                int a = ctx.expr().size();
+                System.out.println(a);
+                return null;
+            }
         }else if(ctx.logop()!=null){
             //visitExpr
             String op = ctx.logop().getText();
@@ -647,23 +615,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                     System.out.println(name+" no ha sido inicializado");
                     System.exit(-1);
                 }*//*
-
-
-
-
-
-
-
-
-
             aqui se busca en la tabla
-
-
-
-
-
-
-
             */
                 //System.out.println(ctx.target().size());
             }
