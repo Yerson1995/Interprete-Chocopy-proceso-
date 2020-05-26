@@ -186,7 +186,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                 System.out.println("error variable repetida");
                 //error
             }else{
-               // System.out.println("im here");
+                // System.out.println("im here");
                 String lite = ctx.literal().getText();
                 //System.out.println("im here"+lite);
                 boolean error1;
@@ -202,21 +202,37 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                         //System.out.println("aca");
                         VariableP temp = new VariableP(name,lite,tyvar);
                         tabla.put(name,temp);
+                        System.out.println(name + "   lite: " +lite + "tyvar: " +tyvar);
                         System.out.println("se inserto");
                     }else{
                         //error no coinciden los tipos
-                        System.out.println("error tipos");
                     }
                 }else{
-                    if(lite.equals("None")){
-                        if(tyvar.equals("[int]")||tyvar.equals("[str]")
-                                ||tyvar.equals("[bool]")){
-                            ArrayList<Object> elementos= new ArrayList<>();
-                            Arreglo temp = new Arreglo(name,elementos,tyvar);
-                            tablaA.put(name,temp);
+                    if(tyvar.equals("bool")) {
+                        //System.out.println("Aca bool");
+                        if (lite.equals("True") || lite.equals("False")) {
+                            VariableP temp = new VariableP(name, lite, tyvar);
+                            tabla.put(name, temp);
+                            System.out.println("se inserto booleano");
+                        }else{
+                            System.out.println("No es valido para una variable booleana");
+                        }
+                    }else if(tyvar.equals("str")){
+                        VariableP temp = new VariableP(name, lite, tyvar);
+                        tabla.put(name, temp);
+                        System.out.println("se inserto cadena");
+                    } else if(tyvar.equals("[bool]")||tyvar.equals("[int]")||tyvar.equals("[str]")) {
+                        if (lite.equals("None")) {
+                            VariableP temp = new VariableP(name, lite, tyvar);
+                            tabla.put(name, temp);
+                            System.out.println("se inserto arreglo");
+                        }else{
+                            System.out.println("No es valido para una variable booleana");
                         }
                     }
-                    System.out.println("se insertoasdas");
+                    else{
+                        System.out.println("Error texto");
+                }
                 }
             }
             System.out.println("typed_var"+tyvar);
@@ -253,6 +269,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
         }
 
     }
+    
     @Override
     public T visitCexpr(chocPyParser.CexprContext ctx ){
         if(ctx.literal()!=null){
