@@ -3,13 +3,27 @@ public class VariableP {
     String name;
     Object elemento;
     String tipo;
+    int nivel;
 
-    public VariableP(String name, Object elemento) {
+    public VariableP(String name, Object elemento, String tipo, int nivel) {
+        this.name = name;
         this.elemento = elemento;
-        this.name=name;
+        this.tipo = tipo;
+        this.nivel = nivel;
     }
-    public Object getElementos() {
+
+    public VariableP(String name, Object elemento, String tipo) {
+        this.name = name;
+        this.elemento = elemento;
+        this.tipo = tipo;
+        this.nivel=0;
+    }
+
+    public Object getElemento() {
         return elemento;
+    }
+    public int getNivel() {
+        return nivel;
     }
     public void setElemento(Object elemento) {
         this.elemento = elemento;

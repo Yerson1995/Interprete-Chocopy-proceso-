@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Clase<T> extends chocPyBaseVisitor<T>{
+public class Clase{
 
     String name;
     String argumento;  //id o object

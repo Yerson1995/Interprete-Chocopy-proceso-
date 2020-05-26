@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Funcion<T> extends chocPyBaseVisitor<T> {
+public class Funcion{
 
     String name;
     chocPyParser.Func_bodyContext funcionctx;
