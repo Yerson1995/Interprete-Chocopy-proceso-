@@ -291,7 +291,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             }else {
                 return (T) value;
             }
-        }else if(ctx.TK_SQR_IZQ()!=null&&ctx.LEN()==null){
+        }else if(ctx.TK_SQR_IZQ()!=null&&ctx.LEN()==null&&ctx.cexpr(0)!=null){
             //visitExpr
             String a=ctx.cexpr(0).getText();
             T pos = visitExpr(ctx.expr(0));
@@ -335,6 +335,25 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                 }
             }
             System.out.println("es elemento de arreglo"+a);
+        }
+        else if(ctx.TK_SQR_IZQ()!=null&&ctx.LEN()==null){
+            System.out.println("es elemento de arregloesfd");
+            ArrayList ret= new ArrayList();
+            String a1 = (String) visitExpr(ctx.expr(0));
+            boolean error1;
+            try {
+                Integer.parseInt(a1);
+                error1 = false;
+            } catch (NumberFormatException excepcion) {
+                error1 = true;
+            }
+            
+            for(int c=0;c<ctx.expr().size();c++){
+                String a = (String) visitExpr(ctx.expr(c));
+                ret.add(a);
+                System.out.println(a);
+            }
+            
         }
         else if(ctx.TK_PAR_IZQ()!=null&&ctx.IDENTIFIER()==null&&ctx.LEN()==null){
             return visitExpr(ctx.expr(0));
