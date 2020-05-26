@@ -338,21 +338,50 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             System.out.println("es elemento de arreglo"+a);
         }
         else if(ctx.TK_SQR_IZQ()!=null&&ctx.LEN()==null){
-            System.out.println("es elemento de arregloesfd");
+            System.out.println("Es elemento de arreglo es fd");
             ArrayList ret= new ArrayList();
             String a1 = (String) visitExpr(ctx.expr(0));
-            boolean error1;
+            boolean Is_int;
+            boolean Is_bool;
             try {
                 Integer.parseInt(a1);
-                error1 = false;
+                Is_int = true;
+                Is_bool=false;
             } catch (NumberFormatException excepcion) {
-                error1 = true;
+                Is_int = false;
+                if(a1.charAt(0)=='"'){
+                    Is_bool=false;
+                }
+                else{
+                    Is_bool=true;
+                }
             }
 
-            for(int c=0;c<ctx.expr().size();c++){
-                String a = (String) visitExpr(ctx.expr(c));
-                ret.add(a);
-                System.out.println(a);
+            for(int c=1;c<ctx.expr().size();c++){
+                a1 = (String) visitExpr(ctx.expr(c));
+                boolean Is_inta;
+                boolean Is_boola;
+                try {
+                    Integer.parseInt(a1);
+                    Is_inta = true;
+                    Is_boola=false;
+                } catch (NumberFormatException excepcion) {
+                    Is_inta = false;
+                    if(a1.charAt(0)=='"'){
+                        Is_boola=false;
+                    }
+                    else{
+                        Is_boola=true;
+                    }
+                }
+                if((Is_inta==Is_int)&&(Is_boola==Is_bool)){
+                    ret.add(a1);
+                    System.out.println(a1);
+                    System.out.println(" Agregado");
+                }
+                else{
+                    System.out.println(" tipo distinto no agregado");
+                }
             }
 
         }
