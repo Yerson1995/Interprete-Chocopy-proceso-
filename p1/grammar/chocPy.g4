@@ -248,8 +248,7 @@ multdiv
     | MOD_OP;
 
 bin_op
-    : //MULT_OP
-    | PLUS_OP
+    : PLUS_OP
     | MINUS_OP
 
     ;

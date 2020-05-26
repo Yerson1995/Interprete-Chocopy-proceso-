@@ -1,30 +1,33 @@
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Myvisitors<T> extends chocPyBaseVisitor<T> {
     String funcion_actual="";
+    int nivel=0;
     HashMap<String, VariableP> tabla = new HashMap<>();
+    HashMap<String, Clase> tablaclass = new HashMap<>();
+    HashMap<String, Funcion> tablafunciones = new HashMap<>();
     HashMap<String, Arreglo> tablaA = new HashMap<>();
-    HashMap<String, Object> tablaclass = new HashMap<>();
-    HashMap<String, Object> tablafunciones = new HashMap<>();
-    HashMap<String, Object> tablatemp = new HashMap<>();
 
     public boolean var_exists(String name){
         VariableP value =new VariableP(null,null,null);
         Arreglo valueA =new Arreglo(null,null,null);
         if((value= tabla.get(name))==null&&(valueA= tablaA.get(name))==null)
-        return  true;
+            return  true;
         else
             return false;
-
     }
     public Object var_value(String name){
         Object value;
-        value= (VariableP) tabla.get(name).getElementos();
+        value= (VariableP) tabla.get(name).getElemento();
         return  value;
     }
     public void var_rplc_value(String name, Object value){
         tabla.get(name).setElemento(value);
+    }
+    public boolean arre_exists(String name){
+        //return tablaArreglos:
+        return true;
     }
     @Override
     public T visitType(chocPyParser.TypeContext ctx) {
@@ -134,7 +137,6 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             return null;
         }
     }
-
     @Override
     public T visitTyped_var(chocPyParser.Typed_varContext ctx ){
         Object value;
@@ -175,7 +177,6 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             return null;
         }
     }
-
     @Override
     public T visitVar_def(chocPyParser.Var_defContext ctx ){
         if (ctx.typed_var()!=null){
@@ -280,7 +281,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             String name = ctx.IDENTIFIER().getText();
             System.out.println("print def"+name);
             Object value;
-            if((value=tabla.get(name).getElementos())==null){/*
+            if((value=tabla.get(name).getElemento())==null){/*
             aqui se busca en la tabla
             */
                 int line = ctx.IDENTIFIER().getSymbol().getLine();
@@ -320,12 +321,12 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                 VariableP value =new VariableP(null,null,null);
                 if((value= tabla.get(a))!=null){
                     int p=Integer.parseInt(r);
-                    if(p<0||p>=value.getElementos().toString().length()-2){
+                    if(p<0||p>=value.getElemento().toString().length()-2){
                         //error
                         System.out.println("error ");
                     }
                     //System.out.println("soy un string"+p);
-                    String ret= String.valueOf(value.getElementos().toString().charAt(p+1));
+                    String ret= String.valueOf(value.getElemento().toString().charAt(p+1));
                     ret='"'+ret+'"';
                     System.out.println("soy un string"+p+"retorno"+ret);
                     return (T) ret;
@@ -347,13 +348,13 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             } catch (NumberFormatException excepcion) {
                 error1 = true;
             }
-            
+
             for(int c=0;c<ctx.expr().size();c++){
                 String a = (String) visitExpr(ctx.expr(c));
                 ret.add(a);
                 System.out.println(a);
             }
-            
+
         }
         else if(ctx.TK_PAR_IZQ()!=null&&ctx.IDENTIFIER()==null&&ctx.LEN()==null){
             return visitExpr(ctx.expr(0));
@@ -738,53 +739,6 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             T rep=visitExpr(ctx.expr());
             for(int i=0;i<ctx.target().size();i++){
                 System.out.println(ctx.target(i).getText());
-                String name = ctx.target(i).getText();
-                System.out.println(rep.toString());
-                boolean error1;
-                try {
-                    Integer.parseInt(rep.toString());
-                    error1 = true;
-                } catch (NumberFormatException excepcion) {
-                    error1 = false;
-                }
-                boolean error2=false;
-                if(rep.toString().equals("True")||rep.toString().equals("False")){
-                    error2=true;
-                }
-                if(tabla.get(name)!=null){
-                    VariableP tempa=tabla.get(name);
-                    String tipo= tempa.getTipo();
-                    if((error1&&tipo.equals("int"))){
-                        VariableP temp= new VariableP(name,rep,tempa.getTipo());
-                        tabla.replace(name,temp);
-                        System.out.println("no es elemento de arreglo");
-                    }
-                    else{
-                        if(error2&&tipo.equals("bool")){
-                            VariableP temp= new VariableP(name,rep,tempa.getTipo());
-                            tabla.replace(name,temp);
-                            System.out.println("no es elemento de arreglo");
-                        }else if(!error2&&tipo.equals("str")){
-                            VariableP temp= new VariableP(name,rep,tempa.getTipo());
-                            tabla.replace(name,temp);
-                            System.out.println("no es elemento de arreglo");
-                        }
-                        else{
-                            System.out.println("error tipos");
-                        }
-                    }
-                }else if(tablaA.get(name)!=null){
-
-                    System.out.println("es arreglo");
-                }if(ctx.target(i).TK_SQR_IZQ()!=null){
-                    if(tablaA.get(ctx.target(i).IDENTIFIER())!=null){
-                        String val = ctx.expr().getText();
-                        System.out.println(val);
-                    }else{
-                        System.out.println("es error no hay arreglo con ese nombre");
-                    }
-                    System.out.println("es elemento de arreglo");
-                }
                 /*String name=visitTarget(ctx.target(i)).toString();//obtiene el nombre de el target no su valor
                 if(tabla.get(name)!=null){
                     tabla.replace(name,rep);
@@ -792,16 +746,14 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                 else{
                     System.out.println(name+" no ha sido inicializado");
                     System.exit(-1);
-                }*//*
-            aqui se busca en la tabla
-            */
+                }*/
                 //System.out.println(ctx.target().size());
             }
             System.out.println("se ejecuto un target");
         }
         else if(ctx.PRINT()!=null){
             String argu=(String)visitExpr(ctx.expr());
-            String argAndres=ctx.expr().getText();
+            //String argAndres=ctx.expr().getText();
             String aux="";
             for(int i=0;i<argu.length();i++){
                 if(argu.charAt(i)=='\\'){
@@ -830,7 +782,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                 else aux=aux+argu.charAt(i);
             }
             System.out.println(aux);
-            System.out.println(argAndres);
+            //System.out.println(argAndres);
             //System.out.println(argu);
             //System.out.println(visitExpr(ctx.expr()));
             System.out.println("se ejecuto un print");
@@ -895,12 +847,13 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
         }
         return null;
     }
-
     @Override
     public T visitBlock(chocPyParser.BlockContext ctx) {
+        nivel++;
         for(int i=0;i<ctx.stmt().size();i++){
             visitStmt(ctx.stmt(i));
         }
+        nivel=nivel-1;
         return null;
     }
 }

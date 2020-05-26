@@ -4,6 +4,7 @@ public class VariableP {
     Object elemento;
     String tipo;
     int nivel;
+    boolean arreglo=false;
 
     public VariableP(String name, Object elemento, String tipo, int nivel) {
         this.name = name;
@@ -11,7 +12,6 @@ public class VariableP {
         this.tipo = tipo;
         this.nivel = nivel;
     }
-
     public VariableP(String name, Object elemento, String tipo) {
         this.name = name;
         this.elemento = elemento;
@@ -33,5 +33,8 @@ public class VariableP {
     }
     public String getTipo() {
         return tipo;
+    }
+    public boolean isArreglo() {
+        return arreglo;
     }
 }

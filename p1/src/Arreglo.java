@@ -4,10 +4,16 @@ public class Arreglo {
 
     String name;
     ArrayList<Object> elementos;
+    String tipo;
+    boolean arreglo=true;
 
-    public Arreglo(String name,ArrayList<Object> elementos) {
+    public Arreglo(String name, ArrayList<Object> elementos, String tipo) {
+        this.name = name;
         this.elementos = elementos;
-        this.name=name;
+        this.tipo = tipo;
+    }
+    public String getTipo() {
+        return tipo;
     }
     public ArrayList<Object> getElementos() {
         return elementos;
@@ -18,8 +24,8 @@ public class Arreglo {
     public String getName() {
         return name;
     }
-    public void setName(String name) {
-        this.name = name;
+    public boolean isArreglo() {
+        return arreglo;
     }
     public Object getElementos(int p) {
         return elementos.get(p);
