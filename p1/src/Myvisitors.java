@@ -200,17 +200,17 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                 System.out.println("r"+error1);
                 if(error1){
                     if(tyvar.equals("int")){
-                        //System.out.println("aca");
                         VariableP temp = new VariableP(name,lite,tyvar);
                         tabla.put(name,temp);
                         System.out.println(name + "   lite: " +lite + "tyvar: " +tyvar);
                         System.out.println("se inserto");
                     }else{
+                        System.out.println("error no coinciden los tipos");
                         //error no coinciden los tipos
                     }
                 }else{
                     if(tyvar.equals("bool")) {
-                        //System.out.println("Aca bool");
+                        System.out.println("Aca bool");
                         if (lite.equals("True") || lite.equals("False")) {
                             VariableP temp = new VariableP(name, lite, tyvar);
                             tabla.put(name, temp);
@@ -278,19 +278,25 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             System.out.println("literal"+lit);
             return (T) lit;
         }else if(ctx.IDENTIFIER()!=null){
+
             String name = ctx.IDENTIFIER().getText();
             System.out.println("print def"+name);
             Object value;
-            if((value=tabla.get(name).getElementos())==null){/*
+            if((value=tabla.get(name))!=null){/*
             aqui se busca en la tabla
-            */
+
+            */Object val = tabla.get(name).getElementos();
+                return (T) val;
+
+            }else if((value=tablaA.get(name))!=null){
+
+            }
+            else {
                 int line = ctx.IDENTIFIER().getSymbol().getLine();
                 int col =ctx.IDENTIFIER().getSymbol().getCharPositionInLine();
                 System.err.printf("error");
                 System.exit(-1);
                 return null;
-            }else {
-                return (T) value;
             }
         }else if(ctx.TK_SQR_IZQ()!=null&&ctx.LEN()==null&&ctx.cexpr(0)!=null){
             //visitExpr
