@@ -18,6 +18,10 @@ public class VariableP {
         this.tipo = tipo;
         this.nivel=0;
     }
+    public VariableP(String name, String tipo) {
+        this.name = name;
+        this.tipo = tipo;
+    }
 
     public Object getElemento() {
         return elemento;

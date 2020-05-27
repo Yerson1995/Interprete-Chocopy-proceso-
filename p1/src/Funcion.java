@@ -5,9 +5,9 @@ public class Funcion{
     String name;
     chocPyParser.Func_bodyContext funcionctx;
     chocPyParser.TypeContext ejecutado;
-    ArrayList<Object> argumentos;
+    ArrayList<VariableP> argumentos;
 
-    public Funcion(String name, chocPyParser.Func_bodyContext funcionctx, chocPyParser.TypeContext ejecutado, ArrayList<Object> argumentos) {
+    public Funcion(String name, chocPyParser.Func_bodyContext funcionctx, chocPyParser.TypeContext ejecutado, ArrayList<VariableP> argumentos) {
         this.name = name;
         this.funcionctx = funcionctx;
         this.ejecutado = ejecutado;
@@ -23,7 +23,7 @@ public class Funcion{
     public chocPyParser.TypeContext getEjecutado() {
         return ejecutado;
     }
-    public ArrayList<Object> getArgumentos() {
+    public ArrayList<VariableP> getArgumentos() {
         return argumentos;
     }
 
