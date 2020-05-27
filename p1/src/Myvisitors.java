@@ -278,18 +278,16 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             System.out.println("literal"+lit);
             return (T) lit;
         }else if(ctx.IDENTIFIER()!=null){
-
             String name = ctx.IDENTIFIER().getText();
             System.out.println("print def"+name);
             Object value;
             if((value=tabla.get(name))!=null){/*
             aqui se busca en la tabla
-
             */Object val = tabla.get(name).getElementos();
                 return (T) val;
-
             }else if((value=tablaA.get(name))!=null){
-
+                Object val= tablaA.get(name).getElementos();
+                return (T) val;
             }
             else {
                 int line = ctx.IDENTIFIER().getSymbol().getLine();
@@ -299,7 +297,6 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                 return null;
             }
         }else if(ctx.TK_SQR_IZQ()!=null&&ctx.LEN()==null&&ctx.cexpr(0)!=null){
-            //visitExpr
             String a=ctx.cexpr(0).getText();
             T pos = visitExpr(ctx.expr(0));
             String r=pos.toString();
@@ -312,7 +309,6 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                 error1 = true;
             }
             if(error1){
-                //error
                 System.out.println("error yv7 poca fe");
             }
             Arreglo valueA =new Arreglo(null,null,null);
