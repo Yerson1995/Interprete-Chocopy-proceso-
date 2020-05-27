@@ -19,7 +19,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
     }
     public Object var_value(String name){
         Object value;
-        value= (VariableP) tabla.get(name).getElemento();
+        value= (VariableP) tabla.get(name).getElementos();
         return  value;
     }
     public void var_rplc_value(String name, Object value){
@@ -281,7 +281,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             String name = ctx.IDENTIFIER().getText();
             System.out.println("print def"+name);
             Object value;
-            if((value=tabla.get(name).getElemento())==null){/*
+            if((value=tabla.get(name).getElementos())==null){/*
             aqui se busca en la tabla
             */
                 int line = ctx.IDENTIFIER().getSymbol().getLine();
@@ -321,12 +321,12 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                 VariableP value =new VariableP(null,null,null);
                 if((value= tabla.get(a))!=null){
                     int p=Integer.parseInt(r);
-                    if(p<0||p>=value.getElemento().toString().length()-2){
+                    if(p<0||p>=value.getElementos().toString().length()-2){
                         //error
                         System.out.println("error ");
                     }
                     //System.out.println("soy un string"+p);
-                    String ret= String.valueOf(value.getElemento().toString().charAt(p+1));
+                    String ret= String.valueOf(value.getElementos().toString().charAt(p+1));
                     ret='"'+ret+'"';
                     System.out.println("soy un string"+p+"retorno"+ret);
                     return (T) ret;
@@ -357,7 +357,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                 }
             }
 
-            for(int c=1;c<ctx.expr().size();c++){
+            for(int c=0;c<ctx.expr().size();c++){
                 a1 = (String) visitExpr(ctx.expr(c));
                 boolean Is_inta;
                 boolean Is_boola;
@@ -383,7 +383,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                     System.out.println(" tipo distinto no agregado");
                 }
             }
-
+            return (T)ret;
         }
         else if(ctx.TK_PAR_IZQ()!=null&&ctx.IDENTIFIER()==null&&ctx.LEN()==null){
             return visitExpr(ctx.expr(0));
@@ -766,72 +766,120 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
         }
         else if(ctx.target(0)!=null){
             T rep=visitExpr(ctx.expr());
-            for(int i=0;i<ctx.target().size();i++){
-                System.out.println(ctx.target(i).getText());
-                String name = ctx.target(i).getText();
-                System.out.println(rep.toString());
+            boolean error3 = false;
+            try {
+                ArrayList artemp= (ArrayList) rep;
+                error3 = true;
+            } catch (Exception e) {
+                error3 = false;
+            }
+            if(error3){
+                ArrayList artemp= (ArrayList) rep;
+                String tem=artemp.get(0).toString();
+                System.out.println(tem);
                 boolean error1;
                 try {
-                    Integer.parseInt(rep.toString());
+                    Integer.parseInt(tem);
                     error1 = true;
                 } catch (NumberFormatException excepcion) {
                     error1 = false;
                 }
                 boolean error2=false;
-                if(rep.toString().equals("True")||rep.toString().equals("False")){
+                if(tem.equals("True")||tem.equals("False")){
                     error2=true;
                 }
-                if(tabla.get(name)!=null){
-                    VariableP tempa=tabla.get(name);
-                    String tipo= tempa.getTipo();
-                    if((error1&&tipo.equals("int"))){
-                        VariableP temp= new VariableP(name,rep,tempa.getTipo());
-                        tabla.replace(name,temp);
-                        System.out.println("no es elemento de arreglo");
-                    }
-                    else{
-                        if(error2&&tipo.equals("bool")){
-                            VariableP temp= new VariableP(name,rep,tempa.getTipo());
-                            tabla.replace(name,temp);
+                for(int i=0;i<ctx.target().size();i++){
+                    System.out.println(ctx.target(i).getText());
+                    String name = ctx.target(i).getText();
+                    if(tablaA.get(name)!=null){
+                        Arreglo tempa=tablaA.get(name);
+                        String tipo= tempa.tipo;
+                        System.out.println("tipo"+tipo);
+                        if((error1&&tipo.equals("[int]"))){
+                            Arreglo temp= new Arreglo(name,artemp,tipo);
+                            tablaA.replace(name,temp);
                             System.out.println("no es elemento de arreglo");
-                        }else if(!error2&&tipo.equals("str")){
+                        }
+                        else{
+                            if(error2&&tipo.equals("[bool]")){
+                                Arreglo temp= new Arreglo(name,artemp,tipo);
+                                tablaA.replace(name,temp);
+                                System.out.println("no es elemento de arreglo");
+                            }else if(!error2&&tipo.equals("[str]")){
+                                Arreglo temp= new Arreglo(name,artemp,tipo);
+                                tablaA.replace(name,temp);
+                                System.out.println("no es elemento de arreglo");
+                            }
+                            else{
+                                System.out.println("error tipos");
+                            }
+                        }
+                    }
+                }
+
+
+            }else{
+                for(int i=0;i<ctx.target().size();i++){
+                    System.out.println(ctx.target(i).getText());
+                    String name = ctx.target(i).getText();
+                    System.out.println(rep.toString());
+                    boolean error1;
+                    try {
+                        Integer.parseInt(rep.toString());
+                        error1 = true;
+                    } catch (NumberFormatException excepcion) {
+                        error1 = false;
+                    }
+                    boolean error2=false;
+                    if(rep.toString().equals("True")||rep.toString().equals("False")){
+                        error2=true;
+                    }
+                    if(tabla.get(name)!=null){
+                        VariableP tempa=tabla.get(name);
+                        String tipo= tempa.getTipo();
+                        if((error1&&tipo.equals("int"))){
                             VariableP temp= new VariableP(name,rep,tempa.getTipo());
                             tabla.replace(name,temp);
                             System.out.println("no es elemento de arreglo");
                         }
                         else{
-                            System.out.println("error tipos");
+                            if(error2&&tipo.equals("bool")){
+                                VariableP temp= new VariableP(name,rep,tempa.getTipo());
+                                tabla.replace(name,temp);
+                                System.out.println("no es elemento de arreglo");
+                            }else if(!error2&&tipo.equals("str")){
+                                VariableP temp= new VariableP(name,rep,tempa.getTipo());
+                                tabla.replace(name,temp);
+                                System.out.println("no es elemento de arreglo");
+                            }
+                            else{
+                                System.out.println("error tipos");
+                            }
                         }
+                    }if(ctx.target(i).TK_SQR_IZQ()!=null){
+                        String id= ctx.target(i).cexpr().IDENTIFIER().toString();
+                        System.out.println("pos"+id);
+                        String pos= (String) visitExpr(ctx.target(i).expr());
+                        int p=Integer.parseInt(pos);
+                        System.out.println("pos"+pos);
+                        if(tablaA.get(id)!=null){
+                            String val = visitExpr(ctx.expr()).toString();
+                            tablaA.get(ctx.target(i).IDENTIFIER()).replaceElemento(p,val);
+                            System.out.println(val);
+                        }else{
+                            System.out.println("es error no hay arreglo con ese nombre");
+                        }
+                        System.out.println("es elemento de arreglo");
                     }
-                }else if(tablaA.get(name)!=null){
 
-                    System.out.println("es arreglo");
-                }if(ctx.target(i).TK_SQR_IZQ()!=null){
-                    if(tablaA.get(ctx.target(i).IDENTIFIER())!=null){
-                        String val = ctx.expr().getText();
-                        System.out.println(val);
-                    }else{
-                        System.out.println("es error no hay arreglo con ese nombre");
-                    }
-                    System.out.println("es elemento de arreglo");
                 }
-                /*String name=visitTarget(ctx.target(i)).toString();//obtiene el nombre de el target no su valor
-                if(tabla.get(name)!=null){
-                    tabla.replace(name,rep);
-                }
-                else{
-                    System.out.println(name+" no ha sido inicializado");
-                    System.exit(-1);
-                }*//*
-            aqui se busca en la tabla
-            */
-                //System.out.println(ctx.target().size());
             }
             System.out.println("se ejecuto un target");
         }
         else if(ctx.PRINT()!=null){
             String argu=(String)visitExpr(ctx.expr());
             //String argAndres=ctx.expr().getText();
+            System.out.println(argu);
             String aux="";
             for(int i=0;i<argu.length();i++){
                 if(argu.charAt(i)=='\\'){
