@@ -353,6 +353,8 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
         }else if(ctx.LEN()!=null){
             if(ctx.IDENTIFIER()!=null){
                 String a = (String) visitCexpr(ctx.cexpr(0));
+                //
+                //System.out.println("acaestoy");
             }else if(ctx.STRING()!=null){
                 String a= ctx.STRING().getText();
                 Integer r=a.length()-2;
@@ -360,7 +362,9 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                 return(T) ret;
             }else if(ctx.TK_SQR_IZQ()!=null) {
                 int a = ctx.expr().size();
-                return null;
+                Integer r=a;
+                String ret= Integer.toString(r);
+                return (T) ret;
             }
         }else if(ctx.logop()!=null){
             //visitExpr
