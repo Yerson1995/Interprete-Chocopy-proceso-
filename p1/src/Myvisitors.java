@@ -158,7 +158,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             //System.out.println("capturado"+tyvar+name);
             if (!var_exists(name)){
                 System.err.println(">>> Error: Declaracion duplicada de identificador: "+name);
-                System.exit(0);
+                System.exit(-1);
                 //error
             }else{
                 String lite = ctx.literal().getText();
@@ -174,7 +174,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                         VariableP temp = new VariableP(name,lite,tyvar);
                         tabla.put(name,temp);
                     }else{
-                        System.err.println(">>>Error de asignacion, se esperaba un valor de tipo '"+tyvar+"', para la variable "+name);
+                        System.err.println(">>>Error de asignacion, se esperaba un valor de tipo '"+"int"+"', para la variable "+name);
                         System.exit(-1);
                     }
                 }else{
@@ -184,7 +184,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                             VariableP temp = new VariableP(name, lite, tyvar);
                             tabla.put(name, temp);
                         }else{
-                            System.err.println(">>>Error de asignacion, se esperaba un valor de tipo '"+tyvar+"', para la variable "+name);
+                            System.err.println(">>>Error de asignacion, se esperaba un valor de tipo '"+"bool"+"', para la variable "+name);
                             System.exit(-1);
                         }
                     }else if(tyvar.equals("str")){
@@ -192,7 +192,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                             VariableP temp = new VariableP(name, lite, tyvar);
                             tabla.put(name, temp);
                         }else{
-                            System.err.println(">>>Error de asignacion, se esperaba un valor de tipo '"+tyvar+"', para la variable "+name);
+                            System.err.println(">>>Error de asignacion, se esperaba un valor de tipo '"+"str"+"', para la variable "+name);
                             System.exit(-1);
                         }
                     } else if(tyvar.equals("[bool]")||tyvar.equals("[int]")||tyvar.equals("[str]")) {
@@ -201,7 +201,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                             Arreglo temp = new Arreglo(name, l, tyvar);
                             tablaA.put(name, temp);
                         }else{
-                            System.err.println(">>>Error de asignacion, se esperaba un valor de tipo '"+tyvar+"', para la variable "+name);
+                            System.err.println(">>>Error de asignacion, se esperaba un valor de tipo '"+"[ ]"+"', para la variable "+name);
                             System.exit(-1);
                         }
                     }
@@ -238,7 +238,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
         if(ctx.literal()!=null){
             String lit = ctx.literal().getText();
             return (T) lit;
-        }else if(ctx.IDENTIFIER()!=null){
+        }else if(ctx.IDENTIFIER()!=null&&ctx.LEN()==null){
             String name = ctx.IDENTIFIER().getText();
             Object value;
             if((value=tabla.get(name))!=null){/*
@@ -247,7 +247,8 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                 return (T) val;
 
             }else if((value=tablaA.get(name))!=null){
-
+                Object val= tablaA.get(name).getElementos();
+                return (T) val;
             }
             else {
                 int line = ctx.IDENTIFIER().getSymbol().getLine();
@@ -352,12 +353,33 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
             return (T)(ret);
         }else if(ctx.LEN()!=null){
             if(ctx.IDENTIFIER()!=null){
-                String a = (String) visitCexpr(ctx.cexpr(0));
-                //
-                //System.out.println("acaestoy");
+                String name = ctx.IDENTIFIER().getText();
+                VariableP value =new VariableP(null,null,null);
+                Arreglo valueA =new Arreglo(null,null,null);
+                if((value= tabla.get(name))!=null){
+                    if(value.tipo.equals("str")){
+                        Integer ret =value.elemento.toString().length()-2;
+                        return (T) ret.toString();
+                    }
+                    else{
+
+                    }
+                }else
+                if((valueA= tablaA.get(name))!=null){
+                    Integer ret =valueA.elementos.size();
+                    return (T) ret.toString();
+                }
+                else{
+                    System.err.println(">>>ERROR, argumento invalido ");
+                    System.exit(-1);
+                }
+
+                return (T) name;
+
             }else if(ctx.STRING()!=null){
                 String a= ctx.STRING().getText();
                 Integer r=a.length()-2;
+
                 String ret= Integer.toString(r);
                 return(T) ret;
             }else if(ctx.TK_SQR_IZQ()!=null) {
@@ -730,20 +752,14 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                         if((error1&&tipo.equals("[int]"))){
                             Arreglo temp= new Arreglo(name,artemp,tipo);
                             tablaA.replace(name,temp);
-                            System.err.println(">>>ERROR, el elemento no  hace parte del arreglo.");
-                            System.exit(-1);
                         }
                         else{
                             if(error2&&tipo.equals("[bool]")){
                                 Arreglo temp= new Arreglo(name,artemp,tipo);
                                 tablaA.replace(name,temp);
-                                System.err.println(">>>ERROR, el elemento no  hace parte del arreglo.");
-                                System.exit(-1);
                             }else if(!error2&&tipo.equals("[str]")){
                                 Arreglo temp= new Arreglo(name,artemp,tipo);
                                 tablaA.replace(name,temp);
-                                System.err.println(">>>ERROR, el elemento no  hace parte del arreglo.");
-                                System.exit(-1);
                             }
                             else{
                                 System.err.println(">>>ERROR, los tipos no coinciden.");
@@ -773,20 +789,14 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                         if((error1&&tipo.equals("int"))){
                             VariableP temp= new VariableP(name,rep,tempa.getTipo());
                             tabla.replace(name,temp);
-                            System.err.println(">>>ERROR, el elemento no  hace parte del arreglo.");
-                            System.exit(-1);
                         }
                         else{
                             if(error2&&tipo.equals("bool")){
                                 VariableP temp= new VariableP(name,rep,tempa.getTipo());
                                 tabla.replace(name,temp);
-                                System.err.println(">>>ERROR, el elemento no  hace parte del arreglo.");
-                                System.exit(-1);
                             }else if(!error2&&tipo.equals("str")){
                                 VariableP temp= new VariableP(name,rep,tempa.getTipo());
                                 tabla.replace(name,temp);
-                                System.err.println(">>>ERROR, el elemento no  hace parte del arreglo.");
-                                System.exit(-1);
                             }
                             else{
                                 System.err.println(">>>ERROR, los tipos no coinciden.");
@@ -855,7 +865,7 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
                 }
                 else aux=aux+argu.charAt(i);
             }
-
+            System.out.println(aux);
         }
         else{
             return visitExpr(ctx.expr());
