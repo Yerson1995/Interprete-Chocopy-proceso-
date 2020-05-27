@@ -887,6 +887,28 @@ public class Myvisitors<T> extends chocPyBaseVisitor<T> {
         if(ctx.FOR()!=null){
             //codigo for
             String a= ctx.IDENTIFIER().getText();
+            VariableP x=new VariableP(null,null);
+            if((x=tabla.get(a))!=null){
+                try{
+                    ArrayList itr=new ArrayList();
+                    itr=(ArrayList)visitExpr(ctx.expr(0));
+                    int i=0;
+                    while(i<itr.size()){
+                        x.setElemento(itr.get(i));
+                        tabla.replace(a,x);
+                        visitBlock(ctx.block(0));
+                        i=i+1;
+                    }
+                }
+                catch(Exception e){
+                    System.err.println(">>>Error de Casteo, la expresion no es un iterador valido");
+                    System.exit(-1);
+                }
+            }
+            else {
+                System.err.println(">>>Error de iniciacion, la variable " + a +" no ha sido creada");
+                System.exit(-1);
+            }
         }
         else if(ctx.WHILE()!=null){
             boolean cond=(Boolean)visitExpr(ctx.expr(0) );

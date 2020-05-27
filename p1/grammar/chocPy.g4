@@ -250,9 +250,7 @@ multdiv
 bin_op
     : PLUS_OP
     | MINUS_OP
-
     ;
-
 
 target
     : IDENTIFIER
